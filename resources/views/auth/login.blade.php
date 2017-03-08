@@ -1,68 +1,147 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+      <div class="login_wrapper">
+       
+       <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+       
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form role="form" method="POST" action="{{ url('/login') }}">
+               
+                {{ csrf_field() }}
+                
+              <h1>INICIAR SESIÓN</h1>
+              
+            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+            <div>
+                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
+                 
+                 @if ($errors->has('email'))
+                 <span class="help-block">
+                 <strong>{{ $errors->first('email') }}</strong>
+                 </span>
+                 @endif
             </div>
+            </div>
+              
+              <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+              <div>
+                <input id="password" type="password" class="form-control" name="password" required placeholder="Contraseña">
+                
+                @if ($errors->has('password'))
+                <span class="help-block">
+                <strong>{{ $errors->first('password') }}</strong>
+                </span>
+                @endif
+              </div>
+              </div>
+              
+              <div>
+                <button type="submit" class="btn btn-default submit">Ingresar</a></button>
+                <a class="btn btn-link" href="{{ url('/password/reset') }}">Olvidaste tu contraseña?</a>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">Nuevo en el sistema?
+                  <a href="#signup" class="to_register"> Crear Cuenta </a>
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <h1><i class="fa fa-facebook-square"></i> Grateful Dogs!</h1>
+                  <p>©2016 Todos los derechos reservados. Neonia! Privacidad y terminos.</p>
+                </div>
+              </div>
+            </form>
+          </section>
         </div>
+
+        <div id="register" class="animate form registration_form">
+          <section class="login_content">
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+
+              {{ csrf_field() }}
+
+              <h1>REGISTRARSE</h1>
+              
+              <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+              <div>
+                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus placeholder="Nombre">
+
+                @if ($errors->has('name'))
+                <span class="help-block">
+                <strong>{{ $errors->first('name') }}</strong>
+                </span>
+                @endif
+              </div>
+              </div>
+              
+              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+              <div>
+                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
+
+                @if ($errors->has('email'))
+                <span class="help-block">
+                <strong>{{ $errors->first('email') }}</strong>
+                </span>
+                @endif
+              </div>
+              </div>
+              
+              <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+              <div>
+                <input id="password" type="password" class="form-control" name="password" required placeholder="Contraseña">
+
+                @if ($errors->has('password'))
+                <span class="help-block">
+                <strong>{{ $errors->first('password') }}</strong>
+                </span>
+                @endif
+              </div>
+              </div>
+              
+              <div>
+              <div>
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirmar Contraseña">
+              </div>
+              </div>
+              
+              <div>
+                <button type="submit" class="btn btn-default submit" href="index.html">Enviar</button>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">Ya eres usuario del sistema ?
+                  <a href="#signin" class="to_register"> Ingresar </a>
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <h1><i class="fa fa-facebook-square"></i> Grateful Dogs!</h1>
+                  <p>©2016 Todos los derechos reservados. Neonia! Privacidad y terminos.</p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
     </div>
-</div>
+  </body>
+</html>
+
 @endsection
