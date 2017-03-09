@@ -59,7 +59,7 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-facebook-square"></i> Grateful Dogs!</h1>
+                  <h1><i class="fa fa-facebook-square"></i> ASOVIZ!</h1>
                   <p>©2016 Todos los derechos reservados. Neonia! Privacidad y terminos.</p>
                 </div>
               </div>
@@ -132,7 +132,7 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-facebook-square"></i> Grateful Dogs!</h1>
+                  <h1><i class="fa fa-facebook-square"></i> ASOVIZ!</h1>
                   <p>©2016 Todos los derechos reservados. Neonia! Privacidad y terminos.</p>
                 </div>
               </div>
