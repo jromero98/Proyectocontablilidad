@@ -25,7 +25,7 @@ class ContabilidadManualController extends Controller
     {
         $cuentas = Input::get('cuenta');
         $valores = Input::get('valor');
-        fecha = Input::get('fecha');
+        $fecha = Input::get('fecha');
         $naturalezas = Input::get('naturaleza');
         $desc=Input::get('desc');
 
@@ -46,7 +46,7 @@ class ContabilidadManualController extends Controller
         }
         for ($i=0; $i < count($cuentas); $i++) { 
             $cuenta = new ContabilidadManual;
-            $cuenta->cod_cuenta = $cuentas[$i];
+            $cuenta->cod_puc = $cuentas[$i];
             $cuenta->valor = $valores[$i];
             $cuenta->fecha = $fecha;
             if(strcmp($naturalezas[$i], "debito") ){
@@ -54,7 +54,7 @@ class ContabilidadManualController extends Controller
             }else{
                 $cuenta->naturaleza = 1;
             }
-            $cuent1->save();
+            $cuenta->save();
             
         }
         //return redirect()->action('BalanceController@index');
