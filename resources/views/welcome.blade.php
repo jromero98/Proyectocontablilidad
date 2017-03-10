@@ -7,7 +7,7 @@
 
         <title>ASOVIZ</title>
 
-        <!-- Fonts -->
+        <!-- Fuentes -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <link href="/css/bootstrap.css" rel="stylesheet">
@@ -15,10 +15,11 @@
         <link href="/css/font-awesome.css" rel="stylesheet">
         
 
-        <!-- Styles -->
+        <!-- Estilos -->
         <style>
             .full-height {
                 height: 0vh;
+
             }
 
             .flex-center {
@@ -50,6 +51,22 @@
 
     </head>
     <body>
+        
+        
+        <div class="loading-screen">
+            
+            <div class="preloader loading">
+              <span class="slice"></span>
+              <span class="slice"></span>
+              <span class="slice"></span>
+              <span class="slice"></span>
+              <span class="slice"></span>
+              <span class="slice"></span>
+            </div>
+            
+        </div>
+    
+        
 
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
@@ -73,7 +90,7 @@
                             <p>Descripción  </p>
                         </div>
 
-                    <!-- Nav -->
+                    <!-- Menu -->
                         <nav id="nav">
         
                             <ul>
@@ -257,10 +274,10 @@
                                 <h2>Ubicación</h2>
                             </header>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum atque dolorem, adipisci dolor illo provident quibusdam amet maxime dicta corporis, alias error at blanditiis sit praesentium vitae. Quo corrupti, ab.</p>
+                            <div id="map"></div>
 
-                            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, quis, eum. Nemo fugiat expedita nesciunt dignissimos. Iure temporibus velit corporis, nisi sunt perspiciatis delectus quibusdam repellat et. Consequuntur, omnis, magnam. paty es estupida y no confia en mi...</p> -->
-
+                            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDQnrAQzneJc7RsZ2cUs33vMsyqHEMtlA"></script>
+                            <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
                             
                         </div>
                     </section>
@@ -303,7 +320,7 @@
 
                 <!-- Copyright -->
                     <ul class="copyright">
-                        <!-- <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+                         <li>&copy; Todos los derechos reservados.</li><li>Design: <a href="http://www.unicundi.edu.co/">NEONIA</a></li> 
                     </ul>
 
             </div>
@@ -318,9 +335,7 @@
             <script src="assets/js/main.js"></script>
             
             
-            <script src="{{asset('js/bootstrap.js')}}"></script>
-            
-                      
+            <script src="{{asset('js/bootstrap.js')}}"></script>          
 
     </body>
 </html>
