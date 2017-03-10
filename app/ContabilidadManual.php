@@ -16,4 +16,5 @@ class ContabilidadManual extends Model
     'fecha',
     'naturaleza'
     ];
+    
 }

@@ -22,4 +22,5 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
     Route::resource('contabilidad-manual','ContabilidadManualController');
+    Route::get('/contabilidad-manual/pucs/{id}','ContabilidadManualController@getPuc');
 });

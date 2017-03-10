@@ -5,9 +5,22 @@
                 <h3>Contabilidad Manual</h3>
     </div>
 </div>
-
+   
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      
 <div class="well">
- 
+     @if (count($errors)>0)
+            <div class="alert alert-danger">
+                <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+                </ul>
+            </div>
+            @endif
     {!! Form::open(['url' => 'contabilidad-manual', 'class' => 'form-horizontal', 'id'=>'cl']) !!}
     {{Form::token()}}        
         <div class="form-group">
@@ -17,7 +30,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="date" id="datepicker" class="form-control pull-left" required="required">
+                    <input type="date" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" class="form-control pull-left" required="required">
                 </div>
             </div>
         </div>
@@ -37,22 +50,9 @@
             </div>
         </div>
         
-           @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-                </ul>
-            </div>
-            @endif
-        
         <div class="row test">
-                <div class="col-xs-3">
-                    {!! Form::label('cod_cuenta', 'Codigo:', ['class' => 'col-lg-2 control-label']) !!}  
-                </div>
-                <div class="col-xs-3">
-                    {!! Form::label('cuenta', 'Cuenta:', ['class' => 'col-lg-2 control-label']) !!}  
+                <div class="col-xs-4">
+                    {!! Form::label('cod_cuenta', 'Codigo y Cuenta:') !!}  
                 </div>
                 <!--div class="col-xs-3">
                     {!! Form::label('fecha', 'Fecha:', ['class' => 'col-lg-2 control-label']) !!}  
@@ -67,79 +67,74 @@
         </div>
         
         <div class="row">
-            <div class="col-xs-3">
-                <select name="cod_cuenta[]" class="form-control selectpicker" onchange="MostrarCuenta(this.id);" id="cod_cuenta" data-live-search='true'>
+            <div class="col-xs-4">
+                <select name="cod_cuenta" id="cod_cuenta" class="form-control selectpicker"  data-live-search='true'>
 					@foreach($cuentas as $cuenta)
-				        <option value="{{$cuenta->cod_puc}}">{{$cuenta->cod_puc}}</option>
+				        <option value="{{$cuenta->cod_puc}}">{{$cuenta->cod_puc}} {{$cuenta->nom_puc}}</option>
                     @endforeach
 				</select>
             </div>
-               <div class="col-xs-3">
-               <?php $cont=0; ?>
-                @foreach($cuentas as $cuenta)
-                   @if ($cont==0)
-                        {!! Form::text('cuenta[]', $value = $cuenta->nom_puc, ['id' => 'cuenta', 'class' => 'form-control','readonly', 'type'=>'text']) !!}
-                    @endif
-				  <?php $cont++; ?>
-               @endforeach
-                
-            </div>
-            <!--div class="col-xs-3">
-                <input type="date" name="fecha[]" value="<?php echo date('Y-m-d'); ?>" class="form-control" />
-            </div-->
             <div class="col-xs-3">
-                {!! Form::text('valor[]', $value = null, ['class' => 'form-control', 'placeholder' => 'valor', 'type'=>'text']) !!}
+                {!! Form::number('valor', $value = null, ['class' => 'form-control','id'=>'valor', 'placeholder' => 'valor']) !!}
             </div>
             <div class="col-xs-3">
-                {!!  Form::select('naturaleza[]', ['credito' => 'Credito', 'debito' => 'Debito'],  'S', ['class' => 'form-control' ]) !!}
+                {!!  Form::select('naturaleza', ['credito' => 'Credito', 'debito' => 'Debito'],  'S', ['id'=>'naturaleza','class' => 'form-control' ]) !!}
             </div>
+            <div class="form-group">
+				<button type="button" id="btn_add" class="btn btn-primary">Agregar</button>
+			</div>
         </div>
         
-       <input type="button" value="+ Agregar" class="btn-link" />
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="table-responsive">
+				<table id="detallescuentas" class="table table-striped table-bordered table-condensed table-hover">
+					<thead style=" background-color:#A9D0F5 ">
+						<th>Opciones</th>
+						<th>Codigo y Cuenta</th>
+						<th>Valor</th>
+						<th>Naturaleza</th>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+        <input type="hidden" value="{{ csrf_token() }}" name="token">
         <div class="container-fluid">
-            {{ Form::submit('Enviar', ['class' => 'btn btn-default btn-lg btn-success pull-left'] ) }}
-            {{ Form::reset('Limpiar', ['class' => 'btn btn-lg btn-warning form-button pull-left ']) }}
+            {{ Form::submit('Guardar', ['class' => 'btn btn-default btn-lg btn-success pull-left'] ) }}
         </div>
         
     {!! Form::close()  !!}
 </div>
-<script type = "text/javascript">
-    $(document).ready(function() {
-        $('.btn-link').click(function(){
-            //we select the box clone it and insert it after the box
-            $('.row:last').clone().insertAfter(".row:last");
-        });
-    });
-    
-    $( function() {
-        $( "#datepicker" ).datepicker();
-    } );
-        
-    function MostrarCuenta(id){
-       var CuentaSel = document.getElementById(id);
-       var CuentaActual = document.getElementById('cuenta');
-        CuentaActual.value =CuentaActual
-            
-    }
-        
-    function calcular_total() {
-        importe_total = 0
-        $(".importe_linea").each(
-            function(index, value) {
-                importe_total = importe_total + eval($(this).val());
-            }
-        );
-        $("#total").val(importe_total);
-    }
- 
-    function nueva_linea() {
-        $("#lineas").append('<input type="text" class="importe_linea" value="0"/><br/>');
-    }
+<script>
+	$(document).ready(function(){
+	$('#btn_add').click(function(){
+		agregar();
+		});
+	});
+	function agregar(){
+        var cont=0;
+        vpuc=$("#cod_cuenta option:selected").val();
+		cpuc=$("#cod_cuenta option:selected").text();
+		valor=$("#valor").val();
+		naturale=$("#naturaleza option:selected").val();
+		naturalez=$("#naturaleza option:selected").text();
+	if (valor!=""){
+			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="cuenta[]" value="'+vpuc+'">'+cpuc+'</td><td><input type="number" name="valor[]" value="'+valor+'" readonly></td><td><input type="hidden" name="naturaleza[]" value="'+naturale+'">'+naturalez+'</tr>';
+			cont++;
+            limpiar();
+            $('#detallescuentas').append(fila);
+		}else{
+			alert("Error al ingresar la Cuenta, revise los datos de la cuenta");
+		}
+	}
+	function limpiar(){
+		$("#valor").val("");
+	}
+	function eliminar(index){   
+      $("#fila" + index).remove();
+  }
+
 </script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 @endsection
