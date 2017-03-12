@@ -12,9 +12,13 @@ class ContabilidadManual extends Model
 
     protected $fillable=[
     'cod_puc',
+    'comprobante',
     'valor',
     'fecha',
     'naturaleza'
     ];
-    
+    public function cuenta()
+    {
+        return $this->belongsTo('\App\Puc', 'cod_puc', 'cod_puc');
+    }
 }

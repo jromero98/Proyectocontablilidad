@@ -18,12 +18,13 @@ class ContabilidadManualController extends Controller
         $cuentas = DB::table('puc')
         ->select('nom_puc', 'cod_puc')
         ->get();
-        return view('contablidad_manual.create',["cuentas" => $cuentas]);  
+        return view('contabilidad_manual.create',["cuentas" => $cuentas]);  
     }
 
     public function store(Request $request, Redirect $redirect)
     {
         $cuentas = Input::get('cuenta');
+        $comprobante = Input::get('nodoc');
         $valores = Input::get('valor');
         $fecha = Input::get('fecha');
         $naturalezas = Input::get('naturaleza');
@@ -47,6 +48,7 @@ class ContabilidadManualController extends Controller
         for ($i=0; $i < count($cuentas); $i++) { 
             $cuenta = new ContabilidadManual;
             $cuenta->cod_puc = $cuentas[$i];
+            $cuenta->comprobante = $comprobante;
             $cuenta->valor = $valores[$i];
             $cuenta->fecha = $fecha;
             if(strcmp($naturalezas[$i], "debito") ){
@@ -57,51 +59,6 @@ class ContabilidadManualController extends Controller
             $cuenta->save();
             
         }
-        //return redirect()->action('BalanceController@index');
-        return "guardado";
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /*public function show($id){
-        $movs = Conmanual::findOrFail($id);
-       return view('movconmanual', compact('movs'));
-    }*/
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->action('BalanceController@index');
     }
 }
