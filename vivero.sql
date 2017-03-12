@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2017 a las 18:01:11
+-- Tiempo de generación: 12-03-2017 a las 03:33:57
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 5.6.19
 
@@ -29,9 +29,31 @@ SET time_zone = "+00:00";
 CREATE TABLE `cuentas` (
   `idcuentas` int(11) NOT NULL,
   `cod_puc` int(11) NOT NULL,
+  `comprobante` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `valor` double DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
   `naturaleza` int(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `cuentas`
+--
+
+INSERT INTO `cuentas` (`idcuentas`, `cod_puc`, `comprobante`, `valor`, `fecha`, `naturaleza`) VALUES
+(3, 1105, 'Fv001', 1000, '2017-03-11 00:00:00', 0),
+(4, 1105, 'Fv001', 1000, '2017-03-11 00:00:00', 1),
+(5, 1105, 'Fv002', 2000, '2017-03-10 00:00:00', 0),
+(6, 1105, 'Fv002', 2000, '2017-03-10 00:00:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `descripcion_cuenta`
+--
+
+CREATE TABLE `descripcion_cuenta` (
+  `idcuentas` int(11) NOT NULL,
+  `Descripcion` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -184,6 +206,12 @@ ALTER TABLE `cuentas`
   ADD KEY `fk_cuentas_puc_idx` (`cod_puc`);
 
 --
+-- Indices de la tabla `descripcion_cuenta`
+--
+ALTER TABLE `descripcion_cuenta`
+  ADD PRIMARY KEY (`idcuentas`);
+
+--
 -- Indices de la tabla `migrations`
 --
 ALTER TABLE `migrations`
@@ -223,6 +251,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
+  MODIFY `idcuentas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `descripcion_cuenta`
+--
+ALTER TABLE `descripcion_cuenta`
   MODIFY `idcuentas` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -248,6 +281,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `cuentas`
   ADD CONSTRAINT `fk_cuentas_puc` FOREIGN KEY (`cod_puc`) REFERENCES `puc` (`cod_puc`);
+
+--
+-- Filtros para la tabla `descripcion_cuenta`
+--
+ALTER TABLE `descripcion_cuenta`
+  ADD CONSTRAINT `descripcion_cuenta_ibfk_1` FOREIGN KEY (`idcuentas`) REFERENCES `cuentas` (`idcuentas`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
