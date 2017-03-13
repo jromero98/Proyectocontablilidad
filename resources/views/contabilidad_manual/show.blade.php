@@ -14,7 +14,7 @@
     </div>
                @include('contabilidad_manual.search')
                 <div style="overflow-x: auto;">
-                    <table width="50" class="table table-striped" id="myTable">
+                    <table width="50" class="table table-striped table-bordered" id="myTable">
                         <thead class="thead-inverse">
                             <tr>
                                 <th data-field="Fecha">Fecha</th>

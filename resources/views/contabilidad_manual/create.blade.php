@@ -30,7 +30,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="date" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" class="form-control pull-left" required="required">
+                    <input type="text" id="datetimepicker" name="fecha" value="<?php echo date('Y-m-d'); ?>" class="form-control pull-left" required="required">
                 </div>
             </div>
         </div>
@@ -107,34 +107,36 @@
         
     {!! Form::close()  !!}
 </div>
+
 <script>
 	$(document).ready(function(){
-	$('#btn_add').click(function(){
-		agregar();
-		});
-	});
-	function agregar(){
-        var cont=0;
-        vpuc=$("#cod_cuenta option:selected").val();
-		cpuc=$("#cod_cuenta option:selected").text();
-		valor=$("#valor").val();
-		naturale=$("#naturaleza option:selected").val();
-		naturalez=$("#naturaleza option:selected").text();
-	if (valor!=""){
-			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="cuenta[]" value="'+vpuc+'">'+cpuc+'</td><td><input type="number" name="valor[]" value="'+valor+'" readonly></td><td><input type="hidden" name="naturaleza[]" value="'+naturale+'">'+naturalez+'</tr>';
-			cont++;
-            limpiar();
-            $('#detallescuentas').append(fila);
-		}else{
-			alert("Error al ingresar la Cuenta, revise los datos de la cuenta");
-		}
-	}
-	function limpiar(){
-		$("#valor").val("");
-	}
-	function eliminar(index){   
-      $("#fila" + index).remove();
-  }
+	
+        $( function() {
+            $( "#datetimepicker").datetimepicker();
+        } );
+        function agregar(){
+            var cont=0;
+            vpuc=$("#cod_cuenta option:selected").val();
+            cpuc=$("#cod_cuenta option:selected").text();
+            valor=$("#valor").val();
+            naturale=$("#naturaleza option:selected").val();
+            naturalez=$("#naturaleza option:selected").text();
+        if (valor!=""){
+                var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="cuenta[]" value="'+vpuc+'">'+cpuc+'</td><td><input type="number" name="valor[]" value="'+valor+'" readonly></td><td><input type="hidden" name="naturaleza[]" value="'+naturale+'">'+naturalez+'</tr>';
+                cont++;
+                limpiar();
+                $('#detallescuentas').append(fila);
+            }else{
+                alert("Error al ingresar la Cuenta, revise los datos de la cuenta");
+            }
+        }
+        function limpiar(){
+            $("#valor").val("");
+        }
+        function eliminar(index){   
+          $("#fila" + index).remove();
+        }
+    });
 
 </script>
 @endsection
