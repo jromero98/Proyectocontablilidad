@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use DB;
+use App\ContabilidadManual;
+use App\Descripcion_Cuenta;
 
 class ContabilidadManualController extends Controller
 {
@@ -16,15 +18,30 @@ class ContabilidadManualController extends Controller
         $cuentas = DB::table('puc')
         ->select('nom_puc', 'cod_puc')
         ->get();
-        return view('contablidad_manual.create',["cuentas" => $cuentas]);  
+        return view('contabilidad_manual.create',["cuentas" => $cuentas]);  
     }
-/*
+
     public function store(Request $request, Redirect $redirect)
     {
         $cuentas = Input::get('cuenta');
-        $fechas = Input::get('fecha');
+        $comprobante = Input::get('nodoc');
         $valores = Input::get('valor');
+        $string = Input::get('fecha');;
+        $token = strtok($string, " ");
+        $cont=0;
+        $fh;
+        while ($token !== false){
+            if ($cont==0) {
+                $fh =$token;
+            }if ($cont==1) {
+                $fecha=$token.":00";
+            }
+            $cont++;
+            $token = strtok(" ");
+        } 
+        
         $naturalezas = Input::get('naturaleza');
+        $desc=Input::get('desc');
 
         $d = 0.0;
         $h = 0.0;
@@ -37,81 +54,24 @@ class ContabilidadManualController extends Controller
             }
         }
         if($d != $h ){
-            $err = "Las cuentas T no están correctamente balanceadas. Hay un desbalance de: " . abs($d-$h);
-            return redirect()->action('MovcontaMController@create')
-            ->withErrors(['err', $err]);
+            $err = "Las cuentas T no están correctamente balanceadas. Hay un desbalance de: $" . abs($d-$h);
+            return redirect()->action('ContabilidadManualController@index')
+            ->withErrors(['Error', $err]);
         }
         for ($i=0; $i < count($cuentas); $i++) { 
-            $cuent1 = new \App\CuentaT();
-            $cuent1->cod_cuenta = $cuentas[$i];
-            $cuent1->valor = $valores[$i];
-            $cuent1->fecha = $fechas[$i];
+            $cuenta = new ContabilidadManual;
+            $cuenta->cod_puc = $cuentas[$i];
+            $cuenta->comprobante = $comprobante;
+            $cuenta->valor = $valores[$i];
+            $cuenta->fecha = $fh." ".$fecha;
             if(strcmp($naturalezas[$i], "debito") ){
-                $cuent1->naturaleza = 0;
+                $cuenta->naturaleza = 0;
             }else{
-                $cuent1->naturaleza = 1;
+                $cuenta->naturaleza = 1;
             }
-            $cuent1->save();
+            $cuenta->save();
             
         }
-        
-
         return redirect()->action('BalanceController@index');
-    }
-    public function create(){
-        $cuentas = \App\Cuenta::pluck('nombre', 'cod_cuenta');
-        if(Input::has('err')){
-            $err = Input::get('err');
-             return view('conmanual')
-                ->with('cuentas', $cuentas)
-                ->with('err', $err);
-        }else{
-            return view('conmanual')
-                ->with('cuentas', $cuentas);
-        }
-    }*/
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /*public function show($id){
-        $movs = Conmanual::findOrFail($id);
-       return view('movconmanual', compact('movs'));
-    }*/
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
