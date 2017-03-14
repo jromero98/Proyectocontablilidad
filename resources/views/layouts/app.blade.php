@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Grateful Dogs</title>
+    <title>ASOVIZ</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
