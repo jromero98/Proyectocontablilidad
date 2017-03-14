@@ -229,14 +229,14 @@
     <script src="{{asset('js/nprogress.js')}}"></script>
     
     <!--script type="text/javascript" src="{{asset('vendor/jquery/jquery.min.js')}}"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="{{asset('js/moment.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/transition.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/collapse.js')}}"></script>
     <!--script type="text/javascript" src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script-->
     
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}">
+    <script src="{{asset('js/jquery-ui.js')}}"></script>
+    <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
     
     <!-- Custom Theme Scripts -->
     <script src="{{asset('js/custom.js')}}"></script>

@@ -26,7 +26,20 @@ class ContabilidadManualController extends Controller
         $cuentas = Input::get('cuenta');
         $comprobante = Input::get('nodoc');
         $valores = Input::get('valor');
-        $fecha = Input::get('fecha');
+        $string = Input::get('fecha');;
+        $token = strtok($string, " ");
+        $cont=0;
+        $fh;
+        while ($token !== false){
+            if ($cont==0) {
+                $fh =$token;
+            }if ($cont==1) {
+                $fecha=$token.":00";
+            }
+            $cont++;
+            $token = strtok(" ");
+        } 
+        
         $naturalezas = Input::get('naturaleza');
         $desc=Input::get('desc');
 
@@ -50,7 +63,7 @@ class ContabilidadManualController extends Controller
             $cuenta->cod_puc = $cuentas[$i];
             $cuenta->comprobante = $comprobante;
             $cuenta->valor = $valores[$i];
-            $cuenta->fecha = $fecha;
+            $cuenta->fecha = $fh." ".$fecha;
             if(strcmp($naturalezas[$i], "debito") ){
                 $cuenta->naturaleza = 0;
             }else{
