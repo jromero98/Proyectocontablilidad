@@ -4,6 +4,9 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/dataTables.keyTable.js')}}"></script>
+
 <div class="col-md-8 col-xs-12">
     <div class="x_panel">
         <div class="page-title">
@@ -50,7 +53,7 @@
                 </div>
 
                 <div class="row test">
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         {!! Form::label('cod_cuenta', 'Codigo y Cuenta:') !!}
                     </div>
                     <!--div class="col-xs-3">
@@ -62,11 +65,14 @@
                     <div class="col-xs-3">
                         {!! Form::label('naturaleza', 'Naturaleza', ['class' => 'col-lg-2 control-label'] ) !!}
                     </div>
+                    <div class="col-xs-3">
+                        {!! Form::label('aux', 'Auxiliar', ['class' => 'col-lg-2 control-label'] ) !!}
+                    </div>
                     <!-- Submit Button -->
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <select name="cod_cuenta" id="cod_cuenta" class="form-control selectpicker" data-live-search='true'>
                             @foreach($cuentas as $cuenta)
                             <option value="{{$cuenta->cod_puc}}">{{$cuenta->cod_puc}} {{$cuenta->nom_puc}}</option>
@@ -79,7 +85,11 @@
                     <div class="col-xs-3">
                         {!! Form::select('naturaleza', ['credito' => 'Credito', 'debito' => 'Debito'], 'S', ['id'=>'naturaleza','class' => 'form-control' ]) !!}
                     </div>
-                    <div class="form-group">
+                    <div class="col-xs-3">
+                        {!! Form::number('auxi', $value = null, ['class' => 'form-control','id'=>'auxi', 'placeholder' => 'Auxiliar']) !!}
+                    </div>
+                    <div class="col-xs-3">
+                       <br>
                         <button type="button" id="btn_add" class="btn btn-primary">Agregar</button>
                     </div>
                 </div>
@@ -92,6 +102,7 @@
                                 <th>Codigo y Cuenta</th>
                                 <th>Valor</th>
                                 <th>Naturaleza</th>
+                                <th>Auxliliar</th>
                             </thead>
                             <tbody>
 
@@ -121,8 +132,22 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <br />
-            <!--Aqui info Terceros-->
+            <table width="50" class="table table-striped table-bordered" id="terceros">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th data-field="Codigo">Codigo</th>
+                        <th data-field="Nombre">Nombre </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($auxiliar as $aux)
+                    <tr>
+                        <td>{{$aux->id_aux}}</td>
+                        <td>{{$aux->nom_aux}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="x_panel">
@@ -135,14 +160,27 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <br />
-            <!--Aqui cargar Puc-->
+            <table width="50" class="table table-striped table-bordered" id="puc">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th data-field="Codigo">Codigo</th>
+                        <th data-field="Nombre">Nombre </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($cuentas as $p)
+                    <tr>
+                        <td>{{$p->cod_puc}}</td>
+                        <td>{{$p->nom_puc}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 <script>
     $(document).ready(function () {
-
         $(function () {
             $("#datetimepicker").datetimepicker();
         });
@@ -150,30 +188,32 @@
         $('#btn_add').click(function () {
             agregar();
         });
-        });
-        function agregar() {
-            var cont = 0;
-            vpuc = $("#cod_cuenta option:selected").val();
-            cpuc = $("#cod_cuenta option:selected").text();
-            valor = $("#valor").val();
-            naturale = $("#naturaleza option:selected").val();
-            naturalez = $("#naturaleza option:selected").text();
-            if (valor != "") {
-                var fila = '<tr class="selected" id="fila' + cont + '"><td><button type=button class="btn btn-warning" onclick="eliminar(' + cont + ');">X</button></td><td><input type="hidden" name="cuenta[]" value="' + vpuc + '">' + cpuc + '</td><td><input type="number" name="valor[]" value="' + valor + '" readonly></td><td><input type="hidden" name="naturaleza[]" value="' + naturale + '">' + naturalez + '</tr>';
-                cont++;
-                limpiar();
-                $('#detallescuentas').append(fila);
-            } else {
-                alert("Error al ingresar la Cuenta, revise los datos de la cuenta");
-            }
-        }
+    });
 
-        function limpiar() {
-            $("#valor").val("");
+    function agregar() {
+        var cont = 0;
+        vpuc = $("#cod_cuenta option:selected").val();
+        cpuc = $("#cod_cuenta option:selected").text();
+        valor = $("#valor").val();
+        auxiliar=$("#auxi").val();
+        naturale = $("#naturaleza option:selected").val();
+        naturalez = $("#naturaleza option:selected").text();
+        if (valor != "") {
+            var fila = '<tr class="selected" id="fila' + cont + '"><td><button type=button class="btn btn-warning" onclick="eliminar(' + cont + ');">X</button></td><td><input type="hidden" name="cuenta[]" value="' + vpuc + '">' + cpuc + '</td><td><input type="number" name="valor[]" value="' + valor + '" readonly></td><td><input type="hidden" name="naturaleza[]" value="' + naturale + '">' + naturalez + '<td><input type="number" name="auxil[]" value="' + auxiliar + '" readonly></td></tr>';
+            cont++;
+            limpiar();
+            $('#detallescuentas').append(fila);
+        } else {
+            alert("Error al ingresar la Cuenta, revise los datos de la cuenta");
         }
+    }
 
-        function eliminar(index) {
-            $("#fila" + index).remove();
-        }
+    function limpiar() {
+        $("#valor").val("");
+    }
+
+    function eliminar(index) {
+        $("#fila" + index).remove();
+    }
 </script>
 @endsection

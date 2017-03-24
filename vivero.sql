@@ -25,6 +25,9 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `cuentas`
 --
+create table auxiliar(
+id_aux int AUTO_INCREMENT primary key,
+nom_aux varchar(40));
 
 CREATE TABLE `cuentas` (
   `idcuentas` int(11) NOT NULL,
@@ -32,7 +35,9 @@ CREATE TABLE `cuentas` (
   `comprobante` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `valor` double DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
-  `naturaleza` int(2) DEFAULT NULL
+  `naturaleza` int(2) DEFAULT NULL,
+    id_aux int(11),
+    Foreign key (id_aux) references auxiliar(id_aux) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --

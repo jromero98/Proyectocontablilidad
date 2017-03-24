@@ -20,7 +20,17 @@ Route::group(['middleware' => 'guest'], function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index');
+	Route::get('/home', 'HomeController@index');
     Route::get('balance', 'BalanceController@index');
     Route::resource('contabilidad-manual','ContabilidadManualController');
 });
+//Entrust::routeNeedsPermission('contabilidad-manual','cuentas_manuales');
+/*Route::filter('cuentas_manuales', function()
+{
+    // check the current user
+    if (!Entrust::can('cuentas_manuales')) {
+        App::abort(403);
+    }else{
+        
+    }
+});*/

@@ -15,7 +15,8 @@ class ContabilidadManual extends Model
     'comprobante',
     'valor',
     'fecha',
-    'naturaleza'
+    'naturaleza',
+    'id_aux'
     ];
     public function cuenta()
     {

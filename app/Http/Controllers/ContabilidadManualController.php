@@ -18,7 +18,10 @@ class ContabilidadManualController extends Controller
         $cuentas = DB::table('puc')
         ->select('nom_puc', 'cod_puc')
         ->get();
-        return view('contabilidad_manual.create',["cuentas" => $cuentas]);  
+        $auxiliar = DB::table('auxiliar')
+        ->select('nom_aux', 'id_aux')
+        ->get();
+        return view('contabilidad_manual.create',["cuentas" => $cuentas,"auxiliar"=>$auxiliar]);  
     }
 
     public function store(Request $request, Redirect $redirect)
@@ -26,7 +29,8 @@ class ContabilidadManualController extends Controller
         $cuentas = Input::get('cuenta');
         $comprobante = Input::get('nodoc');
         $valores = Input::get('valor');
-        $string = Input::get('fecha');;
+        $string = Input::get('fecha');
+        $auxiliar = Input::get('auxil');
         $token = strtok($string, " ");
         $cont=0;
         $fh;
@@ -63,6 +67,7 @@ class ContabilidadManualController extends Controller
             $cuenta->cod_puc = $cuentas[$i];
             $cuenta->comprobante = $comprobante;
             $cuenta->valor = $valores[$i];
+            $cuenta->id_aux = $auxiliar[$i];
             $cuenta->fecha = $fh." ".$fecha;
             if(strcmp($naturalezas[$i], "debito") ){
                 $cuenta->naturaleza = 0;
