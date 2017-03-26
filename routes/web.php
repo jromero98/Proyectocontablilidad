@@ -21,16 +21,6 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home', 'HomeController@index');
-    Route::get('balance', 'BalanceController@index');
-    Route::resource('contabilidad-manual','ContabilidadManualController');
+    Route::get('balance', 'BalanceController@index')->middleware('balance');
+    Route::resource('contabilidad-manual','ContabilidadManualController', ['middleware' => 'cuentas_manuales']);
 });
-//Entrust::routeNeedsPermission('contabilidad-manual','cuentas_manuales');
-/*Route::filter('cuentas_manuales', function()
-{
-    // check the current user
-    if (!Entrust::can('cuentas_manuales')) {
-        App::abort(403);
-    }else{
-        
-    }
-});*/

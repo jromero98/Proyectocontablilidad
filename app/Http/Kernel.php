@@ -56,8 +56,13 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'entrust-gui.admin' => \Acoustep\EntrustGui\Http\Middleware\AdminAuth::class,
-        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
-        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
-        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class
+        'cuentas_manuales'=> \App\Http\Middleware\cuentas_manuales::class,
+        'balance'=> \App\Http\Middleware\Balance::class,
+        'ver-usuario'=> \App\Http\Middleware\ver_usuario::class,
+        'crear-usuario'=> \App\Http\Middleware\crear_usuario::class,
+        'editar-usuario'=> \App\Http\Middleware\editar_usuario::class,
+        'ver-rol'=> \App\Http\Middleware\ver_rol::class,
+        'crear-rol'=> \App\Http\Middleware\crear_rol::class,
+        'editar-rol'=> \App\Http\Middleware\editar_rol::class,
     ];
 }

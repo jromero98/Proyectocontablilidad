@@ -47,6 +47,7 @@
             text-decoration: none;
             text-transform: uppercase;
         }
+
     </style>
 
 </head>
@@ -115,11 +116,14 @@
                     <li><a href="#Galeria" id="Galeria-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Galería</span></a></li>
                     <li><a href="#Acerca" id="Acerca-link" class="skel-layers-ignoreHref"><span class="icon fa-user">Acerca De</span></a></li>
                     <li><a href="#Contacto" id="Contacto-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Contacto</span></a></li>
+                    <li><a href="" data-target="#modal-login" data-toggle="modal" class="skel-layers-ignoreHref"><span class="icon fa-user">Iniciar Sesion</span></a></li>
                 </ul>
             </nav>
 
-        </div>
 
+
+        </div>
+        <a href="" data-target="#modal-login" data-toggle="modal">Iniciar Sesion</a>
         <div class="bottom">
 
             <!-- Social Icons -->
@@ -138,10 +142,11 @@
     <!-- Main -->
     <div id="main">
 
+        @include('loginmodal')
         <!-- Intro -->
         <section id="Intro" class="one dark cover">
             <div class="container">
-
+                <a href="" data-target="#modal-login" data-toggle="modal"><button class="btn btn-danger">Iniciar Sesión</button></a>
                 <header>
                     <h2 class="alt">Hola! estas en <strong>ASOVIZ</strong>, una aplicación hecha por estudiantes de la <a href="http://www.unicundi.edu.co/">Unicundi.</a> <br/> Esta aplicación fue desarrollada con el propósito de facilitar una correcta contabilidad en los viveros.</h2>
                     <p>“El que no sabe llevar su contabilidad por espacio de tres mil años <br /> se queda como un ignorante en la oscuridad y sólo vive al día.<br /> -Johann Wolfgang Von Goethe.</p>

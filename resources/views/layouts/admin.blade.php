@@ -62,10 +62,11 @@
                                         <li><a href="/balance">Balance</a></li>
                                     </ul>
                                 </li>
-                                @endpermission @if(Auth::user()->hasRole('admin'))
+                                @endpermission @if(Auth::user()->can('ver-usuarios')||Auth::user()->can('ver-roles'))
                                 <li><a><i class="fa fa-edit"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="/admin/users">Registro de Usuarios</a></li>
+                                        <li><a href="/admin/users">Usuarios</a></li>
+                                        <li><a href="/admin/roles">Roles</a></li>
                                     </ul>
                                 </li>
                                 @endif
