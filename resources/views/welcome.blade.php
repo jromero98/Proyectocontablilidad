@@ -80,7 +80,6 @@
             <span class="slice"></span>
             <span class="slice"></span>
             <span class="slice"></span>
-            <span class="slice"></span>
         </div>
 
     </div>
@@ -116,14 +115,12 @@
                     <li><a href="#Galeria" id="Galeria-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Galería</span></a></li>
                     <li><a href="#Acerca" id="Acerca-link" class="skel-layers-ignoreHref"><span class="icon fa-user">Acerca De</span></a></li>
                     <li><a href="#Contacto" id="Contacto-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Contacto</span></a></li>
-                    <li><a href="" data-target="#modal-login" data-toggle="modal" class="skel-layers-ignoreHref"><span class="icon fa-user">Iniciar Sesion</span></a></li>
                 </ul>
             </nav>
 
 
 
         </div>
-        <a href="" data-target="#modal-login" data-toggle="modal">Iniciar Sesion</a>
         <div class="bottom">
 
             <!-- Social Icons -->

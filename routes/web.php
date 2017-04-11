@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home', 'HomeController@index');
-    Route::get('balance', 'BalanceController@index')->middleware('balance');
-    Route::resource('contabilidad-manual','ContabilidadManualController', ['middleware' => 'cuentas_manuales']);
+    Route::get('/balance', 'BalanceController@index')->middleware('balance');
+    Route::resource('/contabilidad-manual','ContabilidadManualController', ['middleware' => 'cuentas_manuales']);
+    Route::resource('/puc','AdministrarPucController');
 });

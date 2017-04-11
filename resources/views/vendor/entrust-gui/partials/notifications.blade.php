@@ -4,7 +4,6 @@
 		<div class="alert alert-danger alert-dissmissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<h4>Error</h4>
-			The following error has occured:
 			<ul>
 				{!! implode('', $errors->all('<li class="error">:message</li>')) !!}
 			</ul>

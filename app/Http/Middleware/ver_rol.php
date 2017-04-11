@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class ver_rol
 {
@@ -15,9 +16,9 @@ class ver_rol
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::user()->can('ver-rol')){
-            abort(403, 'Unauthorized action');
-        }
-        return $next($request);
+ if(Auth::user()->can('crear-rol')||Auth::user()->can('editar-rol')){ 
+     return $next($request); 
+ } 
+        abort(403, 'Unauthorized action');
     }
 }

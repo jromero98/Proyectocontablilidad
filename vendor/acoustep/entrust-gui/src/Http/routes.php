@@ -1,12 +1,9 @@
 <?php
 Route::group(
     [
-      'prefix' => Config::get("entrust-gui.route-prefix"),
       'middleware' => Config::get("entrust-gui.middleware")
     ],
-    function () {
-        Route::get('users', ['uses' => 'UsersController@index', 'as' => 'entrust-gui::users.index']);
-        
+    function () {        
         Route::delete('users/{id}', ['uses' => 'UsersController@destroy', 'as' => 'entrust-gui::users.destroy']);
 
         
@@ -46,14 +43,16 @@ Route::group(
 
     }
 );
-    Route::group(['middleware' => 'auth'], function () {
-        Route::get('users', ['uses' => 'UsersController@index', 'as' => 'entrust-gui::users.index']);
+    Route::group(
+        ['middleware' => 'auth',
+        'middleware' => Config::get("entrust-gui.middlewaree")], function () {
+        Route::get('users', ['uses' => 'UsersController@index', 'as' => 'entrust-gui::users.index'])->middleware('ver-usuario');
         Route::get('users/create', ['uses' => 'UsersController@create', 'as' => 'entrust-gui::users.create'])->middleware('crear-usuario');
         Route::post('users', ['uses' => 'UsersController@store', 'as' => 'entrust-gui::users.store'])->middleware('crear-usuario');
         Route::get('users/{id}/edit', ['uses' => 'UsersController@edit', 'as' => 'entrust-gui::users.edit'])->middleware('editar-usuario');
         Route::put('users/{id}', ['uses' => 'UsersController@update', 'as' => 'entrust-gui::users.update'])->middleware('editar-usuario');
         
-        Route::get('roles', ['uses' => 'RolesController@index', 'as' => 'entrust-gui::roles.index']);
+        Route::get('roles', ['uses' => 'RolesController@index', 'as' => 'entrust-gui::roles.index'])->middleware('ver-rol');
         Route::get('roles/create', ['uses' => 'RolesController@create', 'as' => 'entrust-gui::roles.create'])->middleware('crear-rol');
         Route::post('roles', ['uses' => 'RolesController@store', 'as' => 'entrust-gui::roles.store'])->middleware('crear-rol');
         Route::get('roles/{id}/edit', ['uses' => 'RolesController@edit', 'as' => 'entrust-gui::roles.edit'])->middleware('editar-rol');

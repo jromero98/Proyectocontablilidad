@@ -1,8 +1,8 @@
-@extends(Config::get('entrust-gui.layout'))
+@extends('layouts.admin') 
 
 @section('heading', 'Permisos')
 
-@section('content')
+@section('contenido')
 <div class="models--actions">
     <a class="btn btn-labeled btn-primary" href="{{ route('entrust-gui::permissions.create') }}"><span class="btn-label"><i class="fa fa-plus"></i></span>{{ trans('entrust-gui::button.create-permission') }}</a>
   </div>

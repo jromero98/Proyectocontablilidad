@@ -1,22 +1,16 @@
-@extends('layouts.admin') @section('htmlheader_title') {{ trans('entrust-gui::message.servererror') }} @endsection @section('main-content')
+@extends('layouts.admin')
 
-<div class="error-page">
-    <h2 class="headline text-red">500</h2>
-    <div class="error-content">
-        <h3><i class="fa fa-warning text-red"></i> Oops! {{ trans('entrust-gui::message.somethingwrong') }}</h3>
-        <p>
-            {{ trans('entrust-gui::message.wewillwork') }} {{ trans('entrust-gui::message.mainwhile') }} <a href='{{ url(' /home ') }}'>{{ trans('entrust-gui::message.returndashboard') }}</a> {{ trans('entrust-gui:::message.usingsearch') }}
-        </p>
-        <form class='search-form'>
-            <div class='input-group'>
-                <input type="text" name="search" class='form-control' placeholder="{{ trans('entrust-gui::message.search') }}" />
-                <div class="input-group-btn">
-                    <button type="submit" name="submit" class="btn btn-danger btn-flat"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-            <!-- /.input-group -->
-        </form>
-    </div>
+@section('contenido')
+<br/>
+<div class="content-header">
+    <h1>Error 500</h1>
 </div>
-<!-- /.error-page -->
+<div class="widget-content">
+            <div class="error_ex">
+              <h1>500</h1>
+              <h3>Algo está mal aquí. ¡Método no permitido!</h3>
+              <p>El acceso a esta página está prohibido</p>
+              <a class="btn btn-warning btn-big"  href="/home">Volver al inicio</a>
+               </div>
+          </div>
 @endsection

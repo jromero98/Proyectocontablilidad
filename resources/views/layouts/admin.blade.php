@@ -13,6 +13,11 @@
     <!-- Bootstrap -->
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.css">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"></script>
     <!-- Font Awesome -->
     <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
     <!-- NProgress -->
@@ -37,7 +42,7 @@
                     <!-- menu profile quick info -->
                     <div class="profile">
                         <div class="profile_pic">
-                            <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                            <img src="{{asset('../images/img.jpg')}}" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido,</span>
@@ -62,14 +67,23 @@
                                         <li><a href="/balance">Balance</a></li>
                                     </ul>
                                 </li>
-                                @endpermission @if(Auth::user()->can('ver-usuarios')||Auth::user()->can('ver-roles'))
-                                <li><a><i class="fa fa-edit"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
+                                @endpermission 
+                                @if(Auth::user()->can('crear-usuario')||Auth::user()->can('crear-rol'))
+                                <li><a><i class="fa fa-user" aria-hidden="true"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="/admin/users">Usuarios</a></li>
-                                        <li><a href="/admin/roles">Roles</a></li>
+                                       @permission('crear-usuario'||'editar-usuario')
+                                        <li><a href="/users">Usuarios</a></li>
+                                        @endpermission
+                                        @permission('crear-rol'||'editar-rol')
+                                        <li><a href="/roles">Roles</a></li>
+                                        @endpermission
                                     </ul>
                                 </li>
                                 @endif
+                                <li><a href="/puc"><i class="fa fa-edit"></i> Administracion del PUC </a>
+                                </li>
+                                <li><a href="/home"><i class="fa fa-edit"></i> Facturacion </a>
+                                </li>
                             </ul>
                         </div>
 
@@ -210,7 +224,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_content">
-                                    @yield('contenido')
+                                    @include('entrust-gui::partials.notifications')@yield('contenido')
                                 </div>
                             </div>
                         </div>
@@ -229,7 +243,6 @@
             <!-- /footer content -->
         </div>
     </div>
-
     <!-- jQuery -->
     <script src="{{asset('js/jquery.js')}}"></script>
     <!-- Bootstrap -->
@@ -249,7 +262,6 @@
     <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}">
     <script src="{{asset('js/jquery-ui.js')}}"></script>
     <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="{{asset('js/custom.js')}}"></script>
 </body>

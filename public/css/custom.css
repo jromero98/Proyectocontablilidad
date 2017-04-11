@@ -1070,7 +1070,8 @@ td span {
 
 .sidebar-widget {
   overflow: hidden; }
-
+.error_ex{ text-align:center;}
+.error_ex h1{ font-size:140px; font-weight:bold; padding:50px 0; color:#28B779}
 .error-number {
   font-size: 90px;
   line-height: 90px;
@@ -1975,7 +1976,6 @@ button,
   margin: 5px 2px;
   padding: 3px 0;
   border: 1px solid #EFEFEF; }
-
 .input-group {
   margin-bottom: 10px; }
 

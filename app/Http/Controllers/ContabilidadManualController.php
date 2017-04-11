@@ -25,10 +25,13 @@ class ContabilidadManualController extends Controller
     }
 
     public function store(Request $request, Redirect $redirect)
-    {
-        $cuentas = Input::get('cuenta');
+    {        
+        $cuenta = Input::get('cuenta');
         $comprobante = Input::get('nodoc');
         $valores = Input::get('valor');
+        for($i=0;$i<count($valores);$i++){
+            $valores[$i]=str_replace(",", "", $valores[$i]);
+        }
         $string = Input::get('fecha');
         $auxiliar = Input::get('auxil');
         $token = strtok($string, " ");
@@ -50,7 +53,7 @@ class ContabilidadManualController extends Controller
         $d = 0.0;
         $h = 0.0;
 
-        for ($i=0; $i < count($cuentas); $i++) { 
+        for ($i=0; $i < count($cuenta); $i++) { 
             if(strcmp($naturalezas[$i], "debito") ){
                 $h += (double)$valores[$i];
             }else{
@@ -58,23 +61,36 @@ class ContabilidadManualController extends Controller
             }
         }
         if($d != $h ){
-            $err = "Las cuentas T no están correctamente balanceadas. Hay un desbalance de: $" . abs($d-$h);
-            return redirect()->action('ContabilidadManualController@index')
-            ->withErrors(['Error', $err]);
-        }
-        for ($i=0; $i < count($cuentas); $i++) { 
-            $cuenta = new ContabilidadManual;
-            $cuenta->cod_puc = $cuentas[$i];
-            $cuenta->comprobante = $comprobante;
-            $cuenta->valor = $valores[$i];
-            $cuenta->id_aux = $auxiliar[$i];
-            $cuenta->fecha = $fh." ".$fecha;
-            if(strcmp($naturalezas[$i], "debito") ){
-                $cuenta->naturaleza = 0;
-            }else{
-                $cuenta->naturaleza = 1;
+            $cuentas = DB::table('puc')
+            ->select('nom_puc', 'cod_puc')
+            ->get();
+            $auxiliares = DB::table('auxiliar')
+            ->select('nom_aux', 'id_aux')
+            ->get();
+            for($i=0;$i<count($valores);$i++){
+            $valores[$i]=number_format($valores[$i]);
             }
-            $cuenta->save();
+            $err = "Las cuentas T no están correctamente balanceadas. Hay un desbalance de: $" . number_format(abs($d-$h));
+            return view('contabilidad_manual.create')
+            ->with("cuent",$cuenta)->with("naturalezas",$naturalezas)->with("cuentas",$cuentas)->with("valores",$valores)
+            ->with("auxiliar",$auxiliares)->with("auxiliarr",$auxiliar)->with("comprobante",$comprobante)->with("descripcion",$desc)
+            ->with("fecha",$string)
+            ->withErrors($err)
+            ;
+        }
+        for ($i=0; $i < count($cuenta); $i++) {
+            $cuentas = new ContabilidadManual;
+            $cuentas->cod_puc = $cuenta[$i];
+            $cuentas->comprobante = $comprobante;
+            $cuentas->valor = $valores[$i];
+            $cuentas->id_aux = $auxiliar[$i];
+            $cuentas->fecha = $fh." ".$fecha;
+            if(strcmp($naturalezas[$i], "debito") ){
+                $cuentas->naturaleza = 0;
+            }else{
+                $cuentas->naturaleza = 1;
+            }
+            $cuentas->save();
             
         }
         return redirect()->action('BalanceController@index');

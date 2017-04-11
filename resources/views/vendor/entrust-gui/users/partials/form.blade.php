@@ -27,7 +27,13 @@
     <label for="roles">Roles</label>
     <select name="roles[]" id="roles" multiple class="form-control">
         @foreach($roles as $index => $role)
+        @if($role=='Control Total')
+           @if(Auth::user()->hasrole('control-total'))
             <option value="{{ $index }}" {{ ((in_array($index, old('roles', []))) || ( ! Session::has('errors') && $user->roles->contains('id', $index))) ? 'selected' : '' }}>{{ $role }}</option>
+            @endif
+        @else
+            <option value="{{ $index }}" {{ ((in_array($index, old('roles', []))) || ( ! Session::has('errors') && $user->roles->contains('id', $index))) ? 'selected' : '' }}>{{ $role }}</option>
+        @endif    
         @endforeach
     </select>
 </div>

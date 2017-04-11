@@ -5,6 +5,7 @@ use Acoustep\EntrustGui\Gateways\UserGateway;
 use Illuminate\Http\Request;
 use Watson\Validating\ValidationException;
 use Illuminate\Config\Repository as Config;
+use DB;
 
 /**
  * This file is part of Entrust GUI,
@@ -48,11 +49,14 @@ class UsersController extends Controller
     public function index()
     {
         $users = $this->gateway->paginate($this->config->get('entrust-gui.pagination.users'));
-
+        $role_user=DB::table('role_user')
+        ->select('user_id')
+        ->where('role_id',"=",'3')
+        ->get();
         return view(
             'entrust-gui::users.index',
             compact(
-                'users'
+                'users','role_user'
             )
         );
     }
@@ -67,7 +71,7 @@ class UsersController extends Controller
     {
         $user_class = $this->config->get('auth.providers.users.model');
         $user = new $user_class;
-        $roles = $this->role->pluck('name', 'id');
+        $roles = $this->role->pluck('display_name', 'id');
 
         return view(
             'entrust-gui::users.create',
@@ -109,7 +113,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = $this->gateway->find($id);
-        $roles = $this->role->pluck('name', 'id');
+        $roles = $this->role->pluck('display_name', 'id');
 
         return view(
             'entrust-gui::users.edit',

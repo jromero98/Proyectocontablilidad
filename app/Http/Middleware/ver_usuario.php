@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class ver_usuario
 {
@@ -15,9 +16,9 @@ class ver_usuario
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::user()->can('ver_usuario')){
-            abort(403, 'Unauthorized action');
+        if(Auth::user()->can('crear-usuario')||Auth::user()->can('editar-usuario')){
+            return $next($request);
         }
-        return $next($request);
+        abort(403, 'Unauthorized action');
     }
 }
