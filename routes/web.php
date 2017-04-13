@@ -23,5 +23,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home', 'HomeController@index');
     Route::get('/balance', 'BalanceController@index')->middleware('balance');
     Route::resource('/contabilidad-manual','ContabilidadManualController', ['middleware' => 'cuentas_manuales']);
+    Route::get('/contabilidad-manual/factura/{id}','ContabilidadManualController@getFactura', ['middleware' => 'cuentas_manuales']);
     Route::resource('/puc','AdministrarPucController');
+    Route::get('/factura/{id}','HacerFactura@pdf');
+    Route::get('/facturas/{id}','HacerFactura@pdf2');
+    Route::resource('/compras','ComprasController');
+    Route::resource('/ventas','VentasController');
+    Route::resource('/almacen/articulo','ArticulosController');
+    Route::resource('/almacen/categoria','CategoriasController');
 });

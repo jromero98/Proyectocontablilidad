@@ -40,7 +40,7 @@ class AdministrarPucController extends Controller
     public function edit($id){
         $puc=AdministrarPuc::findOrFail($id);
         $clase=DB::table('clase_puc')->get();
-        return view('administracion_puc.create',["puc"=>$puc,"clases"=>$clase]);
+        return view('administracion_puc.edit',["puc"=>$puc,"clases"=>$clase]);
     } 
     public function store(Request $request){
         $puc = new AdministrarPuc;
@@ -50,8 +50,22 @@ class AdministrarPucController extends Controller
         $puc->save();
         return Redirect::to('puc');
     }
-    public function update(){
-        
+    public function update(Request $request,$id){
+        if($request->get('cuenta')==$request->get('rcuenta')){
+            $puc = AdministrarPuc::findOrFail($id);
+            $puc->nom_puc=$request->get('descripcion');
+            $puc->clase_puc=$request->get('clase');
+            $puc->update();
+        }else{
+            $puc=AdministrarPuc::findOrFail($id);
+            $puc->delete();
+            $puc = new AdministrarPuc;
+            $puc->cod_puc=$request->get('cuenta');
+            $puc->nom_puc=$request->get('descripcion');
+            $puc->clase_puc=$request->get('clase');
+            $puc->save();
+        }
+        return Redirect::to('puc');
     }
     
     public function destroy($id){

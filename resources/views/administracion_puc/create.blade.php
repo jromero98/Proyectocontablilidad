@@ -13,33 +13,21 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 		<div class="form-group">
 				<label for="cuenta">Número de la Cuenta</label>
-				@if(!empty($puc))
-				    <input type="number" name="cuenta" required value="{{$puc->cod_puc}}" class="form-control" placeholder="Número de la Cuenta...">
-				@else
 				    <input type="number" name="cuenta" required value="{{old('cuenta')}}" class="form-control" placeholder="Número de la Cuenta...">
-				@endif
 				
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
 				<label for="descripcion">Descripción</label>
-				@if(!empty($puc))
-				    <input type="text" required value="{{$puc->nom_puc}}" name="descripcion" class="form-control" placeholder="Descripcion...">
-				@else
 				    <input type="text" required value="{{old('descripcion')}}" name="descripcion" class="form-control" placeholder="Descripcion...">
-				@endif
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<label>Pertenece a</label>
 			<select name="clase" class="form-control">
 			@foreach($clases as $clase)
-				@if(!empty($puc) && $puc->clase_puc==$clase->id)
-                   <option value="{{$clase->id}}" selected>{{$clase->descripcion}}</option>
-                @else
                     <option value="{{$clase->id}}">{{$clase->descripcion}}</option>
-                @endif
             @endforeach
 			</select>
 		</div>

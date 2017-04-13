@@ -18,7 +18,7 @@ class BalanceController extends Controller
                 ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
                 ->where('fecha','=',$fecha)
                 ->where('puc.cod_puc','=',$cuenta)
-                ->where('comprobante','=',$ccomprobante)
+                ->where('comprobante','=',$comprobante)
                 ->orderBy('fecha', 'asc')
                 ->get();
             }else if(!empty($fecha) && !empty($cuenta)){
@@ -32,7 +32,7 @@ class BalanceController extends Controller
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
                 ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
                 ->where('puc.cod_puc','=',$cuenta)
-                ->where('comprobante','=',$ccomprobante)
+                ->where('comprobante','=',$comprobante)
                 ->orderBy('fecha', 'asc')
                 ->get();
             }else if(!empty($fecha) && !empty($comprobante)){
@@ -71,7 +71,7 @@ class BalanceController extends Controller
                 ->select('cod_puc','nom_puc','clase_puc')
                 ->orderBy('cod_puc','asc')
                 ->get();
-            return view ('contabilidad_manual.show',['cuentas'=> $cuentas,'puc'=> $puc]);
+            return view ('contabilidad_manual.show',['cuentas'=> $cuentas,'puc'=> $puc,"busqueda"=>$request]);
         }
     }
 }

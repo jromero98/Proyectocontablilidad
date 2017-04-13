@@ -80,9 +80,19 @@
                                     </ul>
                                 </li>
                                 @endif
-                                <li><a href="/puc"><i class="fa fa-edit"></i> Administracion del PUC </a>
+                                <li><a href="/puc"><i class="fa fa-pied-piper-pp"></i> Administracion del PUC </a>
                                 </li>
-                                <li><a href="/home"><i class="fa fa-edit"></i> Facturacion </a>
+                                <li><a><i class="fa fa-shopping-cart"></i> Facturacion <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/ventas">Ventas</a></li>
+                                        <li><a href="/compras">Compras</a></li>
+                                    </ul>
+                                </li>
+                                <li><a><i class="fa fa-building"></i> Almacen <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/almacen/articulo">Articulos</a></li>
+                                        <li><a href="/almacen/categoria">Categorias</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
@@ -154,7 +164,7 @@
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                     <li>
                                         <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span class="image"><img src="{{asset('../images/img.jpg')}}" alt="Profile Image" /></span>
                                             <span>
                           <span>John Smith</span>
                                             <span class="time">3 mins ago</span>
@@ -166,7 +176,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span class="image"><img src="{{asset('../images/img.jpg')}}" alt="Profile Image" /></span>
                                             <span>
                           <span>John Smith</span>
                                             <span class="time">3 mins ago</span>
@@ -178,7 +188,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span class="image"><img src="{{asset('../images/img.jpg')}}" alt="Profile Image" /></span>
                                             <span>
                           <span>John Smith</span>
                                             <span class="time">3 mins ago</span>
@@ -190,7 +200,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                            <span class="image"><img src="{{asset('../images/img.jpg')}}" alt="Profile Image" /></span>
                                             <span>
                           <span>John Smith</span>
                                             <span class="time">3 mins ago</span>

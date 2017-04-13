@@ -6,7 +6,6 @@
 
     <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('js/dataTables.keyTable.js')}}"></script>
-
 <div class="col-md-8 col-xs-12">
     <div class="x_panel">
         <div class="page-title">
@@ -35,11 +34,23 @@
 
                 <div class="form-group">
                     {!! Form::label('nodoc', 'N° Comprobante:', ['class' => 'col-lg-2 control-label']) !!}
-                    <div class="col-lg-10">
+                    <div class="col-lg-2">
+                        <select class="form-control" name="tipo_factura" id="tipo_factura">
+                           <option value="">Seleccione</option>
+                            @foreach($facturas as $factura)
+                               @if($tpfactura==$factura->Tipo_factura)
+                                <option selected>{{$factura->Tipo_factura}}</option>
+                                @else
+                                <option>{{$factura->Tipo_factura}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-8">
                         @if(empty($comprobante))
-                            {!! Form::text('nodoc', $value = null, ['class' => 'form-control', 'placeholder' => 'Ej:Fv001', 'type'=>'text','required'=>'required']) !!}
+                            {!! Form::text('nodoc', $value = null, ['id'=>'nodoc','class' => 'form-control', 'placeholder' => 'Numero de Factura', 'type'=>'text','required'=>'required']) !!}
                         @else
-                            {!! Form::text('nodoc', $value = "$comprobante", ['class' => 'form-control', 'placeholder' => 'Ej:Fv001', 'type'=>'text','required'=>'required']) !!}
+                            {!! Form::text('nodoc', $value = "$comprobante", ['id'=>'nodoc','class' => 'form-control', 'placeholder' => 'Numero de Factura', 'type'=>'text','required'=>'required','readonly']) !!}
                         @endif
                     </div>
                 </div>
@@ -74,11 +85,6 @@
                     </div>
                     <!-- Submit Button -->
                 </div>
-                @if(empty($cuenta))
-                                <?php echo "no llego" ?>
-                @else
-                    <?php echo "si llego" ?>
-                @endif
                 <div class="row">
                     <div class="col-xs-3">
                         <select name="cod_cuenta" id="cod_cuenta" class="form-control selectpicker" data-live-search='true'>
@@ -124,7 +130,7 @@
                                                     @endif
                                                 @endforeach
                                             </td>
-                                            <td><input type="text" name="valor[]" value="{{$valores[$i]}}"></td>
+                                            <td><input type="text" name="valor[]" value="{{$valores[$i]}}" class="col-lg-10"></td>
                                             <td>
                                                    @if($naturalezas[$i]== "debito")
                                                     <input type="hidden" name="naturaleza[]" value="{{$naturalezas[$i]}}">Debito
@@ -132,7 +138,7 @@
                                                     <input type="hidden" name="naturaleza[]" value="{{$naturalezas[$i]}}">Credito
                                                     @endif
                                             </td>
-                                            <td><input type="number" name="auxil[]" value="{{$auxiliarr[$i]}}" ></td>
+                                            <td><input type="number" name="auxil[]" value="{{$auxiliarr[$i]}}" class="col-lg-10"></td>
                                         </tr> 
                                     @endfor
                                 @endif
@@ -180,78 +186,5 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $(function () {
-            $("#datetimepicker").datetimepicker();
-        });
-        $('#btn_add').click(function () {
-            agregar();
-        });
-    });
-    function agregar() {
-        var cont = document.getElementById("detallescuentas").rows.length-1;
-        vpuc = $("#cod_cuenta option:selected").val();
-        cpuc = $("#cod_cuenta option:selected").text();
-        valor = $("#valor").val();
-        auxiliar=$("#auxi").val();
-        naturale = $("#naturaleza option:selected").val();
-        naturalez = $("#naturaleza option:selected").text();
-        if (valor != "") {
-            var fila = '<tr class="selected" id="fila' + cont + '"><td><button type=button class="btn btn-warning" onclick="eliminar(' + cont + ');">X</button></td><td><input type="hidden" name="cuenta[]" value="' + vpuc + '">' + cpuc + '</td><td><input type="text" name="valor[]" value="' + valor + '"></td><td><input type="hidden" name="naturaleza[]" value="' + naturale + '">' + naturalez + '<td><input type="number" name="auxil[]" value="' + auxiliar + '"></td></tr>';
-            cont++;
-            limpiar();
-            $('#detallescuentas').append(fila);
-        } else {
-            alert("Error al ingresar la Cuenta, revise los datos de la cuenta");
-        }
-    }
-    function limpiar() {
-        $("#valor").val("");
-    }
-    function eliminar(index) {
-        $("#fila" + index).remove();
-    }
-    var valueAnterior=document.getElementById("valor").value; 
-    function haCambiado() { 
-        if(document.getElementById("valor").value!=valueAnterior) { 
-            valueAnterior=document.getElementById("valor").value; 
-            document.getElementById("valor").value= number_format(document.getElementById("valor").value,0); 
-            return true; 
-        } 
-        else  
-        return false; 
-    } 
-    setInterval( function() { 
-    if( haCambiado() );
-    if ($('#detallescuentas >tbody >tr').length > 0){
-        $("#guardar").show();
-    }else{
-        $("#guardar").hide();
-    }
-}, 100);
-    
-function number_format(amount, decimals) {
-
-    amount += ''; // por si pasan un numero en vez de un string
-    amount = parseFloat(amount.replace(/[^0-9\.]/g, '')); // elimino cualquier cosa que no sea numero o punto
-
-    decimals = decimals || 0; // por si la variable no fue fue pasada
-
-    // si no es un numero o es igual a cero retorno el mismo cero
-    if (isNaN(amount) || amount === 0) 
-        return parseFloat(0).toFixed(decimals);
-
-    // si es mayor o menor que cero retorno el valor formateado como numero
-    amount = '' + amount.toFixed(decimals);
-
-    var amount_parts = amount.split('.'),
-        regexp = /(\d+)(\d{3})/;
-
-    while (regexp.test(amount_parts[0]))
-        amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
-
-    return amount_parts.join('.');
-}
-</script>
+<script src="{{asset('js/contabilidad_manual.js')}}"></script>
 @endsection

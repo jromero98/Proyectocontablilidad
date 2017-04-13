@@ -8,8 +8,12 @@ class Descripcion_Cuenta extends Model
 {
     protected $table='descripcion_cuenta';
     
+    protected $primaryKey='idDescripcion_cuenta';
+    
+    public $timestamps=false;
+    
     protected $fillable=[
-    'id_cuentas',
-    'Descripcion',
+    'idDescripcion_cuenta',
+    'Descripcion_cuenta',
     ];
 }
