@@ -2,7 +2,7 @@
 @section ('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Nuevo Ingreso</h3>
+			<h3>Nueva Compra</h3>
 		</div>
 	</div>
     {!!Form::open(array('url'=>'compras','method'=>'POST','autocomplete'=>'off'))!!}
@@ -28,14 +28,14 @@
 		<div class="panel-body">
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 				<div class="from-group">
-				<label>Articulo</label>
-				<select name="pidarticulo" class="form-control selectpicker" id="pidarticulo" data-live-search='true'>
-				    <option value="">Seleccione articulo</option>
-					@foreach($articulos as $art)
-					<option value="{{$art->idArticulos}}">{{$art->idArticulos}} {{$art->nom_articulo}}</option>
-					@endforeach
-				</select> 
-			</div>
+                    <label>Articulo</label>
+                    <select name="pidarticulo" class="form-control selectpicker" id="pidarticulo" data-live-search='true'>
+                        <option value="">Seleccione articulo</option>
+                        @foreach($articulos as $art)
+                        <option value="{{$art->idArticulos}}">{{$art->idArticulos}} {{$art->nom_articulo}}</option>
+                        @endforeach
+                    </select> 
+			    </div>
 			</div>
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 			<div class="form-group">
@@ -108,7 +108,7 @@
 	total=0;
 	subtotal=[];
 	$("#guardar").hide();
-
+    
 	function agregar(){
 		idarticulo=$("#pidarticulo").val();
 		articulo=$("#pidarticulo option:selected").text();

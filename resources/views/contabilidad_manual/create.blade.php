@@ -1,11 +1,8 @@
 @extends('layouts.admin') @section('contenido')
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('js/dataTables.keyTable.js')}}"></script>
+<script src="{{asset('vendor\datatables\js\jquery.dataTables.js')}}"></script>
 <div class="col-md-8 col-xs-12">
     <div class="x_panel">
         <div class="page-title">
@@ -24,7 +21,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                             @if(empty($fecha))
-                                <input type="text" id="datetimepicker" name="fecha" value="<?php echo date('Y-m-d'); ?>" class="form-control pull-left" required="required">
+                                <input type="text" id="datetimepicker" name="fecha" value="<?php echo date('Y-m-d H:i'); ?>" class="form-control pull-left" required="required">
                             @else
                                 <input type="text" id="datetimepicker" name="fecha" value="{{$fecha}}" class="form-control pull-left" required="required">
                             @endif
@@ -38,11 +35,13 @@
                         <select class="form-control" name="tipo_factura" id="tipo_factura">
                            <option value="">Seleccione</option>
                             @foreach($facturas as $factura)
-                               @if($tpfactura==$factura->Tipo_factura)
-                                <option selected>{{$factura->Tipo_factura}}</option>
-                                @else
-                                <option>{{$factura->Tipo_factura}}</option>
-                                @endif
+                                   @if(isset($tpfactura))
+                                        @if($tpfactura==$factura->Tipo_factura)
+                                            <option selected>{{$factura->Tipo_factura}}</option>
+                                        @endif
+                                    @else
+                                    <option>{{$factura->Tipo_factura}}</option>
+                                    @endif
                             @endforeach
                         </select>
                     </div>
@@ -167,7 +166,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <table width="50" class="table table-striped table-bordered" id="terceros">
+            <table class="table table-striped table-bordered" id="terceros">
                 <thead class="thead-inverse">
                     <tr>
                         <th data-field="Codigo">Codigo</th>

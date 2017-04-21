@@ -27,22 +27,29 @@
 						<td>{{$factura->Estado}}</td>
 						@if($factura->Estado=='Activo')
 						    <td class="col-lg-4">
-                                <a href="{{URL::action('HacerFactura@pdf',$factura->idFacturas)}}"><button class="btn btn-primary">Imprimir</button></a>
+                                <a href="{{URL::action('HacerFactura@pdf',$factura->idFacturas)}}" target="_blank" onclick="javascript:window.location.reload();"><button class="btn btn-primary">Imprimir</button></a>
                                 <a href="{{URL::action('ComprasController@edit',$factura->idFacturas)}}"><button class="btn btn-info">Editar</button></a>
                                 <a href="" data-target="#modal-delete-{{$factura->idFacturas}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
                             </td>
 						@endif
 						@if($factura->Estado=='Pendiente')
 						<td class="col-lg-4">
-                            <a href="#"><button class="btn btn-primary">Pagar</button></a>
+                            <a href="" data-target="#modal-pagar-{{$factura->idFacturas}}" data-toggle="modal"><button class="btn btn-primary">Pagar</button></a>
 						</td>
 						@endif
 					</tr>
 					@include('facturacion.compras.modal')
+					@include('facturacion.compras.pagarmodal')
 				@endforeach
 			</table>
 			{{$facturas->appends(Request::only(['searchText','estado']))->render()}}
 		</div>
 	</div>
 </div>
+<script src="{{asset('js/jquery.js')}}"></script>
+<script type="text/javascript">
+    function reFresh(){ 
+        location.reload(true);
+    }
+</script>
 @endsection

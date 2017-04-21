@@ -12,7 +12,6 @@
                    @if($searchText->estado=="Pendiente")<option selected value="Pendiente">Pendientes</option>@endif
                    @if($searchText->estado=="Pagado")<option selected value="Pagado">Pagadas</option>@endif
                    @if($searchText->estado=="Cancelado")<option selected value="Cancelado">Canceladas</option>@endif
-                   <option value="">Todas</option>
                    <option value="Activo">Activas</option>
                    <option value="Pendiente">Pendientes</option>
                    <option value="Pagado">Pagadas</option>

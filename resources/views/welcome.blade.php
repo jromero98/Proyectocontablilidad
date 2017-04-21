@@ -81,7 +81,6 @@
             <span class="slice"></span>
             <span class="slice"></span>
         </div>
-
     </div>
 
 

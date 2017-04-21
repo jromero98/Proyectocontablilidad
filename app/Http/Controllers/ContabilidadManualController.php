@@ -26,6 +26,11 @@ class ContabilidadManualController extends Controller
         ->select(DB::raw('count(Tipo_factura) as cfactura'),'Tipo_factura')
         ->groupBy('Tipo_factura')
         ->get();
+        $factura=DB::table('Facturas')
+            ->select(DB::raw('count(Tipo_factura) as cfactura'),'Tipo_factura')
+            ->where('Tipo_factura','=',1)
+            ->groupBy('Tipo_factura')
+            ->first();
         return view('contabilidad_manual.create',["cuentas" => $cuentas,"auxiliar"=>$auxiliar,"facturas"=>$tpfactura]);  
     }
 
@@ -102,7 +107,6 @@ class ContabilidadManualController extends Controller
             for($i=0;$i<count($valores);$i++){
             $valores[$i]=number_format($valores[$i]);
             }
-            echo $tfactura;
             $err = "Debe de seleccionar un Tipo de comprobante";
             return view('contabilidad_manual.create')
             ->with("cuent",$cuenta)->with("naturalezas",$naturalezas)->with("cuentas",$cuentas)->with("valores",$valores)

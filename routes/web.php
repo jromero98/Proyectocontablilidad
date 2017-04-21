@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/puc','AdministrarPucController');
     Route::get('/factura/{id}','HacerFactura@pdf');
     Route::get('/facturas/{id}','HacerFactura@pdf2');
+    Route::post('/facturascompra','PagarCuentasController@pagarcompra');
+    Route::post('/facturasventa','PagarCuentasController@pagarventa');
     Route::resource('/compras','ComprasController');
     Route::resource('/ventas','VentasController');
     Route::resource('/almacen/articulo','ArticulosController');

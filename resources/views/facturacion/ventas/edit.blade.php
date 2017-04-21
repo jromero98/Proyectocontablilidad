@@ -1,8 +1,9 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<script src="{{asset('js/bootstrap.js')}}"></script>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Nuevo Ingreso</h3>
+			<h3>Editar venta</h3>
 		</div>
 	</div>
 			{!!Form::model($detalles,['method'=>'PATCH','route'=>['ventas.update',$factura->idFacturas],'id'=>'editar'])!!}

@@ -5,7 +5,10 @@ $(document).ready(function () {
         $('#btn_add').click(function () {
             agregar();
         });
-    });
+});
+$(document).ready(function() {
+    $('#terceros').DataTable();
+} );
     function agregar() {
         var cont = document.getElementById("detallescuentas").rows.length-1;
         vpuc = $("#cod_cuenta option:selected").val();

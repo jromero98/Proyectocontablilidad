@@ -18,11 +18,13 @@ class VentasController extends Controller
         if ($request)
         {
             $query=trim($request->get('searchText'));
+            $estado=$request->get('estado');
             if($request){
+                if($estado==""){$estado='Activo';$request->replace(array('estado' => 'Activo'));}
                 $facturas=DB::table('facturas')
                 ->join('detalle_factura','idFactura','=','idFacturas')
                 ->select('idFacturas','Num_factura','fecha','Estado',DB::raw('sum(cantidad*precio_venta-descuento) as total'))
-                ->where('Estado','LIKE','%'.$request->get('estado').'%')->where('Tipo_factura',"=","Fv")
+                ->where('Estado','LIKE','%'.$estado.'%')->where('Tipo_factura',"=","Fv")
                 ->where('Num_factura',"LIKE",'%'.$query.'%')
                 ->groupby('idFacturas','Num_factura','fecha','Estado')
                 ->paginate(7);
@@ -173,6 +175,6 @@ class VentasController extends Controller
     public function destroy($id){
         $factura=Facturas::findOrFail($id);
         $factura->Estado='Cancelado';
-        $factura->uptade();
+        $factura->update();
     }
 }

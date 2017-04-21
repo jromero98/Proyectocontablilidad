@@ -14,6 +14,7 @@
             table{width:100%;}
             .text-right{text-align:right;}
         </style>
+        <title> Factura de Venta # {{$factura->Num_factura}}</title>
     </head>
     <body>
 

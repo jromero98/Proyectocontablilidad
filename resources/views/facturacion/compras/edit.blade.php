@@ -1,8 +1,9 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<script src="{{asset('js/bootstrap.js')}}"></script>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Nuevo Ingreso</h3>
+			<h3>Editar compra</h3>
 		</div>
 	</div>
 			{!!Form::model($detalles,['method'=>'PATCH','route'=>['compras.update',$factura->idFacturas],'id'=>'editar'])!!}
@@ -17,8 +18,8 @@
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 			<div class="form-group">
-				<label for="fecha">Fecha actual</label>
-				<input type="date" value="<?php echo date('Y-m-d'); ?>" name="fecha" class="form-control" placeholder="Fecha...">
+				<label for="fecha">Fecha de la factura</label>
+				<input type="date" value="{{$factura->fecha}}" name="fecha" class="form-control" placeholder="Fecha...">
 			</div>
 		</div>		
 	</div>

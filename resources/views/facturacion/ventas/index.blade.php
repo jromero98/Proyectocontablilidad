@@ -27,19 +27,20 @@
 						<td>{{$factura->Estado}}</td>
 						@if($factura->Estado=='Activo')
 						    <td class="col-lg-4">
-                                <a href="{{URL::action('HacerFactura@pdf2',$factura->idFacturas)}}"><button class="btn btn-primary">Imprimir</button></a>
+                                <a href="{{URL::action('HacerFactura@pdf2',$factura->idFacturas)}}" target="_blank" onclick="javascript:window.location.reload();"><button class="btn btn-primary">Imprimir</button></a>
                                 <a href="{{URL::action('VentasController@edit',$factura->idFacturas)}}"><button class="btn btn-info">Editar</button></a>
-                                <a href="" data-target="#modal-delete-{{$factura->idFacturas}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+                                <a href="" type="button" data-target="#modal-delete-{{$factura->idFacturas}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
                             </td>
 						@endif
 						@if($factura->Estado=='Pendiente')
 						<td class="col-lg-4">
-                            <a href="#"><button class="btn btn-primary">Pagar</button></a>
+                            <a href="" data-target="#modal-pagar-{{$factura->idFacturas}}" data-toggle="modal"><button type="button" class="btn btn-primary">Pagar</button></a>
 						</td>
 						@endif
 						
 					</tr>
 					@include('facturacion.ventas.modal')
+					@include('facturacion.ventas.pagarmodal')
 				@endforeach
 			</table>
 			{{$facturas->appends(Request::only(['searchText','estado']))->render()}}

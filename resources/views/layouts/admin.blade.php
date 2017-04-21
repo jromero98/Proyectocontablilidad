@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -254,20 +254,18 @@
         </div>
     </div>
     <!-- jQuery -->
-    <script src="{{asset('js/jquery.js')}}"></script>
+    <!--script src="{{asset('js/jquery.js')}}"></script>
     <!-- Bootstrap -->
-    <script src="{{asset('js/bootstrap.js')}}"></script>
     <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
     <!-- FastClick -->
     <script src="{{asset('js/fastclick.js')}}"></script>
     <!-- NProgress -->
     <script src="{{asset('js/nprogress.js')}}"></script>
 
-    <!--script type="text/javascript" src="{{asset('vendor/jquery/jquery.min.js')}}"></script>-->
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/transition.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/collapse.js')}}"></script>
-    <!--script type="text/javascript" src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script-->
+    <script type="text/javascript" src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
     <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}">
     <script src="{{asset('js/jquery-ui.js')}}"></script>

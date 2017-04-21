@@ -27,8 +27,8 @@
 						@elseif($puc->clase_puc==2)Pasivo
 						@elseif($puc->clase_puc==3)Patrimonio
 						@elseif($puc->clase_puc==4)Ingreso
-						@elseif($puc->clase_puc==5)Costo
-						@elseif($puc->clase_puc==6)Gasto
+						@elseif($puc->clase_puc==5)Gasto
+						@elseif($puc->clase_puc==6)Costo
 						@endif
 						</td>
 						<td>
