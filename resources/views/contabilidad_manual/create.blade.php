@@ -166,7 +166,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <table class="table table-striped table-bordered" id="terceros">
+            <table class="table table-striped table-bordered table table-condensed table-hover" id="terceros">
                 <thead class="thead-inverse">
                     <tr>
                         <th data-field="Codigo">Codigo</th>

@@ -1,5 +1,5 @@
 <div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-delete-{{$factura->idFacturas}}">
-	{{Form::Open(array('action'=>array('ComprasController@destroy',$factura->idFacturas),'method'=>'delete'))}}
+	{!! Form::Open(array('action'=>array('ComprasController@destroy',$factura->idFacturas),'method'=>'delete')) !!}
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -17,5 +17,5 @@
 			</div>
 		</div>
 	</div>
-	{{Form::Close()}}
+	{!! Form::Close() !!}
 </div>

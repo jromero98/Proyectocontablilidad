@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
-@section('content')
+@section('contenido')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Hola</div>
+                <div class="panel-heading">Hola {{ Auth::user()->name }}</div>
 
                 <div class="panel-body">
-                    Te has registrado!
+                    Bienvenido a Asoviz
                 </div>
             </div>
         </div>

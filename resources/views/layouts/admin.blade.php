@@ -80,20 +80,34 @@
                                     </ul>
                                 </li>
                                 @endif
+                                @permission('administrar-puc')
                                 <li><a href="/puc"><i class="fa fa-pied-piper-pp"></i> Administracion del PUC </a>
                                 </li>
+                                @endpermission
+                                @if(Auth::user()->can('facturar-ventas')||Auth::user()->can('facturar-compras'))
                                 <li><a><i class="fa fa-shopping-cart"></i> Facturacion <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                       @permission('facturar-ventas')
                                         <li><a href="/ventas">Ventas</a></li>
+                                        @endpermission
+                                        @permission('facturar-compras')
                                         <li><a href="/compras">Compras</a></li>
+                                        @endpermission
                                     </ul>
                                 </li>
+                                @endif
+                                @if(Auth::user()->can('articulo')||Auth::user()->can('categoria'))
                                 <li><a><i class="fa fa-building"></i> Almacen <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="/almacen/articulo">Articulos</a></li>
-                                        <li><a href="/almacen/categoria">Categorias</a></li>
+                                       @permission('articulo')
+                                            <li><a href="/almacen/articulo">Articulos</a></li>
+                                        @endpermission
+                                        @permission('categoria')
+                                            <li><a href="/almacen/categoria">Categorias</a></li>
+                                        @endpermission
                                     </ul>
                                 </li>
+                                @endif
                             </ul>
                         </div>
 
@@ -155,69 +169,34 @@
                                     {{ csrf_field() }}
                                 </form>
                             </li>
-
+                            <?php $articulos = DB::table('articulos')->select('nom_articulo','stock','minimo','maximo')->get(); $cuantos=0;?>
+                            @foreach($articulos as $articulo)
+                                @if($articulo->stock <= $articulo->minimo)
+                                    {{$cuantos++}}
+                                @endif
+                            @endforeach
                             <li role="presentation" class="dropdown">
                                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
+                                    <i class="fa fa-bell-o"></i>
+                                    @if($cuantos>0)
+                                        <span class="badge bg-green">{{$cuantos}}</span>
+                                    @endif
                                 </a>
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{{asset('../images/img.jpg')}}" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{{asset('../images/img.jpg')}}" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{{asset('../images/img.jpg')}}" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{{asset('../images/img.jpg')}}" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a>
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
+                                   @foreach($articulos as $articulo)
+                                        @if($articulo->stock <= $articulo->minimo)
+                                            <li>
+                                                <a>
+                                                    <span>
+                                                      <span>{{$articulo->nom_articulo}}</span>
+                                                    </span>
+                                                    <span class="message">
+                                                          El articulo presenta pocas existencias.
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </li>
                         </ul>

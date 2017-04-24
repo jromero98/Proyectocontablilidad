@@ -68,13 +68,12 @@ class VentasController extends Controller
         ->where('Tipo_factura',"=","Fc")
         ->where('stock','>','0')
         ->groupby('articulo','idArticulos','stock')->get();
-        if(count($articulos)==0){
-            $articulos=DB::table('articulos')
-            ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'idArticulos','stock',DB::raw('(0) as precio_promedio'))
-            ->where('stock','>','0')
-            ->get();
-        }
-        return view('facturacion.ventas.create',["articulos"=>$articulos,"factura"=>$tpfactura]);
+        
+        $articulos2=DB::table('articulos')
+        ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'idArticulos','stock',DB::raw('(0) as precio_promedio'))
+        ->where('stock','>','0')
+        ->get();
+        return view('facturacion.ventas.create',["articulos2"=>$articulos2,"articulos"=>$articulos,"factura"=>$tpfactura]);
     }
     public function update(Request $request,$id){
         $factura=Facturas::findOrFail($id);

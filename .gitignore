@@ -36,6 +36,10 @@
 /vendor/watson
 /vendor/webmozart
 /vendor/zizaco
+/vendor/barryvdh
+/vendor/dompdf
+/vendor/phenx
+/vendor/sabberworm
 /.idea
 Homestead.json
 Homestead.yaml
