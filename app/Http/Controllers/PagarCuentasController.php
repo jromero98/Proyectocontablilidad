@@ -9,20 +9,19 @@ use App\ContabilidadManual;
 use App\DetalleFactura;
 use App\Facturas;
 use DB;
-use Log;
 
 class PagarCuentasController extends Controller{
     
     public function pagarcompra(Request $request){
         $id=Input::get('id');
-        /*$factura=Facturas::findOrFail($id);
+        $factura=Facturas::findOrFail($id);
         $factura->Estado='Pagado';
-        $factura->update();*/
+        $factura->update();
         $valores=Input::get('valor');
+        for($i=0;$i<count($valores);$i++){
+            $valores[$i]=str_replace(",", "", $valores[$i]);
+        }
         $naturalezas=Input::get('naturaleza');
-        error_log('*********');
-        error_log('Hay tantos objetos: '.count($naturalezas));
-        error_log('*********');
         $factura=Facturas::findOrFail($id);
         $total=DB::table('facturas')
                 ->join('detalle_factura','idFactura','=','idFacturas')
@@ -43,7 +42,7 @@ class PagarCuentasController extends Controller{
                 }else{
                     PagarCuentasController::subircuentas(2205,'Fc'.$factura->Num_factura,$detallefactura->total*($t/100),$id,$detallefactura->idArticulo,1);
                 }
-                if($i==1){
+                if($i==0){
                      PagarCuentasController::subircuentas(14,'Fc'.$factura->Num_factura,$detallefactura->total-$detallefactura->total*0.19,$id,$detallefactura->idArticulo,0);
                 
                     PagarCuentasController::subircuentas(2408,'Fc'.$factura->Num_factura,$detallefactura->total*0.19,$id,$detallefactura->idArticulo,0);
@@ -58,6 +57,9 @@ class PagarCuentasController extends Controller{
         $factura->Estado='Pagado';
         $factura->update();
         $valores=Input::get('valor');
+        for($i=0;$i<count($valores);$i++){
+            $valores[$i]=str_replace(",", "", $valores[$i]);
+        }
         $naturalezas=Input::get('naturaleza');
         $total=DB::table('facturas')
                 ->join('detalle_factura','idFactura','=','idFacturas')
@@ -81,16 +83,16 @@ class PagarCuentasController extends Controller{
             foreach($detallesfactura as $detallefactura){
                 $t=($valores[$i]*100)/$total->total;
                 if($naturalezas[$i]==0){
-                    PagarCuentasController::subircuentas(1105,'Fv'.$factura->Num_factura,$detallesfactura->total*($t/100),$factura,$detallefactura->idArticulos,1);
+                    PagarCuentasController::subircuentas(1105,'Fv'.$factura->Num_factura,$detallefactura->total*($t/100),$id,$detallefactura->idArticulo,0);
                 }else{
-                    PagarCuentasController::subircuentas(1305,'Fv'.$factura->Num_factura,$detallesfactura->total*($t/100),$factura,$detallefactura->idArticulos,1);
+                    PagarCuentasController::subircuentas(1305,'Fv'.$factura->Num_factura,$detallefactura->total*($t/100),$id,$detallefactura->idArticulo,1);
                 }
                 if($i==0){
-                    PagarCuentasController::subircuentas(4135,'Fv'.$factura->Num_factura,$detallefactura->total,$id,$detallefactura->idArticulo,1);
+                    PagarCuentasController::subircuentas(4135,'Fv'.$factura->Num_factura,$detallefactura->total-$detallefactura->total*0.19,$id,$detallefactura->idArticulo,1);
                 
                     PagarCuentasController::subircuentas(2408,'Fv'.$factura->Num_factura,$detallefactura->total*0.19,$id,$detallefactura->idArticulo,1);
                     foreach($articulos as $articulo){
-                        if($articulo->idArticulos==$detallefactura->idArticulos){
+                        if($articulo->idArticulos==$detallefactura->idArticulo){
                             $valor=$detallefactura->cantidad*$articulo->precio_promedio-$detallefactura->cantidad*$articulo->precio_promedio*0.19;
                             PagarCuentasController::subircuentas(14,'Fv'.$factura->Num_factura,$valor,$id,$detallefactura->idArticulo,1);
                             PagarCuentasController::subircuentas(61,'Fv'.$factura->Num_factura,$valor,$id,$detallefactura->idArticulo,0);

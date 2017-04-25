@@ -92,7 +92,7 @@
 			<div class="form-group">
 				<input type="hidden" value="{{ csrf_token() }}" name="token">
 				<button class="btn btn-primary" type="submit">Guardar</button>
-				<a href="/compras"class="btn btn-danger">Cancelar</a>
+				<a href="/compras" class="btn btn-danger">Cancelar</a>
 			</div>
 		</div>
 	</div>

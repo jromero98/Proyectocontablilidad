@@ -65,6 +65,7 @@
                                     <ul class="nav child_menu">
                                         <li><a href="/contabilidad-manual">Contabilidad Manual</a></li>
                                         <li><a href="/balance">Balance</a></li>
+                                        <li><a href="/kardex">Kardex</a></li>
                                     </ul>
                                 </li>
                                 @endpermission 

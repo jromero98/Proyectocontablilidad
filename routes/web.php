@@ -33,4 +33,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/ventas','VentasController');
     Route::resource('/almacen/articulo','ArticulosController');
     Route::resource('/almacen/categoria','CategoriasController');
+    Route::get('/kardex', 'BalanceController@kardex');
 });
