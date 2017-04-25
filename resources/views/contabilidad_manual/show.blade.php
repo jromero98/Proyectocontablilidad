@@ -17,6 +17,7 @@
                 <th data-field="Haber">Haber</th>   
             </tr>
         </thead>
+        
         <tbody>
         <?php $totalh = 0.0; $totald = 0.0; ?>
         @foreach ($cuentas as $c)  
@@ -39,6 +40,7 @@
 
         @endforeach
         </tbody>
+        
         <thead class="thead-inverse">
             <tr>
                 <th data-field=""></th>
@@ -49,6 +51,7 @@
                 <th data-field="Haber">{{number_format($totald)}}</th>   
             </tr>
         </thead>
+        
     </table>
 </div>
 @else

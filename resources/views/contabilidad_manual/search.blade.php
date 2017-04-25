@@ -29,10 +29,11 @@
 		    @else
 		        <input type="text" class="form-control" name="comprobante" value="{{$busqueda->comprobante}}" placeholder="Ej:Fv001">
             @endif
-        </div>
-        <span class="input-group-btn">
+            <span class="input-group-btn">
 			<button type="submit" class="btn btn-primary">Buscar</button>
 		</span>
+        </div>
+        
 	</div>
 </div>
 

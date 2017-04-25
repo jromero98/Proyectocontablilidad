@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('contenido')
 <div class="row">
-	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+	<div class="col-xs-12" style="text-align:center">
 		<h3>Facturas de compra   <a class="btn btn-labeled btn btn-success" href="compras/create"><span class="btn-label"><i class="fa fa-cart-plus"></i></span>Nueva</a></h3>
 		@include('facturacion.compras.search')
 		<br>

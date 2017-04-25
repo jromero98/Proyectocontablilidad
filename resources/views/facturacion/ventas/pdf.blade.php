@@ -19,6 +19,8 @@
     <body>
 
     <div class="header">
+       
+    
         <h1>
             Factura de Venta # {{$factura->Num_factura}}
             <small>

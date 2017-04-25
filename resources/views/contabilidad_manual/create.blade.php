@@ -1,4 +1,5 @@
 @extends('layouts.admin') @section('contenido')
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -62,11 +63,12 @@
                         @else
                             {!! Form::textarea('desc', $value = "$descripcion", ['class' => 'form-control', 'rows' => 3,'required'=>'required']) !!}
                         @endif      
-                        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+                        <span class="help-block">En este segmento debe ingresar la descripción de la contabilidad manual que se realizara.</span>
                     </div>
                 </div>
 
                 <div class="row test">
+                   
                     <div class="col-xs-3">
                         {!! Form::label('cod_cuenta', 'Codigo y Cuenta:') !!}
                     </div>
@@ -101,11 +103,13 @@
                     <div class="col-xs-3">
                         {!! Form::number('auxi', $value = null, ['class' => 'form-control','id'=>'auxi', 'placeholder' => 'Auxiliar']) !!}
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-12" style="text-align:center">
                        <br>
                         <button type="button" id="btn_add" class="btn btn-primary">Agregar</button>
                     </div>
+                
                 </div>
+                <br>
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="table-responsive">
@@ -145,16 +149,31 @@
                         </table>
                     </div>
                 </div>
+                
                 <input type="hidden" value="{{ csrf_token() }}" name="token">
-                <div class="container-fluid">
+                <div class="col-xs-12" style="text-align:center; margin-left: 230px;">
                     {{ Form::submit('Guardar', ['id'=>'guardar','class' => 'btn btn-default btn-lg btn-success pull-left'] ) }}
                 </div>
 
                 {!! Form::close() !!}
+                
             </div>
         </div>
     </div>
 </div>
+
+
+<style>
+
+    .dataTables_filter [type="search"]{
+    
+        margin-left: -35px;
+    
+    }
+
+
+</style>
+
 <div class="col-md-4 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
@@ -166,7 +185,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <table class="table table-striped table-bordered table table-condensed table-hover" id="terceros">
+            <table class="table table-striped table-bordered table table-condensed " id="terceros" width="100%" cellspasing="0">
                 <thead class="thead-inverse">
                     <tr>
                         <th data-field="Codigo">Codigo</th>

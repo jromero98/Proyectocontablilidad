@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('contenido')
 <div class="row">
-	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+	<div class="col-xs-12" style="text-align:center">
 		<h3>Administrar Puc   <a href="puc/create"><button class="btn btn-success">Nueva</button></a> </h3>
 		@include('administracion_puc.search')
 		<br/>
@@ -39,7 +39,9 @@
 					@include('administracion_puc.modal')
 				@endforeach
 			</table>
-			{{$pucs->appends(Request::only(['searchText','clase']))->render()}}
+			<div class="text-center">
+			    {{$pucs->appends(Request::only(['searchText','clase']))->render()}}
+			</div>
 		</div>
 	</div>
 </div>
