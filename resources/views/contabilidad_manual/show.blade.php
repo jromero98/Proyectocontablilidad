@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('contenido')
-    <div id="striped" class="section scrollspy">
-            <h2 class="header"> Balance</h2>
-    </div>
-@include('contabilidad_manual.search')
+   <div style="text-align:center">
+            <h3> Balance</h3>
+    @include('contabilidad_manual.search')
+</div>
 @if(!count($cuentas)==0)
 <div style="overflow-x: auto;">
     <table width="50" class="table table-striped table-bordered" id="myTable">
