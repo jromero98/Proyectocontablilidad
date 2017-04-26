@@ -1,15 +1,27 @@
 @extends ('layouts.admin')
 @section ('contenido')
-<script src="{{asset('js/bootstrap.js')}}"></script>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<h3>Editar compra</h3>
 		</div>
 	</div>
-			{!!Form::model($detalles,['method'=>'PATCH','route'=>['compras.update',$factura->idFacturas],'id'=>'editar'])!!}
+	@include('facturacion.compras.ingresarmodal')  
+			{!! Form::model($detalles,['method'=>'PATCH','route'=>['compras.update',$factura->idFacturas],'id'=>'editar']) !!}
 			{{Form::token()}}
 
 	<div class="row">
+		<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+				<label form="proveedor">Proveedor</label>
+				<select name="idproveedor" id="proveedor" class="form-control selectpicker" data-live-search="true">
+					@foreach($personas as $persona)
+						<option value="{{$persona->doc_persona}}">{{$persona->doc_persona}}   {{$persona->nombre_persona}}</option>
+					@endforeach
+				</select>
+			</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+				<br>
+				<a class="btn btn-labeled btn btn-success btn-circle" id="plus" href="" data-target="#modal-ingresar" data-toggle="modal"><i class="fa fa-plus"></i></a>
+			</div>        
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 			<div class="form-group">
 				<label for="comprobante">Factura de venta N°</label>
@@ -19,7 +31,7 @@
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 			<div class="form-group">
 				<label for="fecha">Fecha de la factura</label>
-				<input type="date" value="{{$factura->fecha}}" name="fecha" class="form-control" placeholder="Fecha...">
+				<input type="date" value="<?php echo Carbon\Carbon::parse($factura->fecha)->format('Y-m-d'); ?>" name="fecha" class="form-control" placeholder="Fecha...">
 			</div>
 		</div>		
 	</div>
@@ -116,9 +128,9 @@
 {!!Form::close()!!}
 <script>
 	$(document).ready(function(){
-	$('#btn_add').click(function(){
-		agregar();
-		});
+		$('#btn_add').click(function(){
+			agregar();
+			});
 	});
 	var cont = document.getElementById("detalles").rows.length-1;
 	total={{$valor}};
@@ -157,6 +169,14 @@
 			$("#guardar").hide();
 		}
 	}
+	 function cargarp(){
+			$.get(`/persona/index`, function(res, sta){
+				$("#idproveedor").empty();
+				res.forEach(element => {
+					$("#idproveedor").append(`<option value=${element.doc_persona}>${element.doc_persona} ${element.nombre_persona}</option>`);
+				});
+			});
+ }
 	function eliminar(index){
       total=total-subtotal[index]; 
       $("#total").html("$. " + number_format(total,0));   

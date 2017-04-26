@@ -1,107 +1,118 @@
 @extends ('layouts.admin')
 @section ('contenido')
-	<div class="row">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Nueva Compra</h3>
-		</div>
-	</div>
-    {!!Form::open(array('url'=>'compras','method'=>'POST','autocomplete'=>'off'))!!}
-    {{Form::token()}}
-
-	<div class="row">            
-		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-			<div class="form-group">
-				<label for="comprobante">Factura de compra N°</label>
-				<input type="text" readonly value="{{$factura->cfactura}}" name="comprobante" class="form-control" placeholder="Numero de Comprobante...">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<h3>Nueva Compra</h3>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-			<div class="form-group">
-				<label for="fecha">Fecha actual</label>
-				<input type="date" value="<?php echo date('Y-m-d'); ?>" name="fecha" class="form-control" placeholder="Fecha...">
-			</div>
-		</div>
-	</div>
 
-	<div class="row">
-	<div class="panel panel-primary">
-		<div class="panel-body">
+		@include('facturacion.compras.ingresarmodal')   
+	    {!!Form::open(array('id'=>'formulario1','url'=>'compras','method'=>'POST','autocomplete'=>'off'))!!}
+	    {{Form::token()}}
+		<div class="row"> 
+			<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+				<label form="proveedor">Proveedor</label>
+				<select name="idproveedor" id="proveedor" class="form-control selectpicker" data-live-search="true">
+					@foreach($personas as $persona)
+						<option value="{{$persona->doc_persona}}">{{$persona->doc_persona}}   {{$persona->nombre_persona}}</option>
+					@endforeach
+				</select>
+			</div>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+				<br>
+				<a class="btn btn-labeled btn btn-success btn-circle" id="plus" href="" data-target="#modal-ingresar" data-toggle="modal"><i class="fa fa-plus"></i></a>
+			</div>        
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-				<div class="from-group">
-                    <label>Articulo</label>
-                    <select name="pidarticulo" class="form-control selectpicker" id="pidarticulo" data-live-search='true'>
-                        <option value="">Seleccione articulo</option>
-                        @foreach($articulos as $art)
-                        <option value="{{$art->idArticulos}}">{{$art->idArticulos}} {{$art->nom_articulo}}</option>
-                        @endforeach
-                    </select> 
-			    </div>
+				<div class="form-group">
+					<label for="comprobante">Factura de compra N°</label>
+					<input type="text" readonly value="{{$factura->cfactura}}" name="comprobante" class="form-control" placeholder="Numero de Comprobante...">
+				</div>
 			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-			<div class="form-group">
-			<label for="cantidad">Cantidad</label>
-				<input type="number"  name="pcantidad" class="form-control" id="pcantidad" placeholder="Cantidad...">
-			</div>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-			<div class="form-group">
-			<label for="precio_compra">Precio Compra</label>
-				<input type="text" name="precio_compra" class="form-control" id="pprecio_compra" placeholder="Precio Compra...">
-			</div>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-			<div class="form-group">
-			<label for="precio_venta">Precio Venta</label>
-				<input type="text" name="pprecio_venta" class="form-control" id="pprecio_venta" placeholder="Precio Venta...">
-			</div>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-			<div class="form-group">
-			    <br/>
-				<a class="btn btn-labeled btn btn-primary" id="btn_add"><span class="btn-label"><i class="fa fa-plus"></i></span>Agregar</a>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+				<div class="form-group">
+					<label for="fecha">Fecha actual</label>
+					<input type="date" value="<?php echo date('Y-m-d'); ?>" name="fecha" class="form-control" placeholder="Fecha...">
+				</div>
 			</div>
 		</div>
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<div class="table-responsive">
-				<table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-					<thead style=" background-color:#A9D0F5 ">
-						<th>Opciones</th>
-						<th>Articulo</th>
-						<th>Cantidad</th>
-						<th>Precio Compra</th>
-						<th>Precio Venta</th>
-						<th>Subtotal</th>
-					</thead>
-					<tfoot>
-						<th>Total</th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th><h4 id="total">$ 0.00</h4></th>
-					</tfoot>
-					<tbody>
-						
-					</tbody>
-				</table>
-			</div>
-		</div>
-		</div>
-	</div>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
-			<div class="form-group">
-				<input type="hidden" value="{{ csrf_token() }}" name="token">
-				<button class="btn btn-primary" type="submit">Guardar</button>
-				<a href="/compras" class="btn btn-danger">Cancelar</a>
-			</div>
-		</div>
-	</div>
 
+		<div class="row">
+		<div class="panel panel-primary">
+			<div class="panel-body">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<div class="from-group">
+	                    <label>Articulo</label>
+	                    <select name="pidarticulo" class="form-control selectpicker" id="pidarticulo" data-live-search='true'>
+	                        @foreach($articulos as $art)
+	                        <option value="{{$art->idArticulos}}">{{$art->idArticulos}} {{$art->nom_articulo}}</option>
+	                        @endforeach
+	                    </select> 
+				    </div>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+				<div class="form-group">
+				<label for="cantidad">Cantidad</label>
+					<input type="number"  name="pcantidad" class="form-control" id="pcantidad" placeholder="Cantidad...">
+				</div>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+				<div class="form-group">
+				<label for="precio_compra">Precio Compra</label>
+					<input type="text" name="precio_compra" class="form-control" id="pprecio_compra" placeholder="Precio Compra...">
+				</div>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+				<div class="form-group">
+				<label for="precio_venta">Precio Venta</label>
+					<input type="text" name="pprecio_venta" class="form-control" id="pprecio_venta" placeholder="Precio Venta...">
+				</div>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+				<div class="form-group">
+				    <br/>
+					<a class="btn btn-labeled btn btn-primary" id="btn_add"><span class="btn-label"><i class="fa fa-plus"></i></span>Agregar</a>
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="table-responsive">
+					<table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
+						<thead style=" background-color:#A9D0F5 ">
+							<th>Opciones</th>
+							<th>Articulo</th>
+							<th>Cantidad</th>
+							<th>Precio Compra</th>
+							<th>Precio Venta</th>
+							<th>Subtotal</th>
+						</thead>
+						<tfoot>
+							<th>Total</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th><h4 id="total">$ 0.00</h4></th>
+						</tfoot>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+			</div>
+		</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
+				<div class="form-group">
+					<input type="hidden" value="{{ csrf_token() }}" name="token">
+					<button class="btn btn-primary" type="submit">Guardar</button>
+					<a href="/compras" class="btn btn-danger">Cancelar</a>
+				</div>
+			</div>
+		</div>
 {!!Form::close()!!}
-<script>
+<script type="">
 	$(document).ready(function(){
-	$('#btn_add').click(function(){
-		agregar();
+		$('#btn_add').click(function(){
+			agregar();
 		});
 	});
 	var cont=0;
@@ -169,7 +180,19 @@ setInterval( function() {
         else  
         return false; 
     } 
-    
+ function cargarp(){
+ 	$(document).ready(function(){
+		$.get(`/persona/index`, function(res, sta){
+		$("#idproveedor").change(function(){
+            alert($('select[id=idproveedor]').val());
+		});
+				$("#idproveedor").empty();
+				res.forEach(element => {
+					$("#idproveedor").append(`<option value=${element.doc_persona}>${element.doc_persona} ${element.nombre_persona}</option>`);
+				});
+		});
+	});
+ }
 function number_format(amount, decimals) {
 
     amount += ''; // por si pasan un numero en vez de un string

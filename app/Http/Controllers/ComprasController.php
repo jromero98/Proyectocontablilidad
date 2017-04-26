@@ -7,6 +7,7 @@ use App\Http\Requests,PDF;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\DetalleFactura;
+use App\Persona;
 use App\Facturas;
 use App\Articulos;
 use Carbon\Carbon;
@@ -42,7 +43,8 @@ class ComprasController extends Controller
         foreach ($detallefactura as $detalle) {
             $valor += ($detalle->cantidad*$detalle->precio_compra);
         }
-        return view('facturacion.compras.edit',["factura"=>$tpfactura,"detalles"=>$detallefactura,"valor"=>$valor,"articulo"=>$articulos]);
+        $proveedores=Persona::get();
+        return view('facturacion.compras.edit',["factura"=>$tpfactura,"detalles"=>$detallefactura,"valor"=>$valor,"articulo"=>$articulos,"personas"=>$proveedores]);
     }
     public function create(){
         $tpfactura=DB::table('Facturas')
@@ -51,10 +53,13 @@ class ComprasController extends Controller
         ->groupBy('Tipo_factura')
         ->first();
         $articulos=Articulos::get();
-        return view('facturacion.compras.create',["articulos"=>$articulos,"factura"=>$tpfactura]);
+        $proveedores=Persona::get();
+        return view('facturacion.compras.create',["articulos"=>$articulos,"factura"=>$tpfactura,"personas"=>$proveedores]);
     }
     public function update(Request $request,$id){
         $factura=Facturas::findOrFail($id);
+        $factura->doc_persona=Input::get('idproveedor');
+        $factura->update();
         $detallefactura=DetalleFactura::where('idFactura','=',$factura->idFacturas)->get();
         $articulos = Input::get('idarticulo');
         $cantidades = Input::get('cantidad');
@@ -109,6 +114,7 @@ class ComprasController extends Controller
         $factura->num_factura=$request->get('comprobante');
         $factura->fecha=$request->get('fecha')." ".Carbon::now('America/Bogota')->toTimeString();
         $factura->Estado='Activo';
+        $factura->doc_persona=Input::get('idproveedor');
         $factura->save();
         echo  $factura->idFacturas;
         $articulos = Input::get('idarticulo');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\DetalleFactura;
+use App\Persona;
 use App\Facturas;
 use App\Articulos;
 use Carbon\Carbon;
@@ -38,22 +39,23 @@ class VentasController extends Controller
         $articulos=DB::table('articulos')
         ->join('detalle_factura','idArticulo',"=","idArticulos")
         ->join('facturas','idfacturas','=','idfactura')
-        ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'nom_articulo','idArticulos','stock',DB::raw('avg(precio_venta) as precio_promedio'))
+        ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'idArticulos','stock',DB::raw('avg(precio_venta) as precio_promedio'))
         ->where('Tipo_factura',"=","Fc")
         ->where('stock','>','0')
-        ->groupby('nom_articulo','articulo','idArticulos','stock')->get();
-        $arti=Articulos::get();
-        if(count($articulos)==0){
-            $articulos=DB::table('articulos')
-            ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'nom_articulo','idArticulos','stock',DB::raw('(0) as precio_promedio'))
-            ->where('stock','>','0')
-            ->get();
-        }
+        ->where('articulos.Estado','=','Activo')
+        ->groupby('articulo','idArticulos','stock')->get();
+        
+        $articulos2=DB::table('articulos')
+        ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'idArticulos','stock',DB::raw('(0) as precio_promedio'))
+        ->where('stock','>','0')
+        ->where('Estado','=','Activo')
+        ->get();
         $valor=0;
         foreach ($detallefactura as $detalle) {
             $valor += ($detalle->cantidad*$detalle->precio_venta-$detalle->descuento);
         }
-        return view('facturacion.ventas.edit',["articulos"=>$articulos,"factura"=>$tpfactura,"detalles"=>$detallefactura,"valor"=>$valor,"articulo"=>$arti]);
+        $proveedores=Persona::get();
+        return view('facturacion.ventas.edit',["articulos2"=>$articulos2,"articulos"=>$articulos,"factura"=>$tpfactura,"detalles"=>$detallefactura,"valor"=>$valor,"personas"=>$proveedores]);
     }
     public function create(){
         $tpfactura=DB::table('Facturas')
@@ -67,16 +69,21 @@ class VentasController extends Controller
         ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'idArticulos','stock',DB::raw('avg(precio_venta) as precio_promedio'))
         ->where('Tipo_factura',"=","Fc")
         ->where('stock','>','0')
+        ->where('articulos.Estado','=','Activo')
         ->groupby('articulo','idArticulos','stock')->get();
         
         $articulos2=DB::table('articulos')
         ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'idArticulos','stock',DB::raw('(0) as precio_promedio'))
         ->where('stock','>','0')
+        ->where('Estado','=','Activo')
         ->get();
-        return view('facturacion.ventas.create',["articulos2"=>$articulos2,"articulos"=>$articulos,"factura"=>$tpfactura]);
+        $proveedores=Persona::get();
+        return view('facturacion.ventas.create',["articulos2"=>$articulos2,"articulos"=>$articulos,"factura"=>$tpfactura,"personas"=>$proveedores]);
     }
     public function update(Request $request,$id){
         $factura=Facturas::findOrFail($id);
+        $factura->doc_persona=Input::get('idproveedor');
+        $factura->update();
         $detallefactura=DetalleFactura::where('idFactura','=',$factura->idFacturas)->get();
         $articulos = Input::get('idarticulo');
         $cantidades = Input::get('cantidad');
@@ -151,6 +158,7 @@ class VentasController extends Controller
         $factura->num_factura=$request->get('comprobante');
         $factura->fecha=$request->get('fecha')." ".Carbon::now('America/Bogota')->toTimeString();
         $factura->Estado='Activo';
+        $factura->doc_persona=Input::get('idproveedor');
         $factura->save();
         echo  $factura->idFacturas;
         $articulos = Input::get('idarticulo');

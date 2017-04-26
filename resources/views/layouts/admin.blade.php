@@ -18,6 +18,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"></script>
+
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <!-- Font Awesome -->
     <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
     <!-- NProgress -->
@@ -25,6 +30,18 @@
 
     <!-- Custom Theme Style -->
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+    <style type="text/css">
+    .btn-circle {
+      
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      padding: 10px 14px;
+      font-size: 14px;
+      line-height: 1.33;
+      border-radius: 25px;
+    }
+    </style>
 </head>
 
 <body class="nav-md">
@@ -65,6 +82,7 @@
                                     <ul class="nav child_menu">
                                         <li><a href="/contabilidad-manual">Contabilidad Manual</a></li>
                                         <li><a href="/balance">Balance</a></li>
+                                        <li><a href="/balance-productos">Balance de Articulos</a></li>
                                         <li><a href="/kardex">Kardex</a></li>
                                     </ul>
                                 </li>
@@ -173,7 +191,7 @@
                             <?php $articulos = DB::table('articulos')->select('nom_articulo','stock','minimo','maximo')->get(); $cuantos=0;?>
                             @foreach($articulos as $articulo)
                                 @if($articulo->stock <= $articulo->minimo)
-                                    {{$cuantos++}}
+                                    <?php  $cuantos++?>
                                 @endif
                             @endforeach
                             <li role="presentation" class="dropdown">

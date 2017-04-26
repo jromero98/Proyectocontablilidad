@@ -64,5 +64,11 @@ class Kernel extends HttpKernel
         'ver-rol'=> \App\Http\Middleware\ver_rol::class,
         'crear-rol'=> \App\Http\Middleware\crear_rol::class,
         'editar-rol'=> \App\Http\Middleware\editar_rol::class,
+        'administrar-puc'=> \App\Http\Middleware\AdministraPuc::class,
+        'facturar-ventas'=> \App\Http\Middleware\FacturarVentas::class,
+        'facturar-compras'=> \App\Http\Middleware\FacturarCompras::class,
+        'categoria'=> \App\Http\Middleware\Categoria::class,
+        'articulo'=> \App\Http\Middleware\Articulo::class,
+        'ver-kardex'=> \App\Http\Middleware\Kardex::class,
     ];
 }

@@ -11,10 +11,10 @@
 
     <title>ASOVIZ</title>
 
-    <!-- Styles 
+    <!-- Styles -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
-    <link href="{{asset('css/nprogress.css')}}" rel="stylesheet">-->
+    <link href="{{asset('css/nprogress.css')}}" rel="stylesheet">
     <link href="{{asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">

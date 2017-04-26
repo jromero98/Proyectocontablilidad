@@ -1,15 +1,28 @@
 @extends ('layouts.admin')
 @section ('contenido')
-<script src="{{asset('js/bootstrap.js')}}"></script>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<h3>Editar venta</h3>
 		</div>
 	</div>
+
+			@include('facturacion.ventas.ingresarmodal')
 			{!!Form::model($detalles,['method'=>'PATCH','route'=>['ventas.update',$factura->idFacturas],'id'=>'editar'])!!}
 			{{Form::token()}}
 
 	<div class="row">
+		<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+			<label form="proveedor">Cliente</label>
+			<select name="idproveedor" id="proveedor" class="form-control selectpicker" data-live-search="true">
+					@foreach($personas as $persona)
+					<option value="{{$persona->doc_persona}}">{{$persona->doc_persona}}   {{$persona->nombre_persona}}</option>
+				@endforeach
+			</select>
+		</div>
+		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+			<br>
+			<a class="btn btn-labeled btn btn-success btn-circle" href="" data-target="#modal-ingresar" data-toggle="modal"><i class="fa fa-plus"></i></a>
+		</div> 
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 			<div class="form-group">
 				<label for="comprobante">Factura de venta N°</label>

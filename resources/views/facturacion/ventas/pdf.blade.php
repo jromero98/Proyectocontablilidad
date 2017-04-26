@@ -19,30 +19,62 @@
     <body>
 
     <div class="header">
-       
+       <?php 
+                        $persona=DB::table('persona')
+                            ->select('doc_persona','nombre_persona','direccion','telefono', 'email')
+                            ->where('doc_persona',"=",$factura->doc_persona)
+                            ->first();
+                    ?>
     
         <h1>
             Factura de Venta # {{$factura->Num_factura}}
             <small>
                 Fecha {{Carbon\Carbon::parse($factura->fecha)->format('d/m/Y')}}
             </small>
+            <small>
+                Nit 123123123-8
+            </small>
+            <small>
+                 La Arboleda
+            </small>
         </h1>
     </div>
     <table class="client-detail">
-        <tr>
+        @if(count($persona)==0)
+            <tr>
             <th style="width:100px;">
-                Cliente
+                Cliente:  
             </th>
             <td></td>
         </tr>
         <tr>
-            <th>CC. Nit</th>
+            <th>CC. Nit:  
+            </th>
             <td></td>
         </tr>
         <tr>
-            <th>Dirección</th>
+            <th>Dirección 
+            </th>
             <td></td>
         </tr>
+        @else
+            <tr>
+            <th style="width:100px;">
+                Cliente:  {{$persona->nombre_persona}}
+            </th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>CC. Nit:  {{$persona->doc_persona}}
+            </th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Dirección {{$persona->direccion}}
+            </th>
+            <td></td>
+        </tr>
+        @endif
     </table>
 
     <hr />

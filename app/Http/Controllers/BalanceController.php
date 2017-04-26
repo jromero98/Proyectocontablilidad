@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Articulos;
+use App\Facturas;
 use DB;
 
 class BalanceController extends Controller
@@ -154,5 +155,32 @@ class BalanceController extends Controller
             $articulos=Articulos::get();
             return view ('contabilidad_manual.kardex',['cuentas'=> $cuentas,'articulos'=> $articulos,"busqueda"=>$request]);
         }
+    }
+    public function kardexk(Request $request){
+        if ($request){
+            $arti=trim($request->get('articulo'));
+            $facturas=Facturas::where("Estado","=","Pagado")->get();
+            $articulos=Articulos::where('stock','>','0')
+            ->where('Estado','=','Activo')
+            ->get();
+            foreach ($articulos as $articulo) {
+                foreach ($facturas as $factura) {
+                    $detallesfactura=DB::table('facturas')
+                            ->join('detalle_factura','idFactura','=','idFacturas')
+                            ->select('idFacturas','Tipo_factura','Num_factura','idArticulo','cantidad','precio_compra','precio_venta',DB::raw('(cantidad*precio_compra) as total'),DB::raw('(cantidad*precio_venta) as total2'))
+                            ->where('idFacturas',"=",$factura->idFacturas)->where("idArticulo","=",$articulo->idArticulos)
+                            ->get();
+                    foreach ($detallesfactura as $detallefactura) {
+                       if($detallefactura->Tipo_factura=="Fv"){
+                            $articulo->stock=$articulo->stock-$detallefactura->cantidad;
+                       }else{
+                            $articulo->stock=$articulo->stock+$detallefactura->cantidad;
+                       }
+                    }
+                }
+            }
+
+        }
+        return view ('contabilidad_manual.kardexk',['facturas'=>$facturas,'articulos'=>$articulos,"busqueda"=>$arti]);
     }
 }

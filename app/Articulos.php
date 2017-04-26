@@ -18,6 +18,7 @@ class Articulos extends Model
     'Categorias_idCategorias',
     'stock',
     'maximo',
-    'minimo'
+    'minimo',
+    'Estado'
     ];
 }

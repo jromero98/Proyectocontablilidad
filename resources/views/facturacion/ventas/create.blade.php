@@ -5,10 +5,25 @@
 			<h3>Nueva Venta</h3>
 		</div>
 	</div>
-			{!!Form::open(array('url'=>'ventas','method'=>'POST','autocomplete'=>'off'))!!}
+	
+			@include('facturacion.ventas.ingresarmodal')
+			{!! Form::open(array('url'=>'ventas','method'=>'POST','autocomplete'=>'off')) !!}
 			{{Form::token()}}
 
 	<div class="row">
+		<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+			<label form="proveedor">Cliente</label>
+			<select name="idproveedor" id="proveedor" class="form-control selectpicker" data-live-search="true">
+					@foreach($personas as $persona)
+					<option value="{{$persona->doc_persona}}">{{$persona->doc_persona}}   {{$persona->nombre_persona}}</option>
+				@endforeach
+			</select>
+		</div>
+		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+			<br>
+			<a class="btn btn-labeled btn btn-success btn-circle" href="" data-target="#modal-ingresar" data-toggle="modal"><i class="fa fa-plus"></i></a>
+		</div> 
+
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 			<div class="form-group">
 				<label for="comprobante">Factura de venta N°</label>
@@ -22,7 +37,6 @@
 			</div>
 		</div>		
 	</div>
-
 	<div class="row">
 	<div class="panel panel-primary">
 		<div class="panel-body">
@@ -32,7 +46,18 @@
 				<select name="pidarticulo" class="form-control selectpicker" id="pidarticulo" data-live-search='true'>
 				    <option value="">Seleccione Articulo</option>
 					@foreach($articulos as $art)
-					<option value="{{$art->idArticulos}}_{{$art->stock}}_{{$art->precio_promedio}}">{{$art->articulo}}</option>
+						<option value="{{$art->idArticulos}}_{{$art->stock}}_{{$art->precio_promedio}}">{{$art->articulo}}</option>
+					@endforeach
+					@foreach($articulos2 as $art)
+						{{$si=0}}
+						@foreach($articulos as $articulo)
+							@if($articulo->idArticulos==$art->idArticulos)
+								{{$si=1}}
+							@endif
+						@endforeach
+						@if($si==0)
+							<option value="{{$art->idArticulos}}_{{$art->stock}}_{{$art->precio_promedio}}">{{$art->articulo}}</option>
+						@endif
 					@endforeach
 				</select> 
 			</div>
@@ -104,11 +129,11 @@
 		</div>
 	</div>
 
-{!!Form::close()!!}
+{!! Form::close() !!}
 <script>
 	$(document).ready(function(){
-	$('#btn_add').click(function(){
-		agregar();
+		$('#btn_add').click(function(){
+			agregar();
 		});
 	});
 	var cont=0;
@@ -148,6 +173,14 @@
 			alert("Error al ingresar el detalle del ingreso, revise los datos del articulo");
 		}
 	}
+	function cargarp(){
+			$.get(`/persona/index`, function(res, sta){
+				$("#idproveedor").empty();
+				res.forEach(element => {
+					$("#idproveedor").append(`<option value=${element.doc_persona}>${element.doc_persona} ${element.nombre_persona}</option>`);
+				});
+			});
+ }
 	function limpiar(){
 		$("#pcantidad").val("");
 		$("#pdescuento").val("");
@@ -166,6 +199,8 @@
         $("#pprecio_venta").val(datosArticulo[2]);
         if(datosArticulo[2]==0){
             document.getElementById("pprecio_venta").readOnly = false;
+        }else{
+        	document.getElementById("pprecio_venta").readOnly = true;
         }
         $("#pstock").val(datosArticulo[1]);
     }

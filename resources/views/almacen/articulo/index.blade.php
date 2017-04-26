@@ -21,6 +21,7 @@
 					<th>Opciones</th>
 				</thead>
 				@foreach ($articulos as $art)
+					@if($art->Estado=="Activo")
 					<tr>
 						<td>{{ $art->idArticulos}}</td>
 						<td>{{ $art->nom_articulo}}</td>
@@ -34,6 +35,7 @@
 						</td>
 					</tr>
 					@include('almacen.articulo.modal')
+					@endif
 				@endforeach
 				
 			</table>

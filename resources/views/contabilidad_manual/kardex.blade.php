@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('contenido')
     <div id="striped" class="section scrollspy">
-            <h2 class="header"> Kardex</h2>
+            <h2 class="header"> Balance de Productos</h2>
     </div>
 @include('contabilidad_manual.searchkardex')
 @if(!count($cuentas)==0)

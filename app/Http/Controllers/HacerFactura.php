@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Facturas;
+use App\Persona;
 use App\DetalleFactura;
 use App\Articulos;
 
