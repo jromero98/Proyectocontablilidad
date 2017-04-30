@@ -62,12 +62,12 @@
 				<input type="text" name="precio_compra" class="form-control" id="pprecio_compra" placeholder="Precio Compra...">
 			</div>
 			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+			<!--div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 			<div class="form-group">
 			<label for="precio_venta">Precio Venta</label>
 				<input type="text" name="pprecio_venta" class="form-control" id="pprecio_venta" placeholder="Precio Venta...">
 			</div>
-			</div>
+			</div-->
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 			<div class="form-group">
 			    <br/>
@@ -82,14 +82,14 @@
 						<th>Articulo</th>
 						<th>Cantidad</th>
 						<th>Precio Compra</th>
-						<th>Precio Venta</th>
+						<!--th>Precio Venta</th-->
 						<th>Subtotal</th>
 					</thead>
 					<tfoot>
 						<th>Total</th>
 						<th></th>
 						<th></th>
-						<th></th>
+						<!--th></th-->
 						<th></th>
 						<th><h4 id="total">$ {{number_format($valor)}}</h4></th>
 					</tfoot>
@@ -106,7 +106,7 @@
                                 </td>
                                 <td><input type="number" name="cantidad[]" value="{{$detalle->cantidad}}" readonly></td>
                                 <td><input type="text" name="precio_compra[]" value="{{number_format($detalle->precio_compra)}}" readonly></td>
-                                <td><input type="text" name="precio_venta[]" value="{{number_format($detalle->precio_venta)}}"></td>
+                                <!--td><input type="text" name="precio_venta[]" value="{{number_format($detalle->precio_venta)}}"></td-->
                                 <td>{{number_format($detalle->cantidad*$detalle->precio_compra)}}</td>
                             </tr>
 						@endforeach
@@ -120,7 +120,7 @@
 			<div class="form-group">
 				<input type="hidden" value="{{ csrf_token() }}" name="token">
 				<button class="btn btn-primary" type="submit">Guardar</button>
-				<a href="/ventas"class="btn btn-danger">Cancelar</a>
+				<a href="/compras"class="btn btn-danger">Cancelar</a>
 			</div>
 		</div>
 	</div>
@@ -143,11 +143,11 @@
 		cantidad=$("#pcantidad").val();
 		precio_compra=$("#pprecio_compra").val();
 		precio_venta=$("#pprecio_venta").val();
-	if (idarticulo!="" && cantidad!="" && cantidad>0 && precio_compra!="" && precio_venta!=""){
+	if (idarticulo!="" && cantidad!="" && cantidad>0 && precio_compra!=""){
        subtotal[cont]=cantidad*parseFloat(precio_compra.replace(",",""));
        total+=subtotal[cont];
 			
-			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="text" name="precio_compra[]" value="'+precio_compra+'"></td><td><input type="text" name="precio_venta[]" value="'+precio_venta+'"></td><td>'+number_format(subtotal[cont],0)+'</td></tr>';
+			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="text" name="precio_compra[]" value="'+precio_compra+'"></td><!--td><input type="text" name="precio_venta[]" value="'+precio_venta+'"></td--><td>'+number_format(subtotal[cont],0)+'</td></tr>';
 			cont++;
 			limpiar();
 			$('#total').html("$. " + number_format(total,0));
@@ -183,18 +183,18 @@
       $("#fila" + index).remove();
       evaluar();
   }
-var valueAnterior=document.getElementById("pprecio_venta").value; 
-    function haCambiado() { 
-        if(document.getElementById("pprecio_venta").value!=valueAnterior) { 
-            document.getElementById("pprecio_venta").value= number_format(document.getElementById("pprecio_venta").value,0); 
-            return true; 
-        } 
-        else  
-        return false; 
-    } 
+// var valueAnterior=document.getElementById("pprecio_venta").value; 
+//     function haCambiado() { 
+//         if(document.getElementById("pprecio_venta").value!=valueAnterior) { 
+//             document.getElementById("pprecio_venta").value= number_format(document.getElementById("pprecio_venta").value,0); 
+//             return true; 
+//         } 
+//         else  
+//         return false; 
+//     } 
     setInterval( function() { 
-    if( haCambiado() );
-    if(  evaluar() );
+    //if( haCambiado() );
+    if(  true ){ evaluar()}
     if( haCambiado2() );
 }, 100);
     var valueAnterior=document.getElementById("pprecio_compra").value; 

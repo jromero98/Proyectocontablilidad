@@ -31,7 +31,7 @@
 						@elseif($puc->clase_puc==6)Costo
 						@endif
 						</td>
-						<td>
+						<td class="text-center">
 						    <a href="{{URL::action('AdministrarPucController@edit',$puc->cod_puc)}}"><button class="btn btn-info">Editar</button></a>
 						    <a href="" data-target="#modal-delete-{{$puc->cod_puc}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 						</td>

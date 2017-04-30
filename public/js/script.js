@@ -4,6 +4,7 @@ $("#registro").click(function(){
 	var direccion = $("#direccion").val();
 	var telefono = $("#telefono").val();
 	var email = $("#email").val();
+	var tipo = $("#tipo").val();
 	var token = $("#token").val();
 	var route = "/persona";
 	$.ajax({
@@ -11,11 +12,11 @@ $("#registro").click(function(){
 		headers: {'X-CSRF-TOKEN': token},
 		type: 'POST',
 		dataType: 'json',
-		data:{doc_persona: documento,nombre_persona: nombre,direccion:direccion,telefono: telefono, email: email},
+		data:{doc_persona: documento,nombre_persona: nombre,direccion:direccion,telefono: telefono, email: email, tipo: tipo},
 
 		success:function(){
 			toastr.success("Se ha agregado Satisfactoriamente");
-			$("#documento").val("");
+			$("#num_documento").val("");
 			$("#nombre").val("");
 			$("#direccion").val("");
 			$("#telefono").val("");
@@ -31,7 +32,7 @@ $("#registro").click(function(){
             msg = 'Requested page not found. [404]';
         } else if (jqXHR.status == 500) {
             msg = 'Internal Server Error [500].';
-            msg = 'Los datos Estan incompletos o ya estan registrados.';
+            msg = 'Los datos ya estan registrados.';
         } else if (exception === 'parsererror') {
             msg = 'Requested JSON parse failed.';
         } else if (exception === 'timeout') {

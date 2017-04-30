@@ -25,7 +25,7 @@
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label for="comprobante">Factura de compra N°</label>
-					<input type="text" readonly value="{{$factura->cfactura}}" name="comprobante" class="form-control" placeholder="Numero de Comprobante...">
+					<input type="text" value="{{$factura->cfactura}}" name="comprobante" class="form-control" placeholder="Numero de Comprobante...">
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -61,12 +61,12 @@
 					<input type="text" name="precio_compra" class="form-control" id="pprecio_compra" placeholder="Precio Compra...">
 				</div>
 				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+				<!--div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
 				<label for="precio_venta">Precio Venta</label>
 					<input type="text" name="pprecio_venta" class="form-control" id="pprecio_venta" placeholder="Precio Venta...">
 				</div>
-				</div>
+				</div-->
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
 				    <br/>
@@ -81,7 +81,7 @@
 							<th>Articulo</th>
 							<th>Cantidad</th>
 							<th>Precio Compra</th>
-							<th>Precio Venta</th>
+							<!--th>Precio Venta</th-->
 							<th>Subtotal</th>
 						</thead>
 						<tfoot>
@@ -89,7 +89,7 @@
 							<th></th>
 							<th></th>
 							<th></th>
-							<th></th>
+							<!--th></th-->
 							<th><h4 id="total">$ 0.00</h4></th>
 						</tfoot>
 						<tbody>
@@ -126,11 +126,11 @@
 		cantidad=$("#pcantidad").val();
 		precio_compra=$("#pprecio_compra").val();
 		precio_venta=$("#pprecio_venta").val();
-	if (idarticulo!="" && cantidad!="" && cantidad>0 && precio_compra!="" && precio_venta!=""){
+	if (idarticulo!="" && cantidad!="" && cantidad>0 && precio_compra!=""){
        subtotal[cont]=cantidad*parseFloat(precio_compra.replace(",",""));
        total+=subtotal[cont];
 			
-			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="text" name="precio_compra[]" value="'+precio_compra+'"></td><td><input type="text" name="precio_venta[]" value="'+precio_venta+'"></td><td>'+number_format(subtotal[cont],0)+'</td></tr>';
+			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="text" name="precio_compra[]" value="'+precio_compra+'"></td><!--td><input type="text" name="precio_venta[]" value="'+precio_venta+'"></td--><td>'+number_format(subtotal[cont],0)+'</td></tr>';
 			cont++;
 			limpiar();
 			$('#total').html("$. " + number_format(total,0));
@@ -159,18 +159,18 @@
       evaluar();
   }
 setInterval( function() { 
-    if( haCambiado() );
+    //if( haCambiado() );
     if( haCambiado2() );
 }, 100);
-    var valueAnterior=document.getElementById("pprecio_venta").value; 
-    function haCambiado() { 
-        if(document.getElementById("pprecio_venta").value!=valueAnterior) { 
-            document.getElementById("pprecio_venta").value= number_format(document.getElementById("pprecio_venta").value,0); 
-            return true; 
-        } 
-        else  
-        return false; 
-    } 
+    // var valueAnterior=document.getElementById("pprecio_venta").value; 
+    // function haCambiado() { 
+    //     if(document.getElementById("pprecio_venta").value!=valueAnterior) { 
+    //         document.getElementById("pprecio_venta").value= number_format(document.getElementById("pprecio_venta").value,0); 
+    //         return true; 
+    //     } 
+    //     else  
+    //     return false; 
+    // } 
     var valueAnterior=document.getElementById("pprecio_compra").value; 
     function haCambiado2() { 
         if(document.getElementById("pprecio_compra").value!=valueAnterior) { 

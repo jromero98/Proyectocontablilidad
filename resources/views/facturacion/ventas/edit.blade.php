@@ -70,12 +70,12 @@
 			</div>
 			</div>
 			
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+			<!--div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 			<div class="form-group">
 			<label for="descuento">Descuento</label>
 				<input type="text" name="pdescuento" class="form-control" id="pdescuento" placeholder="Descuento...">
 			</div>
-			</div>
+			</div-->
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 			<div class="form-group">
 			    <br/>
@@ -90,13 +90,13 @@
 						<th>Articulo</th>
 						<th>Cantidad</th>
 						<th>Precio Venta C/u</th>
-						<th>Descuento</th>
+						<!--th>Descuento</th-->
 						<th>Subtotal</th>
 					</thead>
 					<tfoot>
 						<th>Total</th>
 						<th></th>
-						<th></th>
+						<!--th></th-->
 						<th></th>
 						<th></th>
 						<th><h4 id="total">$ {{number_format($valor)}}</h4></th>
@@ -164,7 +164,7 @@
        subtotal[cont]=(cantidad*parseFloat(precio_venta.replace(",",""))-parseFloat(descuento.replace(",","")));
        total+=subtotal[cont];
 			
-			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'" readonly></td><td><input type="text" name="precio_venta[]" value="'+precio_venta+'" readonly><td><input type="text" name="descuento[]" value="'+descuento+'"></td></td><td>'+number_format(subtotal[cont],0)+'</td></tr>';
+			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'" readonly></td><td><input type="text" name="precio_venta[]" value="'+precio_venta+'" readonly><!--td><input type="text" name="descuento[]" value="'+descuento+'"--></td--></td><td>'+number_format(subtotal[cont],0)+'</td></tr>';
 			cont++;
 			limpiar();
 			$('#total').html("$. "+number_format(total,0));

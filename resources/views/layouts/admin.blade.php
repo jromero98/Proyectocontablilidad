@@ -138,13 +138,16 @@
                         <a data-toggle="tooltip" data-placement="top" title="Settings">
                             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <a data-toggle="tooltip" data-placement="top" title="Pantalla Completa" id="ejemplo-fullscreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a class="hidden" data-toggle="tooltip" data-placement="top" title="Pantalla Completa" id="ejemplo-efullscreen">
                             <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
                         </a>
                         <a data-toggle="tooltip" data-placement="top" title="Lock">
                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         </a>
-                        <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" data-toggle="tooltip" data-placement="top" title="Logout">
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" data-toggle="tooltip" data-placement="top" title="Logout">
                {{ csrf_field() }}
                 <span  class="glyphicon glyphicon-off" aria-hidden="true"></span>
                 
@@ -169,7 +172,7 @@
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> Perfil</a></li>
+                                    <li><a href="/perfil"> Perfil</a></li>
                                     <li>
                                         <a href="javascript:;">
                                             <span class="badge bg-red pull-right">50%</span>
@@ -179,14 +182,11 @@
                                     <li><a href="javascript:;">Ayuda</a></li>
 
                                     <li>
-                                        <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
                                             <i class="fa fa-sign-out pull-right"></i> Salir</a>
                                     </li>
                                 </ul>
 
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
                             </li>
                             <?php $articulos = DB::table('articulos')->select('nom_articulo','stock','minimo','maximo')->get(); $cuantos=0;?>
                             @foreach($articulos as $articulo)
@@ -239,6 +239,9 @@
                     </div>
                 </div>
             </div>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+            </form>
             <!-- /page content -->
 
             <!-- footer content -->
@@ -270,6 +273,38 @@
     <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
     <!-- Custom Theme Scripts -->
     <script src="{{asset('js/custom.js')}}"></script>
+
+    <script type="text/javascript">
+        fullscreen = function(element){
+          if(element.requestFullScreen) {
+            element.requestFullScreen();
+          } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+          } else if(element.webkitRequestFullScreen) {
+            element.webkitRequestFullScreen();
+          }
+      }
+    document.getElementById('ejemplo-fullscreen').onclick = function(){
+        fullscreen(document.documentElement);
+        $("#ejemplo-efullscreen").removeClass('hidden');
+        $("#ejemplo-fullscreen").addClass('hidden');
+    }
+    document.getElementById('ejemplo-efullscreen').onclick = function(){
+        fullcls();
+        $("#ejemplo-fullscreen").removeClass('hidden');
+        $("#ejemplo-efullscreen").addClass('hidden');
+    }
+    function fullcls(){
+        if(document.exitFullscreen){document.exitFullscreen()}
+        if(document.msExitFullscreen){document.msExitFullscreen()}
+        if(document.mozCancelFullScreen){document.mozCancelFullScreen()}
+        if(document.webkitCancelFullScreen){document.webkitCancelFullScreen()}
+        if(typeof window.ActiveXObject !== "undefined"){
+        var wscript = new ActiveXObject("WScript.Shell");
+        if(wscript !== null) {wscript.SendKeys("{F11}")}
+        }
+    }
+    </script>
 </body>
 
 </html>

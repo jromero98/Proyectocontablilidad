@@ -10,13 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => 'guest'], function () {
-	Route::get('/', function () {
-    	return view('welcome');
-	});
-});
-
 Auth::routes();
+Route::get('/', function () {
+        return view('welcome');
+    });
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -40,6 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/almacen/articulo','ArticulosController', ['middleware' => 'articulo']);
     Route::resource('/almacen/categoria','CategoriasController', ['middleware' => 'categoria']);
+
+    Route::resource('/perfil','PerfilController');
 
    Route::post('/persona','PersonaController@store'); 
    Route::get('/persona/index','PersonaController@index'); 

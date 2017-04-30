@@ -84,8 +84,8 @@
             <tr>
                 <th class="text-left">Producto</th>
                 <th class="text-right" style="width:100px;">Cantidad</th>
-                <th class="text-right" style="width:100px;">P.U</th>
-                <th class="text-right" style="width:100px;">Dto</th>
+                <th class="text-right" style="width:100px;">Precio.U</th>
+                <th class="text-right" style="width:100px;">Iva</th>
                 <th class="text-right" style="width:100px;">Total</th>
             </tr>
         </thead>
@@ -100,7 +100,7 @@
 				</td>
                 <td class="text-right">{{$detalle->cantidad}}</td>
                 <td class="text-right">$ {{number_format($detalle->precio_venta)}}</td>
-                <td class="text-right">$ {{number_format($detalle->descuento)}}</td>
+                <td class="text-right">$ {{number_format($detalle->precio_venta*0.19)}}</td>
                 <td class="text-right">$ {{number_format($detalle->cantidad*$detalle->precio_venta)}}</td>
             </tr>
         @endforeach

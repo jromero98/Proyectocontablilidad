@@ -29,7 +29,7 @@
 						<td>{{ $art->stock}}</td>
 						<td>{{ $art->minimo}}</td>
 						<td>{{ $art->maximo}}</td>
-						<td>
+						<td class="text-center">
 						<a href="{{URL::action('ArticulosController@edit',$art->idArticulos)}}"><button class="btn btn-info">Editar</button></a>
 						<a href="" data-target="#modal-delete-{{$art->idArticulos}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 						</td>

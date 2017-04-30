@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\ContabilidadManual;
 use App\DetalleFactura;
+use App\Articulos;
 use App\Facturas;
 use DB;
 
@@ -63,22 +64,16 @@ class PagarCuentasController extends Controller{
         $naturalezas=Input::get('naturaleza');
         $total=DB::table('facturas')
                 ->join('detalle_factura','idFactura','=','idFacturas')
-                ->select('idFacturas','Num_factura','fecha','Estado',DB::raw('sum(cantidad*precio_venta-descuento) as total'))
+                ->select('idFacturas','Num_factura','fecha','Estado',DB::raw('sum(cantidad*precio_venta) as total'))
                 ->where('idFacturas',"=",$id)
                 ->groupby('idFacturas','Num_factura','fecha','Estado')
                 ->first();
         $detallesfactura=DB::table('facturas')
                 ->join('detalle_factura','idFactura','=','idFacturas')
-                ->select('idFacturas','Num_factura','fecha','idArticulo','cantidad',DB::raw('(cantidad*precio_venta-descuento) as total'))
+                ->select('idFacturas','Num_factura','fecha','idArticulo','cantidad',DB::raw('(cantidad*precio_venta) as total'))
                 ->where('idFacturas',"=",$id)
                 ->get();
-        $articulos=DB::table('articulos')
-            ->join('detalle_factura','idArticulo',"=","idArticulos")
-            ->join('facturas','idfacturas','=','idfactura')
-            ->select(DB::raw('CONCAT(idArticulos, " ",nom_articulo) as articulo'),'idArticulos','stock',DB::raw('avg(precio_compra) as precio_promedio'))
-            ->where('Tipo_factura',"=","Fc")
-            ->where('stock','>','0')
-            ->groupby('articulo','idArticulos','stock')->get();
+        $articulos=Articulos::get();
         for ($i=0; $i < count($valores); $i++) {
             foreach($detallesfactura as $detallefactura){
                 $t=($valores[$i]*100)/$total->total;

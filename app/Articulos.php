@@ -19,6 +19,7 @@ class Articulos extends Model
     'stock',
     'maximo',
     'minimo',
-    'Estado'
+    'Estado',
+    'Precio_venta'
     ];
 }

@@ -41,6 +41,7 @@
 								<input type="email" value="{{old('email')}}" name="email" id="email" class="form-control" placeholder="Email...">
 							</div>
 						</div>
+						<input type="text" value="Proveedor" id="tipo" class="hidden">
 					</div>
 	            </div>
 	            <div class="modal-footer">

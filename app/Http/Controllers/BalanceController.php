@@ -98,6 +98,7 @@ class BalanceController extends Controller
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
+                ->orderBy('comprobante', 'asc')
                 ->get();
             }else if(!empty($fecha) && !empty($cuenta)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
@@ -106,6 +107,7 @@ class BalanceController extends Controller
                 ->where('idArticulo','=',$cuenta)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
+                ->orderBy('comprobante', 'asc')
                 ->get();
             }else if(!empty($cuenta) && !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
@@ -114,6 +116,7 @@ class BalanceController extends Controller
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
+                ->orderBy('comprobante', 'asc')
                 ->get();
             }else if(!empty($fecha) && !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
@@ -122,6 +125,7 @@ class BalanceController extends Controller
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
+                ->orderBy('comprobante', 'asc')
                 ->get();
             }else if(!empty($fecha)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
@@ -129,6 +133,7 @@ class BalanceController extends Controller
                 ->where('fecha','=',$fecha)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
+                ->orderBy('comprobante', 'asc')
                 ->get();
             }else if( !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
@@ -136,6 +141,7 @@ class BalanceController extends Controller
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
+                ->orderBy('comprobante', 'asc')
                 ->get();
             }else if( !empty($cuenta)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
@@ -143,16 +149,18 @@ class BalanceController extends Controller
                 ->where('idArticulo','=',$cuenta)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
+                ->orderBy('comprobante', 'asc')
                 ->get();
             }else{
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
                 ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
+                ->orderBy('comprobante', 'asc')
                 ->get();
             }
             
-            $articulos=Articulos::get();
+            $articulos=Articulos::where("Estado","!=","Inactivo")->get();
             return view ('contabilidad_manual.kardex',['cuentas'=> $cuentas,'articulos'=> $articulos,"busqueda"=>$request]);
         }
     }
@@ -161,20 +169,23 @@ class BalanceController extends Controller
             $arti=trim($request->get('articulo'));
             $facturas=Facturas::where("Estado","=","Pagado")->get();
             $articulos=Articulos::where('stock','>','0')
-            ->where('Estado','=','Activo')
+            ->where("Estado","!=","Inactivo")
             ->get();
             foreach ($articulos as $articulo) {
                 foreach ($facturas as $factura) {
                     $detallesfactura=DB::table('facturas')
                             ->join('detalle_factura','idFactura','=','idFacturas')
-                            ->select('idFacturas','Tipo_factura','Num_factura','idArticulo','cantidad','precio_compra','precio_venta',DB::raw('(cantidad*precio_compra) as total'),DB::raw('(cantidad*precio_venta) as total2'))
+                            ->select('idFacturas','Tipo_factura','Num_factura','idArticulo','cantidad','precio_compra','precio_venta','prom')
                             ->where('idFacturas',"=",$factura->idFacturas)->where("idArticulo","=",$articulo->idArticulos)
+                            ->where('Estado',"=","Pagado")
                             ->get();
                     foreach ($detallesfactura as $detallefactura) {
-                       if($detallefactura->Tipo_factura=="Fv"){
-                            $articulo->stock=$articulo->stock-$detallefactura->cantidad;
-                       }else{
+                       if($articulo->stock!=0){
+                        if($detallefactura->Tipo_factura=="Fv"){
                             $articulo->stock=$articulo->stock+$detallefactura->cantidad;
+                       }else{
+                            $articulo->stock=$articulo->stock-$detallefactura->cantidad;
+                       }
                        }
                     }
                 }

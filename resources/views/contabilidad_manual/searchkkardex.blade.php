@@ -15,7 +15,7 @@
 			</select>
         </div>
         <div class="col-xs-4">
-			<label><font color="white"></font><br></label>
+			<label><font color="white">tttt</font></label>
             <span class="input-group-btn">
 			<button type="submit" id="buuscar" class="btn btn-primary">Buscar</button>
 		</span>

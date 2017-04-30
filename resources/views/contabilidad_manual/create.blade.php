@@ -164,14 +164,9 @@
 
 
 <style>
-
     .dataTables_filter [type="search"]{
-    
         margin-left: -35px;
-    
     }
-
-
 </style>
 
 <div class="col-md-4 col-xs-12">

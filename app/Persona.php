@@ -17,6 +17,7 @@ class Persona extends Model
     'nombre_persona',
     'direccion',
     'telefono',
-    'email'
+    'email',
+    'tipo'
     ];
 }

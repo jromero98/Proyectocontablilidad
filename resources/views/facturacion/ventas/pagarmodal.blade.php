@@ -13,10 +13,10 @@
             <div class="modal-body">
                 <input type="text" value="{{$factura->idFacturas}}" name="id" class="hidden">
                 <div class="row" id="datos">
-                    <div class="duplicate">
+                    <div class="duplicate-{{$factura->idFacturas}}">
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                             <div class="from-group">
-                                <input type="text" required class="form-control" name="valor[]" id="valor" placeholder="Valor">
+                                <input type="text" required class="form-control" name="valor[]" value="{{number_format($factura->total)}}" id="valor" placeholder="Valor">
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -39,7 +39,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <input class="hidden btn btn-primary" type="submit"  id="guardar" value="Confirmar">
+                <input class="hidden btn btn-primary" type="submit"  id="guardar-{{$factura->idFacturas}}" value="Confirmar">
             </div>
         </div>
     </div>
@@ -48,37 +48,43 @@
 <script>
 $(document).ready(function () {
     $("#add-more").click(function () {
-        $(".duplicate:last").clone().insertAfter(".duplicate:last");
-        $(".duplicate:first").find('#a').removeClass('hidden');
-        $(".duplicate:last").find('#cerrar').removeClass('hidden');
-        $(".duplicate:last").find('#cerrar').click(function(){
+        $(".duplicate-{{$factura->idFacturas}}:last").clone().insertAfter(".duplicate-{{$factura->idFacturas}}:last");
+        $(".duplicate-{{$factura->idFacturas}}:first").find('#a').removeClass('hidden');
+        $(".duplicate-{{$factura->idFacturas}}:last").find('#cerrar').removeClass('hidden');
+        $(".duplicate-{{$factura->idFacturas}}:last").find('#cerrar').click(function(){
         $(this).parent().remove();
         });
-        $(".duplicate:last").find("input").val("");
+        $(".duplicate-{{$factura->idFacturas}}:last").find("input").val("");
     });
 });
 setInterval( function() { 
-    if( true )recorrer();
+    if( true )recorrer('{{$factura->idFacturas}}');
 }, 100);
-function recorrer(){
+function recorrer(element){
     var thisObj;
     total=0;
-    var objs = document.getElementById("datos").getElementsByTagName("input");
+    var p=0;
+    var objs = document.getElementById('modal-pagar-'+element).getElementsByClassName("form-control");
     for (var oi=0;oi<objs.length;oi++) {  
         thisObj = objs[oi];
-        total+=Number(parseFloat(thisObj.value.replace(",","")));
-        thisObj.value=number_format(thisObj.value,0); 
+        if (thisObj.value!=1) {
+            p=thisObj.value.replace(",","");
+            p=Number(parseFloat(p.replace(",","")));
+            total+=p;
+            p=0;
+            thisObj.value=number_format(thisObj.value,0); 
+        }
     }
     if (total<{{$factura->total}}) {
-            $("#guardar").addClass('hidden');
-            document.getElementById('guardar').type = '';
+            $("#guardar-"+element).addClass('hidden');
+            $("#guardar-"+element).type = '';
         }else{
             if (total=={{$factura->total}}){
-                $("#guardar").removeClass('hidden');
-                document.getElementById('guardar').type = 'submit';
+                $("#guardar-"+element).removeClass('hidden');
+                $("#guardar-"+element).type = 'submit';
             }else{
-                $("#guardar").addClass('hidden');
-                document.getElementById('guardar').type = '';
+                $("#guardar-"+element).addClass('hidden');
+                $("#guardar-"+element).type = '';
             }
         }
 }

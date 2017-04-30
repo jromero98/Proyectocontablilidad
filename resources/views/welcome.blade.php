@@ -142,6 +142,7 @@
         <!-- Intro -->
         <section id="Intro" class="one dark cover">
             <div class="container">
+                <?php echo Auth::user() ?>
                 <a href="" data-target="#modal-login" data-toggle="modal"><button class="btn btn-danger">Iniciar Sesión</button></a>
                 <header>
                     <h2 class="alt">Hola! estas en <strong>ASOVIZ</strong>, una aplicación hecha por estudiantes de la <a href="http://www.unicundi.edu.co/">Unicundi.</a> <br/> Esta aplicación fue desarrollada con el propósito de facilitar una correcta contabilidad en los viveros.</h2>

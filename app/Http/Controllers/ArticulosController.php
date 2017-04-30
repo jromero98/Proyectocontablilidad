@@ -24,7 +24,18 @@ class ArticulosController extends Controller
         }
     }
     public function edit($id){
-        return view("almacen.articulo.edit",["articulo"=>Articulos::findOrFail($id),"categorias"=>Categorias::get()]);
+        $prom=DB::table('facturas')
+                                ->join('detalle_factura','idFactura','=','idFacturas')
+                                ->select('idFacturas','Num_factura','idArticulo','cantidad','prom')
+                                ->where("idArticulo","=",$id)
+                                ->where('Estado',"!=","Cancelado")
+                                ->orderBy('fecha','DESC')
+                                ->first();
+        if(count($prom)==0){  
+            return view("almacen.articulo.edit",["articulo"=>Articulos::findOrFail($id),"categorias"=>Categorias::get(),"promedio"=>0]);
+        }
+        
+        return view("almacen.articulo.edit",["articulo"=>Articulos::findOrFail($id),"categorias"=>Categorias::get(),"promedio"=>$prom->prom]);
     }
     public function create(){
         return view("almacen.articulo.create",["categorias"=>Categorias::get()]);
@@ -38,6 +49,7 @@ class ArticulosController extends Controller
             $articulo->stock=$request->get('stock');
             $articulo->minimo=$request->get('minimo');
             $articulo->maximo=$request->get('maximo');
+            $articulo->Precio_venta=str_replace(",", "",$request->get('preciov'));
             $articulo->save();
         }else{
             $articulo=Articulos::findOrFail($id);
@@ -68,5 +80,6 @@ class ArticulosController extends Controller
         $articulo=Articulos::findOrFail($id);
         $articulo->Estado="Inactivo";
         $articulo->update();
+        return Redirect::to('almacen/articulo');
     }
 }

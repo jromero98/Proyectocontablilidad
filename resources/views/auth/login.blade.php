@@ -11,7 +11,7 @@
 
                 <div class="animate form login_form">
                     <section class="login_content">
-                        <form role="form" method="POST" action="{{ url('/login') }}">
+                        <form role="form" method="POST" action="{{ url('/login') }}" autocomplete="off">
 
                             {{ csrf_field() }}
 
@@ -61,7 +61,7 @@
 
                 <div id="register" class="animate form registration_form">
                     <section class="login_content">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}" autocomplete="off">
 
                             {{ csrf_field() }}
 

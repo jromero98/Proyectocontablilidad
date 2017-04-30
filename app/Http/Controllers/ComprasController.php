@@ -37,7 +37,7 @@ class ComprasController extends Controller
     public function edit($id){
         $tpfactura=Facturas::findOrFail($id);
         $detallefactura=DetalleFactura::where('idFactura','=',$tpfactura->idFacturas)->get();
-        $articulos=Articulos::get();
+        $articulos=Articulos::where("Estado","!=","Inactivo")->get();
         
         $valor=0;
         foreach ($detallefactura as $detalle) {
@@ -52,7 +52,7 @@ class ComprasController extends Controller
         ->where("Tipo_factura","=","Fc")
         ->groupBy('Tipo_factura')
         ->first();
-        $articulos=Articulos::get();
+        $articulos=Articulos::where("Estado","!=","Inactivo")->get();
         $proveedores=Persona::get();
         return view('facturacion.compras.create',["articulos"=>$articulos,"factura"=>$tpfactura,"personas"=>$proveedores]);
     }
@@ -103,7 +103,20 @@ class ComprasController extends Controller
         }
         for($i=0;$i<(count($articulos));$i++){
             if($articulos[$i]!=0){
-                DB::select('CALL crearfc(?,?,?,?,?)',array($articulos[$i], $factura->idFacturas,$cantidades[$i],$preciosc[$i],$precios[$i]));
+                $prom=DB::table('facturas')
+                                ->join('detalle_factura','idFactura','=','idFacturas')
+                                ->select('idFacturas','Num_factura','idArticulo','cantidad','prom')
+                                ->where("idArticulo","=",$articulos[$i])
+                                ->where('Estado',"!=","Cancelado")
+                                ->orderBy('fecha','DESC')
+                                ->first();
+            $articulo=Articulos::findOrFail($articulos[$i]);
+            if (count($prom)==0) {
+                $promedio=$preciosc[$i];
+            }else{
+                $promedio=((($articulo->stock-$cantidades2[$i])*$prom->prom)+($cantidades[$i]*$precios[$i]))/($articulo->stock);
+            }
+                DB::select('CALL crearfc(?,?,?,?,?,?)',array($articulos[$i], $factura->idFacturas,$cantidades[$i],$preciosc[$i],$precios[$i],$promedio));
             }
         }
         return Redirect::to('compras');
@@ -127,7 +140,20 @@ class ComprasController extends Controller
         for($i=0;$i<count($preciosc);$i++){
             $preciosc[$i]=str_replace(",", "", $preciosc[$i]);
         }for($i=0;$i<count($articulos);$i++){
-            DB::select('CALL crearfc(?,?,?,?,?)',array($articulos[$i], $factura->idFacturas,$cantidades[$i],$preciosc[$i],$precios[$i]));
+            $prom=DB::table('facturas')
+                                ->join('detalle_factura','idFactura','=','idFacturas')
+                                ->select('idFacturas','Num_factura','idArticulo','cantidad','prom')
+                                ->where("idArticulo","=",$articulos[$i])
+                                ->where('Estado',"!=","Cancelado")
+                                ->orderBy('fecha','DESC')
+                                ->first();
+            $articulo=Articulos::findOrFail($articulos[$i]);
+            if (count($prom)==0) {
+                $promedio=$preciosc[$i];
+            }else{
+                $promedio=(($articulo->stock*$prom->prom)+($cantidades[$i]*$preciosc[$i]))/($articulo->stock+$cantidades[$i]);
+            }
+            DB::select('CALL crearfc(?,?,?,?,?,?)',array($articulos[$i], $factura->idFacturas,$cantidades[$i],$preciosc[$i],$precios[$i],$promedio));
             $articulo=Articulos::findOrFail($articulos[$i]);
             $articulo->stock=$articulo->stock+$cantidades[$i];
             $articulo->update();
@@ -136,7 +162,14 @@ class ComprasController extends Controller
     }
     public function destroy($id){
         $factura=Facturas::findOrFail($id);
+        $detallesfactura=DetalleFactura::where("idFactura","=",$id)->get();
+        foreach ($detallesfactura as $detallefactura) {
+            $articulo=Articulos::findOrFail($detallefactura->idArticulo);
+            $articulo->stock=$articulo->stock-$detallefactura->cantidad;
+            $articulo->update();
+        }
         $factura->Estado='Cancelado';
         $factura->update();
+        return Redirect::to('compras');
     }
 }

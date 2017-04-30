@@ -46,18 +46,7 @@
 				<select name="pidarticulo" class="form-control selectpicker" id="pidarticulo" data-live-search='true'>
 				    <option value="">Seleccione Articulo</option>
 					@foreach($articulos as $art)
-						<option value="{{$art->idArticulos}}_{{$art->stock}}_{{$art->precio_promedio}}">{{$art->articulo}}</option>
-					@endforeach
-					@foreach($articulos2 as $art)
-						{{$si=0}}
-						@foreach($articulos as $articulo)
-							@if($articulo->idArticulos==$art->idArticulos)
-								{{$si=1}}
-							@endif
-						@endforeach
-						@if($si==0)
-							<option value="{{$art->idArticulos}}_{{$art->stock}}_{{$art->precio_promedio}}">{{$art->articulo}}</option>
-						@endif
+						<option value="{{$art->idArticulos}}_{{$art->stock}}_{{$art->Precio_venta}}">{{$art->idArticulos}} {{$art->nom_articulo}}</option>
 					@endforeach
 				</select> 
 			</div>
@@ -81,12 +70,12 @@
 			</div>
 			</div>
 			
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+			<!--div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 			<div class="form-group">
 			<label for="descuento">Descuento</label>
 				<input type="text" name="pdescuento" class="form-control" id="pdescuento" placeholder="Descuento...">
 			</div>
-			</div>
+			</div-->
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 			<div class="form-group">
 			    <br/>
@@ -101,14 +90,14 @@
 						<th>Articulo</th>
 						<th>Cantidad</th>
 						<th>Precio Venta C/u</th>
-						<th>Descuento</th>
+						<!--th>Descuento</th-->
 						<th>Subtotal</th>
 					</thead>
 					<tfoot>
 						<th>Total</th>
 						<th></th>
 						<th></th>
-						<th></th>
+						<!--th></th-->
 						<th></th>
 						<th><h4 id="total">$/ 0.00</h4></th>
 					</tfoot>
@@ -157,10 +146,10 @@
 		stock=$("#pstock").val();
 	if (idarticulo!="" && cantidad!="" &&  cantidad>0 && precio_venta!=""){
         if(stock>=cantidad){
-       subtotal[cont]=(cantidad*parseFloat(precio_venta.replace(",",""))-parseFloat(descuento.replace(",","")));
+       subtotal[cont]=cantidad*parseFloat(precio_venta.replace(",",""));
        total+=subtotal[cont];
 			
-			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="text" name="precio_venta[]" value="'+precio_venta+'" readonly><td><input type="text" name="descuento[]" value="'+descuento+'"></td></td><td>'+number_format(subtotal[cont],0)+'</td></tr>';
+			var fila='<tr class="selected" id="fila'+cont+'"><td><button type=button class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="text" name="precio_venta[]" value="'+precio_venta+'" readonly><!--td><input type="text" name="descuento[]" value="'+descuento+'"></td--></td><td>'+number_format(subtotal[cont],0)+'</td></tr>';
 			cont++;
 			limpiar();
 			$('#total').html("$. "+number_format(total,0));
@@ -221,17 +210,17 @@ var valueAnterior=document.getElementById("pprecio_venta").value;
     } 
     setInterval( function() { 
     if( haCambiado() );
-    if( haCambiado2() );
+    //if( haCambiado2() );
 }, 100);
-    var valueAnterior=document.getElementById("pdescuento").value; 
-    function haCambiado2() { 
-        if(document.getElementById("pdescuento").value!=valueAnterior) { 
-            document.getElementById("pdescuento").value= number_format(document.getElementById("pdescuento").value,0); 
-            return true; 
-        } 
-        else  
-        return false; 
-    } 
+    // var valueAnterior=document.getElementById("pdescuento").value; 
+    // function haCambiado2() { 
+    //     if(document.getElementById("pdescuento").value!=valueAnterior) { 
+    //         document.getElementById("pdescuento").value= number_format(document.getElementById("pdescuento").value,0); 
+    //         return true; 
+    //     } 
+    //     else  
+    //     return false; 
+    // } 
     
 function number_format(amount, decimals) {
 

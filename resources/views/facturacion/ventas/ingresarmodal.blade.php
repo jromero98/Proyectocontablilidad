@@ -32,7 +32,7 @@
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<div class="form-group">
 								<label for="telefono">Telefono</label>
-								<input type="text" value="{{old('telefono')}}" name="telefono" id="telefono" class="form-control" placeholder="Telefono...">
+								<input type="number" value="{{old('telefono')}}" name="telefono" id="telefono" class="form-control" placeholder="Telefono...">
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -41,6 +41,7 @@
 								<input type="email" value="{{old('email')}}" name="email" id="email" class="form-control" placeholder="Email...">
 							</div>
 						</div>
+						<input type="text" value="Cliente" id="tipo" class="hidden">
 					</div>
 	            </div>
 	            <div class="modal-footer">

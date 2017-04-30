@@ -83,7 +83,7 @@ $(document).on('change', '#tipo_factura',event => {
 		document.getElementById("nodoc").value="";
 		res.forEach(element => {
 			document.getElementById("nodoc").value=element.cfactura;
-            document.getElementById("nodoc").readOnly = true;
+            if(element.Tipo_factura!="Fc")document.getElementById("nodoc").readOnly = true;
 		});
 	});
     }

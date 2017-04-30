@@ -27,7 +27,7 @@
 							<td>${{number_format($factura->total)}}</td>
 							<td>{{$factura->Estado}}</td>
 							@if($factura->Estado=='Activo')
-							    <td class="col-lg-4">
+							    <td class="col-lg-4 text-center">
 	                                <a href="{{URL::action('HacerFactura@pdf',$factura->idFacturas)}}" target="_blank" onclick="javascript:window.location.reload();"><button class="btn btn-primary">Imprimir</button></a>
 	                                <a href="{{URL::action('ComprasController@edit',$factura->idFacturas)}}"><button class="btn btn-info">Editar</button></a>
 	                                <a href="" data-target="#modal-delete-{{$factura->idFacturas}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
@@ -35,8 +35,14 @@
 	                            </td>
 							@endif
 							@if($factura->Estado=='Pendiente')
-							<td class="col-lg-4">
+							<td class="col-lg-4 text-center">
 	                            <a href="" data-target="#modal-pagar-{{$factura->idFacturas}}" data-toggle="modal"><button class="btn btn-primary">Pagar</button></a>
+	                            @include('facturacion.compras.pagarmodal')
+							</td>
+							@endif
+							@if($factura->Estado=='Pagado')
+							<td class="col-lg-4 text-center">
+	                            <a href="{{URL::action('HacerFactura@pdf',$factura->idFacturas)}}" target="_blank"><button class="btn btn-primary">Ver</button></a>
 	                            @include('facturacion.compras.pagarmodal')
 							</td>
 							@endif
