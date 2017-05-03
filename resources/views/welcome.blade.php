@@ -102,7 +102,7 @@
             <!-- Logo -->
             <div id="logo">
                 <span class="image avatar48"><img src="images/avatar.png" alt="" /></span>
-                <h1 id="title">ASOVIZ</h1>
+                <h1 id="title">ASOVIZ</h1></br>
                 <h1 id="title" style="position: center;">ASOCIACION DE VIVERISTAS DE LA REGION DEL SUMAPAZ</h1>
             </div>
 
