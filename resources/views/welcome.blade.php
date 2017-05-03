@@ -103,7 +103,7 @@
             <div id="logo">
                 <span class="image avatar48"><img src="images/avatar.png" alt="" /></span>
                 <h1 id="title">ASOVIZ</h1>
-                <p>Descripción </p>
+                <h1 id="title" style="position: center;">ASOCIACION DE VIVERISTAS DE LA REGION DEL SUMAPAZ</h1>
             </div>
 
             <!-- Menu -->
@@ -161,10 +161,10 @@
             <div class="container">
 
                 <header>
-                    <h2>Galería</h2>
+                    <h2 style="color:white;">Galería</h2>
                 </header>
 
-                <p>Esta es nuestra galería, acá podrás encontrar algunos de los proyectos en los que hemos trabajado, también puedes observar algunos de los ejemplares que vendemos en nuestro vivero, deseamos que la vista de las imágenes sea de tu agrado y puedas tomar la maravillosa decisión de requerir nuestros servicios y productos de calidad garantizada.</p>
+                <p style="color:white;">Esta es nuestra galería, acá podrás encontrar algunos de los proyectos en los que hemos trabajado, también puedes observar algunos de los ejemplares que vendemos en nuestro vivero, deseamos que la vista de las imágenes sea de tu agrado y puedas tomar la maravillosa decisión de requerir nuestros servicios y productos de calidad garantizada.</p>
 
                 <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, quis, eum. Nemo fugiat expedita nesciunt dignissimos. Iure temporibus velit corporis, nisi sunt perspiciatis delectus quibusdam repellat et. Consequuntur, omnis, magnam. paty es estupida y no confia en mi...</p> -->
 
@@ -221,7 +221,7 @@
             <div class="container">
 
                 <header>
-                    <h2>Acerca del proyecto:</h2>
+                    <h2 style="color:white;">Acerca del proyecto:</h2>
                 </header>
 
 
@@ -319,7 +319,7 @@
             <div class="container">
 
                 <header>
-                    <h2>Ubicación</h2>
+                    <h2 style="color:white;">Ubicación</h2>
                 </header>
 
                 <div id="map"></div>
@@ -337,12 +337,10 @@
             <div class="container">
 
                 <header>
-                    <h2>Contacto:</h2>
+                    <h2 style="color:white;">Contacto:</h2>
                 </header>
 
-                <p>Elementum sem parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
-
-                <form method="post" action="#">
+               <form method="post" action="#">
                     <div class="row">
                         <div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
                         <div class="6u$ 12u$(mobile)"><input type="text" name="email" placeholder="Email" /></div>
@@ -366,7 +364,7 @@
         <!-- Copyright -->
         <ul class="copyright">
             <li>&copy; Todos los derechos reservados.</li>
-            <li>Design: <a href="http://www.unicundi.edu.co/">NEONIA</a></li>
+            <li>Design: <a href="http://www.unicundi.edu.co/">Ucundinamarca</a></li>
         </ul>
 
     </div>
