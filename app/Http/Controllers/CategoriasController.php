@@ -12,7 +12,9 @@ class CategoriasController extends Controller
         if($request){
             $query=trim($request->get('searchText'));
             $categorias=Categorias::orderBy('idCategorias','asc')
-            ->paginate(2);
+            ->where('Nombre_categoria','LIKE','%'.$query.'%')
+            ->orwhere('Descripcion','LIKE','%'.$query.'%')
+            ->paginate(7);
             return view('almacen.categoria.index',["categorias"=>$categorias,"searchText"=>$query]);
         }
     }

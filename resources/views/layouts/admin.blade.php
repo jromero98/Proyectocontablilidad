@@ -195,7 +195,7 @@
                                 @endif
                             @endforeach
                             <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"  style="padding: 21px" >
                                     <i class="fa fa-bell-o"></i>
                                     @if($cuantos>0)
                                         <span class="badge bg-green">{{$cuantos}}</span>

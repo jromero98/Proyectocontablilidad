@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-04-2017 a las 01:12:22
+-- Tiempo de generación: 05-05-2017 a las 01:25:38
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 5.6.19
 
@@ -24,20 +24,20 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearfc` (IN `idArticulo` VARCHAR(5), IN `idFactura` INT, IN `cantidad` INT, IN `precio_compra` INT, IN `precio_venta` INT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crearfc` (IN `idArticulo` VARCHAR(5), IN `idFactura` INT, IN `cantidad` INT, IN `precio_compra` INT, IN `precio_venta` INT, IN `precio` INT)  NO SQL
 IF NOT EXISTS ( SELECT `idArticulo`, `idFactura`, `cantidad`, `precio_venta`, `descuento` 
 FROM detalle_factura
 WHERE detalle_factura.idArticulo = idArticulo and detalle_factura.idFactura=idFactura) THEN
-INSERT INTO `detalle_factura`(`idArticulo`, `idFactura`, `cantidad`, `precio_venta`, `precio_compra`) VALUES (idArticulo,idFactura,cantidad,precio_venta,precio_compra);
+INSERT INTO `detalle_factura`(`idArticulo`, `idFactura`, `cantidad`, `precio_venta`, `precio_compra`, `prom`) VALUES (idArticulo,idFactura,cantidad,precio_venta,precio_compra,precio);
 ELSE
 SELECT 'Este Detalle ya existe en la base de datos!';
 END IF$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearfv` (IN `idArticulo` VARCHAR(5), IN `idFactura` INT, IN `cantidad` INT, IN `precio_venta` INT, IN `descuento` INT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crearfv` (IN `idArticulo` VARCHAR(5), IN `idFactura` INT, IN `cantidad` INT, IN `precio_venta` INT, IN `descuento` INT, IN `precio` INT)  NO SQL
 IF NOT EXISTS ( SELECT `idArticulo`, `idFactura`, `cantidad`, `precio_venta`, `descuento` 
 FROM detalle_factura
 WHERE detalle_factura.idArticulo = idArticulo and detalle_factura.idFactura=idFactura) THEN
-INSERT INTO `detalle_factura`(`idArticulo`, `idFactura`, `cantidad`, `precio_venta`, `descuento`) VALUES (idArticulo,idFactura,cantidad,precio_venta,descuento);
+INSERT INTO `detalle_factura`(`idArticulo`, `idFactura`, `cantidad`, `precio_venta`, `descuento`, `prom`) VALUES (idArticulo,idFactura,cantidad,precio_venta,descuento,precio);
 ELSE
 SELECT 'Este Detalle ya existe en la base de datos!';
 END IF$$
@@ -56,15 +56,20 @@ CREATE TABLE `articulos` (
   `Categorias_idCategorias` int(11) NOT NULL,
   `stock` int(11) DEFAULT NULL,
   `maximo` int(11) DEFAULT NULL,
-  `minimo` int(11) DEFAULT NULL
+  `minimo` int(11) DEFAULT NULL,
+  `Estado` varchar(12) COLLATE utf8_spanish2_ci NOT NULL DEFAULT 'Activo',
+  `Precio_venta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `articulos`
 --
 
-INSERT INTO `articulos` (`idArticulos`, `nom_articulo`, `Categorias_idCategorias`, `stock`, `maximo`, `minimo`) VALUES
-('1234', 'Rosa', 2, 16, 30, 10);
+INSERT INTO `articulos` (`idArticulos`, `nom_articulo`, `Categorias_idCategorias`, `stock`, `maximo`, `minimo`, `Estado`, `Precio_venta`) VALUES
+('1234', 'Rosa', 2, 24, 30, 10, 'Activo', 0),
+('233', 'Naranjo', 3, 10, 15, 2, 'Inactivo', 0),
+('2335', 'Naranja Valencia', 3, 65, 80, 5, 'Activo', 0),
+('234', 'Limon Tahiti', 3, 17, 15, 3, 'Activo', 1500);
 
 -- --------------------------------------------------------
 
@@ -97,7 +102,7 @@ INSERT INTO `auxiliar` (`id_aux`, `nom_aux`) VALUES
 CREATE TABLE `categorias` (
   `idCategorias` int(11) NOT NULL,
   `Nombre_categoria` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `Descripcion` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL
+  `Descripcion` varchar(125) COLLATE utf8_spanish2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -105,7 +110,8 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`idCategorias`, `Nombre_categoria`, `Descripcion`) VALUES
-(2, 'Ornamentales', 'Flores y arboles decorativos');
+(2, 'Ornamentales', 'Flores y arboles decorativos'),
+(3, 'Citricos', 'Arboles con frutos agrios y con alta vitamina C');
 
 -- --------------------------------------------------------
 
@@ -154,14 +160,12 @@ CREATE TABLE `cuentas` (
 --
 
 INSERT INTO `cuentas` (`idcuentas`, `comprobante`, `valor`, `fecha`, `naturaleza`, `cod_puc`, `id_aux`, `cod_Descripcion`, `idArticulo`, `idFactura`) VALUES
-(4, 'Fc1', 40000, '2017-04-20 00:00:00', 1, 1105, NULL, 0, '1234', 9),
-(5, 'Fc1', 32400, '2017-04-20 00:00:00', 0, 14, NULL, 0, '1234', 9),
-(6, 'Fc1', 7600, '2017-04-20 00:00:00', 0, 2408, NULL, 0, '1234', 9),
-(18, 'Fv1', 40460, '2017-04-20 00:00:00', 0, 1105, NULL, 0, '1234', 7),
-(19, 'Fv1', 34000, '2017-04-20 00:00:00', 1, 4135, NULL, 0, '1234', 7),
-(20, 'Fv1', 6460, '2017-04-20 00:00:00', 1, 2408, NULL, 0, '1234', 7),
-(21, 'Fv1', 32400, '2017-04-20 00:00:00', 1, 14, NULL, 0, '1234', 7),
-(22, 'Fv1', 32400, '2017-04-20 00:00:00', 0, 61, NULL, 0, '1234', 7);
+(108, 'Fv5', 6000, '2017-05-02 00:00:00', 0, 1105, NULL, 0, '234', 11),
+(109, 'Fv5', 9720, '2017-05-02 00:00:00', 1, 4135, NULL, 0, '234', 11),
+(110, 'Fv5', 2280, '2017-05-02 00:00:00', 1, 2408, NULL, 0, '234', 11),
+(111, 'Fv5', 10400, '2017-05-02 00:00:00', 1, 14, NULL, 0, '234', 11),
+(112, 'Fv5', 10400, '2017-05-02 00:00:00', 0, 61, NULL, 0, '234', 11),
+(113, 'Fv5', 6000, '2017-05-02 00:00:00', 0, 1305, NULL, 0, '234', 11);
 
 -- --------------------------------------------------------
 
@@ -195,6 +199,7 @@ CREATE TABLE `detalle_factura` (
   `idFactura` int(11) NOT NULL,
   `cantidad` int(11) DEFAULT NULL,
   `precio_compra` int(11) DEFAULT NULL,
+  `prom` int(11) NOT NULL,
   `precio_venta` int(11) DEFAULT NULL,
   `descuento` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -203,9 +208,8 @@ CREATE TABLE `detalle_factura` (
 -- Volcado de datos para la tabla `detalle_factura`
 --
 
-INSERT INTO `detalle_factura` (`idArticulo`, `idFactura`, `cantidad`, `precio_compra`, `precio_venta`, `descuento`) VALUES
-('1234', 7, 7, NULL, 5000, 1000),
-('1234', 9, 8, 5000, 6000, NULL);
+INSERT INTO `detalle_factura` (`idArticulo`, `idFactura`, `cantidad`, `precio_compra`, `prom`, `precio_venta`, `descuento`) VALUES
+('234', 11, 8, NULL, 1300, 1500, 0);
 
 -- --------------------------------------------------------
 
@@ -231,8 +235,7 @@ INSERT INTO `facturas` (`idFacturas`, `Tipo_factura`, `Num_factura`, `fecha`, `d
 (2, 'Fv', NULL, NULL, NULL, 'no'),
 (3, 'Nc', 0, NULL, NULL, 'no'),
 (4, 'Nd', 0, NULL, NULL, 'no'),
-(7, 'Fv', 1, '2017-04-12 12:46:36', NULL, 'Pagado'),
-(9, 'Fc', 1, '2017-04-12 14:40:16', NULL, 'Pagado');
+(11, 'Fv', 5, '2017-05-02 09:55:27', 12700123, 'Pagado');
 
 -- --------------------------------------------------------
 
@@ -297,7 +300,8 @@ INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created
 (9, 'facturar-ventas', 'Facturar Ventas', 'El usuario podrá realizar las operaciones de Facturación de ventas', '2017-04-23 22:53:05', '2017-04-23 22:53:05'),
 (10, 'facturar-compras', 'Facturar Compras', 'El usuario podrá generas Facturación de compras', '2017-04-23 22:54:13', '2017-04-23 22:54:13'),
 (11, 'categoria', 'Administrar Catrgorias', 'El usuario podrá administrar las categorías de los productos', '2017-04-23 22:55:32', '2017-04-23 22:55:32'),
-(12, 'articulo', 'Administrar Articulos', 'El usuario podrá Administrar los articulos', '2017-04-23 22:56:15', '2017-04-23 22:56:15');
+(12, 'articulo', 'Administrar Articulos', 'El usuario podrá Administrar los articulos', '2017-04-23 22:56:15', '2017-04-23 22:56:15'),
+(13, 'ver-kardex', 'Ver Kardex', 'El usuario podrá ver el Kardex de los productos', '2017-04-25 03:22:55', '2017-04-25 03:22:55');
 
 -- --------------------------------------------------------
 
@@ -327,7 +331,16 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (6, 3),
 (7, 1),
 (7, 3),
-(8, 2);
+(8, 2),
+(8, 3),
+(9, 2),
+(9, 3),
+(10, 2),
+(10, 3),
+(11, 3),
+(12, 3),
+(13, 2),
+(13, 3);
 
 -- --------------------------------------------------------
 
@@ -340,8 +353,19 @@ CREATE TABLE `persona` (
   `nombre_persona` varchar(60) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `direccion` varchar(85) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `telefono` varchar(12) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `email` varchar(65) COLLATE utf8_spanish2_ci DEFAULT NULL
+  `email` varchar(65) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `Tipo` varchar(10) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`doc_persona`, `nombre_persona`, `direccion`, `telefono`, `email`, `Tipo`) VALUES
+(12700123, 'Asoviz', 'central', '8672277', 'asoviz@mail.com', 'Cliente'),
+(23232323, 'Pepito Perez', 'Calle falsa 123', '232323', 'pepe@mail.com', 'Proveedor'),
+(1003558472, 'Juan Carlos Pinzon', 'Balmoral-fusagasugá', '3204291637', 'juank11pin@hotmail.com', 'Cliente'),
+(1069763203, 'Jorge Romero', 'Calle falsa 123', '3203771274', 'jromero199@gmail.com', 'Proveedor');
 
 -- --------------------------------------------------------
 
@@ -468,9 +492,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Jorge Enrique Romero', 'jromero199@gmail.com', '$2y$10$7wb2zXC7T4RISuJ0WguVke99LdwmYBzh244iCpSTVEIwDuFol6gFe', 'cl9Cr5apr9FGvQT9YvmuenpUqrhXAxN5UOgpn9UPATvQmsXI9upr5vg6kZhm', '2017-03-16 15:21:57', '2017-03-16 15:21:57'),
-(2, 'Jimeno Jimenez', 'yoryi1998@gmail.com', '$2y$10$Qf62isVLPeHUsy6T2.qqQuTRAIpzANahmAYP4OfItHO54X7Z0D1B2', 'Nk0W5X3UeBKDmvSY5NeNZoovcRKhRkQRY5Wr39kL1MKp3gCjmj7cOfOD7GKp', '2017-03-16 15:36:49', '2017-03-16 15:36:49'),
-(3, 'Control Total', 'gestor@gestor.com', '$2y$10$ZXblpoX/QUsx2rXvq.JVlece.aZf5B6nFJ9dsg/g0WRcndk.xTasG', 'j6HPVmHS3MRZf7F57mkPsPvbkX0vZ18dHnmYM0Ets7BAI3Dclymmz6h9UKKi', '2017-04-01 13:28:48', '2017-04-01 13:28:48');
+(1, 'Jorge Enrique Romero', 'jromero199@gmail.com', '$2y$10$7wb2zXC7T4RISuJ0WguVke99LdwmYBzh244iCpSTVEIwDuFol6gFe', 'f2lLGKIBseLH1ChWEEbtOgAihkJG38VDuCVxGkzap6FmxHgxf6ahHOFtM2OB', '2017-03-16 15:21:57', '2017-03-16 15:21:57'),
+(2, 'Jimeno Jimenez', 'yoryi1998@gmail.com', '$2y$10$Qf62isVLPeHUsy6T2.qqQuTRAIpzANahmAYP4OfItHO54X7Z0D1B2', 'B7E0WP9TAP8LKiuaxWlpXfpUqV6j5PD9v0tK4A2ugluALeGhHFsP4Tzt9f9M', '2017-03-16 15:36:49', '2017-03-16 15:36:49'),
+(3, 'Control Total', 'gestor@gestor.com', '$2y$10$ZXblpoX/QUsx2rXvq.JVlece.aZf5B6nFJ9dsg/g0WRcndk.xTasG', 'oZJXokbZo6uIft0sBgC1klwqSznTfL5ExHV9NeBXd2036SeLXV2VeprMSwhU', '2017-04-01 13:28:48', '2017-04-01 13:28:48');
 
 --
 -- Índices para tablas volcadas
@@ -606,7 +630,7 @@ ALTER TABLE `auxiliar`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `idCategorias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idCategorias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `clase_puc`
 --
@@ -616,7 +640,7 @@ ALTER TABLE `clase_puc`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `idcuentas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idcuentas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 --
 -- AUTO_INCREMENT de la tabla `descripcion_cuenta`
 --
@@ -626,7 +650,7 @@ ALTER TABLE `descripcion_cuenta`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `idFacturas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idFacturas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
@@ -636,7 +660,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --

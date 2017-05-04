@@ -1,4 +1,8 @@
 @extends('layouts.admin')
+<link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css'>
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+
+<link rel="stylesheet" href="{{asset('css/style.css')}}">
 @section('contenido')
 <div class="row">
 	<div class="col-xs-12" style="text-align:center">
@@ -6,6 +10,122 @@
 		@include('almacen.articulo.search')
 	</div>
 </div>
+<div class="row active-with-click">
+	@foreach ($articulos as $art)
+			@if($art->Estado=="Activo")
+			<?php 
+				switch ($art->idCategorias) {
+					case 1:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Red">');
+						break;
+					case 2:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Pink">');
+						break;
+					case 3:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Purple">');
+						break;
+					case 4:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Deep-Purple">');
+						break;
+					case 5:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Indigo">');
+						break;
+					case 6:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Blue">');
+						break;
+					case 7:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Cyan">');
+						break;
+					case 8:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Teal">');
+						break;
+					case 9:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Green">');
+						break;
+					case 10:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Light-Green">');
+						break;
+					case 11:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Lime">');
+						break;
+					case 12:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Yellow">');
+						break;
+					case 13:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Amber">');
+						break;
+					case 14:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Orange">');
+						break;
+					case 15:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Deep-Orange">');
+						break;
+					case 16:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Brown">');
+						break;
+					case 17:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Grey">');
+						break;
+					case 18:
+						echo('<div class="col-md-4 col-sm-6 col-xs-12">
+		            			<article class="material-card Blue-Grey">');
+						break;
+				}
+			 ?>
+			 			<h2>
+		                    <span>{{$art->nom_articulo}}</span>
+		                    <strong>
+		                        <i class="fa fa-fw fa-tree"></i>
+		                        The Deer Hunter
+		                    </strong>
+		                </h2>
+		                <div class="mc-content">
+		                    <div class="img-container">
+		                        <img class="img-responsive" src="http://u.lorenzoferrara.net/marlenesco/material-card/thumb-christopher-walken.jpg">
+		                    </div>
+		                    <div class="mc-description">
+		                        Codigo de la Planta: {{ $art->idArticulos}}<br>
+		                        Categoria: {{ $art->Nombre_categoria}}<br>
+								Stock: {{ $art->stock}}<br>
+								Minimo: {{$art->minimo}}<br>
+								Maximo: {{$art->maximo}}<br>
+								Precio de Venta: ${{number_format($art->Precio_venta)}}<br>
+		                    </div>
+		                </div>
+		                <a class="mc-btn-action">
+		                    <i class="fa fa-bars"></i>
+		                </a>
+		                <div class="mc-footer">
+		                    <h4>
+		                        Opciones
+		                    </h4>
+		                    <a class="fa fa-fw fa-pencil" title="Editar" href="{{URL::action('ArticulosController@edit',$art->idArticulos)}}"></a>
+							<a class="fa fa-fw fa-trash" title="Eliminar" href="" data-target="#modal-delete-{{$art->idArticulos}}" data-toggle="modal"></a>
+		                </div>
+		            </article>
+		        </div>
+			@include('almacen.articulo.modal')
+		@endif
+	@endforeach
+</div>
+
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -44,3 +164,6 @@
 	</div>
 </div>
 @endsection
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script src="{{asset('js/index.js')}}"></script>

@@ -47,7 +47,6 @@
             text-decoration: none;
             text-transform: uppercase;
         }
-
     </style>
 
 </head>
@@ -57,15 +56,15 @@
     <div data-html2canvas-ignore="true" class="uv-icon uv-bottom-right ">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="39px" height="39px" viewBox="0 0 39 39" enable-background="new 0 0 39 39" xml:space="preserve">
        <g>
-	    <path class="uv-bubble-background" fill="rgba(46, 49, 51, 0.6)" d="M31.425,34.514c-0.432-0.944-0.579-2.007-0.591-2.999c4.264-3.133,7.008-7.969,7.008-13.409
-		C37.842,8.658,29.594,1,19.421,1S1,8.658,1,18.105c0,9.446,7.932,16.79,18.105,16.79c1.845,0,3.94,0.057,5.62-0.412
-		c0.979,1.023,2.243,2.3,2.915,2.791c3.785,2.759,7.571,0,7.571,0S32.687,37.274,31.425,34.514z" style="fill: rgba(226, 117, 58, 0.90);"></path>
-	   <g>
+        <path class="uv-bubble-background" fill="rgba(46, 49, 51, 0.6)" d="M31.425,34.514c-0.432-0.944-0.579-2.007-0.591-2.999c4.264-3.133,7.008-7.969,7.008-13.409
+        C37.842,8.658,29.594,1,19.421,1S1,8.658,1,18.105c0,9.446,7.932,16.79,18.105,16.79c1.845,0,3.94,0.057,5.62-0.412
+        c0.979,1.023,2.243,2.3,2.915,2.791c3.785,2.759,7.571,0,7.571,0S32.687,37.274,31.425,34.514z" style="fill: rgba(226, 117, 58, 0.90);"></path>
+       <g>
        <g>
         <path class="uv-bubble-foreground" fill="#FFFFFF" d="M16.943,19.467c0-3.557,4.432-3.978,4.432-6.058c0-0.935-0.723-1.721-2.383-1.721
         c-1.508,0-2.773,0.725-3.709,1.87l-2.441-2.743c1.598-1.9,4.01-2.924,6.602-2.924c3.891,0,6.271,1.959,6.271,4.765c0,4.4-5.037,4.732-5.037,7.265c0,0.481,0.243,0.994,0.574,1.266l-3.316,0.965C17.303,21.459,16.943,20.522,16.943,19.467zM16.943,26.19c0-1.326,1.114-2.441,2.44-2.441c1.327,0,2.442,1.115,2.442,2.441c0,1.327-1.115,2.441-2.442,2.441C18.058,28.632,16.943,27.518,16.943,26.19z" style="fill: white;"></path>
-		</g>
-	    </g>
+        </g>
+        </g>
         </g>
     </svg>
 
@@ -102,8 +101,8 @@
             <!-- Logo -->
             <div id="logo">
                 <span class="image avatar48"><img src="images/avatar.png" alt="" /></span>
-                <h1 id="title">ASOVIZ</h1></br>
-                <h1 id="title" style="position: center;">ASOCIACION DE VIVERISTAS DE LA REGION DEL SUMAPAZ</h1>
+                <h1 id="title">ASOVIZ</h1>
+                <p>Descripción </p>
             </div>
 
             <!-- Menu -->
@@ -142,8 +141,11 @@
         <!-- Intro -->
         <section id="Intro" class="one dark cover">
             <div class="container">
-                <?php echo Auth::user() ?>
-                <a href="" data-target="#modal-login" data-toggle="modal"><button class="btn btn-danger">Iniciar Sesión</button></a>
+                @if(Auth::user())
+                    <a href="/home"><button class="btn btn-danger">Iniciar Sesión</button></a>
+                @else
+                    <a href="" data-target="#modal-login" data-toggle="modal"><button class="btn btn-danger">Iniciar Sesión</button></a>
+                @endif
                 <header>
                     <h2 class="alt">Hola! estas en <strong>ASOVIZ</strong>, una aplicación hecha por estudiantes de la <a href="http://www.unicundi.edu.co/">Unicundi.</a> <br/> Esta aplicación fue desarrollada con el propósito de facilitar una correcta contabilidad en los viveros.</h2>
                     <p>“El que no sabe llevar su contabilidad por espacio de tres mil años <br /> se queda como un ignorante en la oscuridad y sólo vive al día.<br /> -Johann Wolfgang Von Goethe.</p>
@@ -161,10 +163,10 @@
             <div class="container">
 
                 <header>
-                    <h2 style="color:white;">Galería</h2>
+                    <h2>Galería</h2>
                 </header>
 
-                <p style="color:white;">Esta es nuestra galería, acá podrás encontrar algunos de los proyectos en los que hemos trabajado, también puedes observar algunos de los ejemplares que vendemos en nuestro vivero, deseamos que la vista de las imágenes sea de tu agrado y puedas tomar la maravillosa decisión de requerir nuestros servicios y productos de calidad garantizada.</p>
+                <p>Esta es nuestra galería, acá podrás encontrar algunos de los proyectos en los que hemos trabajado, también puedes observar algunos de los ejemplares que vendemos en nuestro vivero, deseamos que la vista de las imágenes sea de tu agrado y puedas tomar la maravillosa decisión de requerir nuestros servicios y productos de calidad garantizada.</p>
 
                 <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, quis, eum. Nemo fugiat expedita nesciunt dignissimos. Iure temporibus velit corporis, nisi sunt perspiciatis delectus quibusdam repellat et. Consequuntur, omnis, magnam. paty es estupida y no confia en mi...</p> -->
 
@@ -221,7 +223,7 @@
             <div class="container">
 
                 <header>
-                    <h2 style="color:white;">Acerca del proyecto:</h2>
+                    <h2>Acerca del proyecto:</h2>
                 </header>
 
 
@@ -302,7 +304,6 @@
 
 
                 <!--<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
-
                             <p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
                             ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
                             laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
@@ -319,7 +320,7 @@
             <div class="container">
 
                 <header>
-                    <h2 style="color:white;">Ubicación</h2>
+                    <h2>Ubicación</h2>
                 </header>
 
                 <div id="map"></div>
@@ -337,10 +338,12 @@
             <div class="container">
 
                 <header>
-                    <h2 style="color:white;">Contacto:</h2>
+                    <h2>Contacto:</h2>
                 </header>
 
-               <form method="post" action="#">
+                <p>Elementum sem parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
+
+                <form method="post" action="#">
                     <div class="row">
                         <div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
                         <div class="6u$ 12u$(mobile)"><input type="text" name="email" placeholder="Email" /></div>
@@ -364,7 +367,7 @@
         <!-- Copyright -->
         <ul class="copyright">
             <li>&copy; Todos los derechos reservados.</li>
-            <li>Design: <a href="http://www.unicundi.edu.co/">Ucundinamarca</a></li>
+            <li>Design: <a href="http://www.unicundi.edu.co/">UCundinamarca</a></li>
         </ul>
 
     </div>

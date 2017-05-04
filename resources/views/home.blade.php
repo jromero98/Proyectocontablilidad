@@ -37,6 +37,7 @@
                 </div>
                 <i class="zmdi zmdi-truck tile-icon"></i>
             </article>
+            <a href="/almacen/categoria">
             <article class="full-width tile">
                 <div class="tile-text">
                     <span class="text-condensedLight">
@@ -46,16 +47,20 @@
                 </div>
                 <i class="zmdi zmdi-label tile-icon"></i>
             </article>
-            <article class="full-width tile">
+            </a>
+            <a href="/almacen/articulo">
+                <article class="full-width tile">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{count($articulos)}}<br>
                         <small>Productos</small>
                     </span>
                 </div>
-                <i class="zmdi zmdi-washing-machine tile-icon"></i>
+                <i class="zmdi zmdi-flower-alt tile-icon"></i>
             </article>
-            <article class="full-width tile">
+            </a>
+            <a href="/ventas?searchText=&estado=Pagado">
+                <article class="full-width tile">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{count($ventas)}}<br>
@@ -64,6 +69,7 @@
                 </div>
                 <i class="zmdi zmdi-shopping-cart tile-icon"></i>
             </article>
+            </a>
                 </div>
             </div>
         </div>

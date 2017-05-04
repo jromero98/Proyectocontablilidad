@@ -14,7 +14,7 @@ class ArticulosController extends Controller
         if($request){
             $query=trim($request->get('searchText'));
             $articulos=DB::table('Articulos')->join('Categorias','Categorias_idCategorias','=','idCategorias')
-            ->select('nom_articulo','idArticulos','stock','Nombre_categoria','minimo','maximo','Estado')
+            ->select('nom_articulo','idArticulos','stock','idCategorias','Nombre_categoria','minimo','maximo','Estado','Precio_venta')
             ->where('nom_articulo','LIKE','%'.$query.'%')
             ->orwhere('idArticulos','LIKE','%'.$query.'%')
             ->orwhere('Nombre_categoria','LIKE','%'.$query.'%')
