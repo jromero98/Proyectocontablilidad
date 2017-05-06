@@ -13,7 +13,9 @@ class Categorias extends Model
     public $timestamps=false;
 
     protected $fillable=[
+    'idCategorias',
     'Nombre_categoria',
-    'Descripcion'
+    'Descripcion',
+    'Color'
     ];
 }

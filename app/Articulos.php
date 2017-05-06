@@ -20,6 +20,7 @@ class Articulos extends Model
     'maximo',
     'minimo',
     'Estado',
-    'Precio_venta'
+    'Precio_venta',
+    'Imagen'
     ];
 }

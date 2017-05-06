@@ -28,6 +28,7 @@ class CategoriasController extends Controller
         $categoria=Categorias::findOrFail($id);
         $categoria->Nombre_categoria=$request->get('nombre');
         $categoria->Descripcion=$request->get('descripcion');
+        $categoria->Color=$request->get('color');
         $categoria->update();
         return Redirect::to('almacen/categoria');
     }
@@ -35,6 +36,7 @@ class CategoriasController extends Controller
         $categoria=new Categorias;
         $categoria->Nombre_categoria=$request->get('nombre');
         $categoria->Descripcion=$request->get('descripcion');
+        $categoria->Color=$request->get('color');
         $categoria->save();
         return Redirect::to('almacen/categoria');
     }

@@ -14,7 +14,7 @@
 	@foreach ($articulos as $art)
 			@if($art->Estado=="Activo")
 			<?php 
-				switch ($art->idCategorias) {
+				switch ($art->Color) {
 					case 1:
 						echo('<div class="col-md-4 col-sm-6 col-xs-12">
 		            			<article class="material-card Red">');
@@ -91,14 +91,14 @@
 			 ?>
 			 			<h2>
 		                    <span>{{$art->nom_articulo}}</span>
-		                    <strong>
+		                    <!--strong>
 		                        <i class="fa fa-fw fa-tree"></i>
 		                        The Deer Hunter
-		                    </strong>
+		                    </strong-->
 		                </h2>
 		                <div class="mc-content">
 		                    <div class="img-container">
-		                        <img class="img-responsive" src="http://u.lorenzoferrara.net/marlenesco/material-card/thumb-christopher-walken.jpg">
+		                        <img class="img-responsive" src="{{asset('Imagenes/Articulos/'.$art->Imagen)}}">
 		                    </div>
 		                    <div class="mc-description">
 		                        Codigo de la Planta: {{ $art->idArticulos}}<br>
@@ -126,8 +126,7 @@
 	@endforeach
 </div>
 
-
-<div class="row">
+<div class="row hidden" id="lista">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-condensed table-hover">
@@ -160,9 +159,27 @@
 				
 			</table>
 		</div>
-		{{$articulos->appends(Request::only(['searchText']))->render()}}
 	</div>
 </div>
+<div class="form-group text-right">
+				<input class="btn btn-warning" type="button" id="inventario" value="Inventario">
+</div>
+<div class="form-group text-center">
+		{{$articulos->appends(Request::only(['searchText']))->render()}}
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+        $('#inventario').click(function () {
+            if ($('#inventario').val()!="Inventario") {
+            	$("#lista").addClass('hidden');
+            	$('#inventario').val("Inventario");
+            }else{
+            	$("#lista").removeClass('hidden');
+            	$('#inventario').val("Ocultar");
+            }
+        });
+});
+</script>
 @endsection
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 

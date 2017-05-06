@@ -39,8 +39,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/almacen/categoria','CategoriasController', ['middleware' => 'categoria']);
 
     Route::resource('/perfil','PerfilController');
+    Route::resource('/empleados','EmpleadoController');
+    Route::resource('/nomina','NominaController');
+    Route::resource('/cargos','CargosController');
 
    Route::post('/persona','PersonaController@store'); 
    Route::get('/persona/index','PersonaController@index'); 
-   Route::get('/persona/index','PersonaController@index'); 
+   Route::get('/nomina/index/{id}','NominaController@getNomina'); 
 });

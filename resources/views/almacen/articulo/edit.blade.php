@@ -11,10 +11,10 @@
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
 			<div class="form-group">
-				<img id="imgSalida" height="200px" width="200px">
+				<img id="imgSalida" src="{{asset('Imagenes/Articulos/'.$articulo->Imagen)}}" height="200px" width="200px">
 			</div>
             <label class="btn btn-primary">
-                Cargar Imagen <input type="file" style="display: none;" alt="{{$articulo->nom_articulo}}" id="imagen" name="imagen" accept="image/*">
+                Cargar Imagen <input type="file" style="display: none;" alt="{{$articulo->nom_articulo}}" id="imagen" name="image" accept="image/*">
             </label>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -34,7 +34,7 @@
 			<label>Categoria</label>
 			<select name="idcategoria" class="form-control">
 				@foreach($categorias as $cat)
-					@if($cat->idcategoria==$articulo->idcategoria)
+					@if($cat->idCategorias==$articulo->Categorias_idCategorias)
 					<option value="{{$cat->idCategorias}}" selected> {{$cat->Nombre_categoria}}</option>
 					@else
 					<option value="{{$cat->idCategorias}}">{{$cat->Nombre_categoria}}</option>
@@ -137,6 +137,7 @@ span.onclick = function() {
   modal.style.display = "none";
 }
 </script>
+
 <script>
 	setInterval( function() { 
     if( haCambiado() );

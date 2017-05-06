@@ -25,6 +25,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <!-- Font Awesome -->
     <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- NProgress -->
     <link href="{{asset('css/nprogress.css')}}" rel="stylesheet">
 
@@ -127,6 +128,13 @@
                                     </ul>
                                 </li>
                                 @endif
+                                <li><a><i class="fa fa-address-card-o"></i> Nomina <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                            <li><a href="/empleados">Empleados</a></li>
+                                            <li><a href="/cargos">Cargos</a></li>
+                                            <li><a href="/nomina">Nomina</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
 
@@ -195,27 +203,37 @@
                                 @endif
                             @endforeach
                             <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"  style="padding: 21px" >
+                                <a href="javascript:;" class="dropdown-toggle info-number" title="Notificaciones" data-toggle="dropdown" aria-expanded="false"  style="padding: 21px" >
                                     <i class="fa fa-bell-o"></i>
                                     @if($cuantos>0)
                                         <span class="badge bg-green">{{$cuantos}}</span>
                                     @endif
                                 </a>
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                   @foreach($articulos as $articulo)
-                                        @if($articulo->stock <= $articulo->minimo)
-                                            <li>
-                                                <a>
-                                                    <span>
-                                                      <span>{{$articulo->nom_articulo}}</span>
-                                                    </span>
-                                                    <span class="message">
-                                                          El articulo presenta pocas existencias.
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        @endif
-                                    @endforeach
+                                    @if($cuantos>0)
+                                        @foreach($articulos as $articulo)
+                                            @if($articulo->stock <= $articulo->minimo)
+                                                <li>
+                                                    <a>
+                                                        <span>
+                                                          <span>{{$articulo->nom_articulo}}</span>
+                                                        </span>
+                                                        <span class="message">
+                                                              El articulo presenta pocas existencias.
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <li>
+                                            <a>
+                                                <span class="message">
+                                                      No hay Alertas por el momento.
+                                                </span>
+                                            </a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </li>
                         </ul>

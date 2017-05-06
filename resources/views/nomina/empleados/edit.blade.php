@@ -3,62 +3,66 @@
 @section ('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Nuevo Articulo</h3>
+			<h3>Editar Empleado</h3>
 		</div>
 	</div>
-	{!!Form::open(array('url'=>'almacen/articulo','method'=>'POST','autocomplete'=>'off','files' => true))!!}
+	{!!Form::model($empleado,['method'=>'PATCH','route'=>['empleados.update',$empleado->ced_empleado],'files'=>true])!!}
     {{Form::token()}}		
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
 			<div class="form-group">
-				<img id="imgSalida" height="200px" width="200px">
+				<img id="imgSalida" src="{{asset('Imagenes/Empleados/'.$empleado->foto_empleado)}}" height="200px" width="200px">
 			</div>
             <label class="btn btn-primary">
                 Cargar Imagen <input type="file" style="display: none;" id="imagen" name="image" accept="image/*">
             </label>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<div class="form-group">
-				<label for="codigo">Codigo del Articulo</label>
-				<input type="number" name="codigo" required value="{{old('codigo')}}" class="form-control" placeholder="Codigo del Articulo...">
+		<div class="form-group">
+				<label for="cedula">Cedula del Empleado</label>
+				<input type="number" name="cedula" required value="{{$empleado->ced_empleado}}" class="form-control" placeholder="Cedula...">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
 				<label for="nombre">Nombre</label>
-				<input type="text" required value="{{old('nombre')}}" name="nombre" class="form-control" placeholder="Nombre...">
+				<input type="text" required value="{{$empleado->nombre_empleado}}" name="nombre" class="form-control" placeholder="Nombre...">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<label>Categoria</label>
-			<select name="idcategoria" class="form-control">
-				@foreach($categorias as $cat)
-					<option value="{{$cat->idCategorias}}">{{$cat->Nombre_categoria}}</option>
+			<div class="form-group">
+				<label for="apellido">Apellido</label>
+				<input type="text" required value="{{$empleado->apellido_empleado}}" name="apellido" class="form-control" placeholder="Apellido...">
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<label>Cargo</label>
+			<select name="idcargo" class="form-control">
+				@foreach($cargos as $cargo)
+					@if($cargo->IdCargos == $empleado->IdCargo)
+						<option value="{{$cargo->idCargos}}" selected="">{{$cargo->nombre_cargo}}</option>
+					@else
+						<option value="{{$cargo->idCargos}}">{{$cargo->nombre_cargo}}</option>
+					@endif
 				@endforeach
 			</select>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
-				<label for="stock">Stock</label>
-				<input type="text" required value="{{old('stock')}}" name="stock" class="form-control" placeholder="Stock...">
+				<label for="direccion">Direccion</label>
+				<input type="text" required value="{{$empleado->dir_empleado}}" name="direccion" class="form-control" placeholder="Direccion...">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
-				<label for="minimo">Minimo</label>
-				<input type="number" required value="{{old('minimo')}}" name="minimo" class="form-control" placeholder="Minimo...">
+				<label for="telefono">Telefono</label>
+				<input type="number" required value="{{$empleado->tel_empleado}}" name="telefono" class="form-control" placeholder="Telefono...">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
-				<label for="maximo">Maximo</label>
-				<input type="number" required value="{{old('maximo')}}" name="maximo" class="form-control" placeholder="Maximo...">
-			</div>
-		</div>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<div class="form-group">
-				<label for="preciov">Precio de venta</label>
-				<input type="text" required name="preciov" id="preciov" value="{{old('preciov')}}" class="form-control" placeholder="Precio de venta...">
+				<label for="correo">Email</label>
+				<input type="email" required value="{{$empleado->email}}" name="correo" class="form-control" placeholder="Email...">
 			</div>
 		</div>
 	</div>
@@ -124,43 +128,6 @@ var span = document.getElementsByClassName("cerrar")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() { 
   modal.style.display = "none";
-}
-</script>
-<script>
-	setInterval( function() { 
-    if( haCambiado() );
-}, 100);
-	var valueAnterior=document.getElementById("preciov").value; 
-    function haCambiado() { 
-
-        if(document.getElementById("preciov").value!=valueAnterior) { 
-            document.getElementById("preciov").value= number_format(document.getElementById("preciov").value,0); 
-            return true; 
-        } 
-        else  
-        return false; 
-    }
-function number_format(amount, decimals) {
-
-    amount += ''; // por si pasan un numero en vez de un string
-    amount = parseFloat(amount.replace(/[^0-9\.]/g, '')); // elimino cualquier cosa que no sea numero o punto
-
-    decimals = decimals || 0; // por si la variable no fue fue pasada
-
-    // si no es un numero o es igual a cero retorno el mismo cero
-    if (isNaN(amount) || amount === 0) 
-        return parseFloat(0).toFixed(decimals);
-
-    // si es mayor o menor que cero retorno el valor formateado como numero
-    amount = '' + amount.toFixed(decimals);
-
-    var amount_parts = amount.split('.'),
-        regexp = /(\d+)(\d{3})/;
-
-    while (regexp.test(amount_parts[0]))
-        amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
-
-    return amount_parts.join('.');
 }
 </script>
 @endsection
