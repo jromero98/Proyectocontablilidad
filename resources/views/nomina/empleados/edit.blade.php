@@ -20,7 +20,7 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 		<div class="form-group">
 				<label for="cedula">Cedula del Empleado</label>
-				<input type="number" name="cedula" required value="{{$empleado->ced_empleado}}" class="form-control" placeholder="Cedula...">
+				<input type="number" name="cedula" readonly="" value="{{$empleado->ced_empleado}}" class="form-control" placeholder="Cedula...">
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -35,11 +35,12 @@
 				<input type="text" required value="{{$empleado->apellido_empleado}}" name="apellido" class="form-control" placeholder="Apellido...">
 			</div>
 		</div>
+
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<label>Cargo</label>
 			<select name="idcargo" class="form-control">
 				@foreach($cargos as $cargo)
-					@if($cargo->IdCargos == $empleado->IdCargo)
+					@if($cargo->IdCargos == $empleado->idCargo)
 						<option value="{{$cargo->idCargos}}" selected="">{{$cargo->nombre_cargo}}</option>
 					@else
 						<option value="{{$cargo->idCargos}}">{{$cargo->nombre_cargo}}</option>
@@ -65,10 +66,17 @@
 				<input type="email" required value="{{$empleado->email}}" name="correo" class="form-control" placeholder="Email...">
 			</div>
 		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="form-group">
+				<label for="deducciones">Deducciones del Empleado</label>
+				<a class="btn btn btn-success form-control" id="plus" name="deducciones" href="" data-target="#modal-deduccion" data-toggle="modal">Agregar deducciones</a>
+			</div>
+		</div>
+		@include('nomina.empleados.deduccioneditmodal') 
 	</div>
 			<div class="form-group">
 				<button class="btn btn-primary" type="submit">Guardar</button>
-				<a href="/almacen/articulo" class="btn btn-danger">Cancelar</a>
+				<a href="/empleados" class="btn btn-danger">Cancelar</a>
 			</div>
 	<div id="myModal" class="modal">
 

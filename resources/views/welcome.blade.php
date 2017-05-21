@@ -101,8 +101,8 @@
             <!-- Logo -->
             <div id="logo">
                 <span class="image avatar48"><img src="images/avatar.png" alt="" /></span>
-                <h1 id="title">ASOVIZ</h1>
-                <p>Descripción </p>
+                <h1 id="title" title="Asociación de Viveristas del Sumapaz">ASOVIZ</h1>
+                <!--p>Descripción </p-->
             </div>
 
             <!-- Menu -->

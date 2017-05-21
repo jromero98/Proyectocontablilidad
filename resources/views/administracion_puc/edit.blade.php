@@ -44,6 +44,19 @@
             @endforeach
 			</select>
 		</div>
+
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<label>Naturaleza</label>
+			<select name="naturaleza" class="form-control">
+				@if($puc->naturaleza=="D")
+                   <option value="D" selected="">Debito</option>
+                	<option value="C">Credito</option>
+                @else
+                    <option value="D">Debito</option>
+                	<option value="C" selected="">Credito</option>
+                @endif
+			</select>
+		</div>
 	</div>
     <br/>
     <div class="form-group container-fluid"> 

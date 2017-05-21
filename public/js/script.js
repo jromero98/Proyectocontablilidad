@@ -31,6 +31,8 @@ $("#registro").click(function(){
         } else if (jqXHR.status == 404) {
             msg = 'Requested page not found. [404]';
         } else if (jqXHR.status == 500) {
+        	console.log(jqXHR);
+	        	console.log(exception);
             msg = 'Internal Server Error [500].';
             msg = 'Los datos ya estan registrados.';
         } else if (exception === 'parsererror') {

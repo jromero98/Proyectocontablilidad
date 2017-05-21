@@ -16,6 +16,64 @@
 			<div class="form-group">
 				<label for="color">Color</label>
 				<select name="color" class="form-control">
+				<?php 
+				switch ($categoria->Color) {
+					case 1:
+						echo('<option value="1">Rojo</option>');
+						break;
+					case 2:
+						echo('<option value="2">Rosado</option>');
+						break;
+					case 3:
+						echo('<option value="3">Morado</option>');
+						break;
+					case 4:
+						echo('<option value="4">Morado Oscuro</option>');
+						break;
+					case 5:
+						echo('<option value="5">Indigo</option>');
+						break;
+					case 6:
+						echo('<option value="6">Azul</option>');
+						break;
+					case 7:
+						echo('<option value="7">Cian</option>');
+						break;
+					case 8:
+						echo('<option value="8">Verde azulado</option>');
+						break;
+					case 9:
+						echo('<option value="9">Verde</option>');
+						break;
+					case 10:
+						echo('<option value="10">Verde claro</option>');
+						break;
+					case 11:
+						echo('<option value="11">Lima</option>');
+						break;
+					case 12:
+						echo('<option value="12">Amarillo</option>');
+						break;
+					case 13:
+						echo('<option value="13">Ámbar</option>');
+						break;
+					case 14:
+						echo('<option value="14">Naranja</option>');
+						break;
+					case 15:
+						echo('<option value="15">Naranja Oscuro</option>');
+						break;
+					case 16:
+						echo('<option value="16">Marrón</option>');
+						break;
+					case 17:
+						echo('<option value="17">Gris</option>');
+						break;
+					case 18:
+						echo('<option value="18">Gris azulado</option>');
+						break;
+				}
+			 ?>
 					<option value="1">Rojo</option>
 					<option value="2">Rosado</option>
 					<option value="3">Morado</option>

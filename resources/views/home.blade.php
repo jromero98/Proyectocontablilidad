@@ -1,16 +1,14 @@
 @extends('layouts.admin')
-
-<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
-<link rel="stylesheet" href="css/pmain.css">
 @section('contenido')
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
-                <div class="panel-heading text-center">Hola {{ Auth::user()->name }} Bienvenido a Asoviz</div>
+                <div class="panel-heading text-center">Hola {{ Auth::user()->name }} Bienvenido a {{$vivero->Nom_vivero}}</div>
 
                 <div class="panel-body">
-            <article class="full-width tile">
+
+                    <!--article class="full-width tile">
                 <div class="tile-text">
                     <span class="text-condensedLight">
                         {{count($admin)}}<br>
@@ -69,7 +67,8 @@
                 </div>
                 <i class="zmdi zmdi-shopping-cart tile-icon"></i>
             </article>
-            </a>
+            </a-->
+            @include('estadistica')
                 </div>
             </div>
         </div>

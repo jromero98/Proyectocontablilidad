@@ -16,6 +16,7 @@
 					<th>Cuenta</th>
 					<th>Descripción</th>
 					<th>Pertenece a</th>
+					<th>Naturaleza</th>
 					<th>Opciones</th>
 				</thead>
 				@foreach($pucs as $puc)
@@ -31,6 +32,11 @@
 						@elseif($puc->clase_puc==6)Costo
 						@endif
 						</td>
+						@if($puc->naturaleza=="D")
+		                   <td>Debito</td>
+		                @else
+		                   <td>Credito</td>
+		                @endif
 						<td class="text-center">
 						    <a href="{{URL::action('AdministrarPucController@edit',$puc->cod_puc)}}"><button class="btn btn-info">Editar</button></a>
 						    <a href="" data-target="#modal-delete-{{$puc->cod_puc}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>

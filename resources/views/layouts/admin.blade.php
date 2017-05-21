@@ -7,13 +7,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Asoviz</title>
+    <meta name="csrf" value="{{ csrf_token() }}">
+    <?php $vivero = DB::table('datosvivero')->select('Nom_vivero')->first();?>
+    <title>{{$vivero->Nom_vivero}}</title>
 
     <!-- Bootstrap -->
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.css">
+    <script src="{{asset('js/jquery.js')}}"></script>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -31,6 +34,7 @@
 
     <!-- Custom Theme Style -->
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+
     <style type="text/css">
     .btn-circle {
       
@@ -42,6 +46,27 @@
       line-height: 1.33;
       border-radius: 25px;
     }
+    .btn {
+      display: inline-block;
+      padding: 6px 12px;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.42857143;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+          touch-action: manipulation;
+      cursor: pointer;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+      background-image: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
     </style>
 </head>
 
@@ -52,7 +77,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/home" class="site_title"><i class="fa fa-pagelines"></i> <span>ASOVIZ</span></a>
+                        <a href="/home" class="site_title"><i class="fa fa-pagelines"></i> <span>{{$vivero->Nom_vivero}}</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -60,7 +85,11 @@
                     <!-- menu profile quick info -->
                     <div class="profile">
                         <div class="profile_pic">
-                            <img src="{{asset('../images/img.jpg')}}" alt="..." class="img-circle profile_img">
+                            @if(Auth::user()->img!="")  
+                                <img src="{{asset('Imagenes/Usuarios/'.$usuario->img)}}" alt="..." class="img-circle profile_img">
+                            @else
+                                <img src="{{asset('../images/img.jpg')}}" alt="..." class="img-circle profile_img">
+                            @endif
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido,</span>
@@ -135,6 +164,13 @@
                                             <li><a href="/nomina">Nomina</a></li>
                                     </ul>
                                 </li>
+                                <li><a><i class="fa fa-book"></i> Estados y Arqueo<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                            <li><a href="#">Estado de Resultado</a></li>
+                                            <li><a href="#">Estado Financiero</a></li>
+                                            <li><a href="#">Arqueo de Caja</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
 
@@ -143,7 +179,7 @@
 
                     <!-- /menu footer buttons -->
                     <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                        <a href="/ajustes/edit" data-toggle="tooltip" data-placement="top" title="Ajustes">
                             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </a>
                         <a data-toggle="tooltip" data-placement="top" title="Pantalla Completa" id="ejemplo-fullscreen">
@@ -176,13 +212,17 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{asset('../images/img.jpg')}}" alt="">{{ Auth::user()->name }}
+                                    @if(Auth::user()->img!="") 
+                                        <img src="{{asset('Imagenes/Usuarios/'.$usuario->img)}}" alt="">{{ Auth::user()->name }} 
+                                    @else
+                                        <img src="{{asset('../images/img.jpg')}}" alt="">{{ Auth::user()->name }}
+                                    @endif
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="/perfil"> Perfil</a></li>
                                     <li>
-                                        <a href="javascript:;">
+                                        <a href="/ajustes/edit">
                                             <span class="badge bg-red pull-right">50%</span>
                                             <span>Ajustes</span>
                                         </a>
@@ -203,7 +243,7 @@
                                 @endif
                             @endforeach
                             <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" title="Notificaciones" data-toggle="dropdown" aria-expanded="false"  style="padding: 21px" >
+                                <a href="javascript:;" class="dropdown-toggle info-number" style="padding: 21px" title="Notificaciones" data-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-bell-o"></i>
                                     @if($cuantos>0)
                                         <span class="badge bg-green">{{$cuantos}}</span>

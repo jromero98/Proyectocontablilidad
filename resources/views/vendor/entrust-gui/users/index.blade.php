@@ -8,6 +8,7 @@
 @endpermission
 <table class="table table-striped">
     <tr>
+        <th>Nombre</th>
         <th>Correo</th>
         <th>Acciones</th>
     </tr>
@@ -17,6 +18,7 @@
              @foreach($role_user as $rol) 
                  @if($rol->user_id!=$user->id) 
                         <tr>
+                            <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td class="col-xs-3">
                                 <form action="{{ route('entrust-gui::users.destroy', $user->id) }}" method="post">
@@ -31,6 +33,7 @@
              @endforeach
              @else
                  <tr>
+                            <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td class="col-xs-3">
                                 <form action="{{ route('entrust-gui::users.destroy', $user->id) }}" method="post">
@@ -43,6 +46,7 @@
                 @endif
         @else
         <tr>
+            <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
             <td class="col-xs-3">
                 <form action="{{ route('entrust-gui::users.destroy', $user->id) }}" method="post">

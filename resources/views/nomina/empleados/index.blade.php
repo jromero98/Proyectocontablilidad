@@ -280,6 +280,9 @@
             </article>
         </div-->
     </div>
+    <div class="form-group text-center">
+        {{$empleados->appends(Request::only(['searchText']))->render()}}
+</div>
 @endsection
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 

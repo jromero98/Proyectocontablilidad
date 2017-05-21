@@ -1,13 +1,34 @@
 $(document).ready(function () {
         $(function () {
-            $("#datetimepicker").datetimepicker();
+            $("#datetimepicker").datetimepicker({format:'DD/MM/YYYY H:m'});
         });
         $('#btn_add').click(function () {
             agregar();
         });
 });
 $(document).ready(function() {
-    $('#terceros').DataTable();
+    $('#terceros').DataTable({
+        "language": {
+            "lengthMenu": "Ver _MENU_ nominas",
+            "zeroRecords": "No se encontró nada - lo siento",
+            "info": "Viendo pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay nominas disponibles",
+            "infoFiltered": "(Filtrado de _MAX_ nominas totales)",
+            "loadingRecords": "Cargando...",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Ultimo",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            },
+            "aria": {
+                "sortAscending":  ": Activar para ordenar la columna ascendente",
+                "sortDescending": ": Activar para ordenar la columna descendente"
+            }
+        }
+    });
 } );
     function agregar() {
         var cont = document.getElementById("detallescuentas").rows.length-1;

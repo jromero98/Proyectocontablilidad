@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use DB;
+use Carbon\Carbon;
 use App\ContabilidadManual;
 use App\Descripcion_Cuenta;
-use App\Factura;
+use App\Facturas;
 
 class ContabilidadManualController extends Controller
 {
@@ -127,7 +128,7 @@ class ContabilidadManualController extends Controller
             $cuentas->comprobante = $tfactura.$comprobante;
             $cuentas->valor = $valores[$i];
             $cuentas->id_aux = $auxiliar[$i];
-            $cuentas->fecha = $fh." ".$fecha;
+            $cuentas->fecha = Carbon::parse($fh)->format('Y-m-d')." ".$fecha;
             $cuentas->cod_Descripcion = $descripcion->idDescripcion_cuenta;
             if(strcmp($naturalezas[$i], "debito") ){
                 $cuentas->naturaleza = 0;

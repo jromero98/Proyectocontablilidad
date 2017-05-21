@@ -7,16 +7,19 @@ use App\Facturas;
 use App\Persona;
 use App\DetalleFactura;
 use App\Articulos;
+use App\DatosVivero;
 
 class HacerFactura extends Controller
 {
     public function pdf($id){
        $factura=Facturas::findOrFail($id);
-        $factura->Estado='Pendiente';
-        $factura->update();
+        if($factura->Estado!="Pagado"){
+            $factura->Estado='Pendiente';
+            $factura->update();
+        }  
          $detalles=DetalleFactura::where('idFactura','=',$factura->idFacturas)->get();
         $articulos=Articulos::get();
-        
+        $vivero = DatosVivero::first();
         $valor=0;
         foreach ($detalles as $detalle) {
             $valor += ($detalle->cantidad*$detalle->precio_compra);
@@ -24,7 +27,7 @@ class HacerFactura extends Controller
         /*return view('facturacion.compras.edit',["factura"=>$tpfactura,"detalles"=>$detallefactura,"valor"=>$valor,"articulo"=>$articulos]);*/
         $data = $detallefactura=DetalleFactura::where('idFactura','=',$factura->idFacturas)->get();
         $date = date('Y-m-d');
-        $view =  \View::make("facturacion.compras.pdf", compact('data', 'date','valor','articulos','detalles','factura'))->render();
+        $view =  \View::make("facturacion.compras.pdf", compact('data', 'date','valor','articulos','detalles','factura','vivero'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         
@@ -35,11 +38,13 @@ class HacerFactura extends Controller
     }
     public function pdf2($id){
         $factura=Facturas::findOrFail($id);
-        $factura->Estado='Pendiente';
-        $factura->update();
+        if($factura->Estado!="Pagado"){
+            $factura->Estado='Pendiente';
+            $factura->update();
+        }        
         $detalles=DetalleFactura::where('idFactura','=',$factura->idFacturas)->get();
         $articulos=Articulos::get();
-        
+        $vivero = DatosVivero::first();
         $valor=0;
         foreach ($detalles as $detalle) {
             $valor += ($detalle->cantidad*$detalle->precio_venta);
@@ -47,7 +52,7 @@ class HacerFactura extends Controller
         /*return view('facturacion.compras.edit',["factura"=>$tpfactura,"detalles"=>$detallefactura,"valor"=>$valor,"articulo"=>$articulos]);*/
         $data = $detallefactura=DetalleFactura::where('idFactura','=',$factura->idFacturas)->get();
         $date = date('Y-m-d');
-        $view =  \View::make("facturacion.ventas.pdf", compact('data', 'date','valor','articulos','detalles','factura'))->render();
+        $view =  \View::make("facturacion.ventas.pdf", compact('data', 'date','valor','articulos','detalles','factura','vivero'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         

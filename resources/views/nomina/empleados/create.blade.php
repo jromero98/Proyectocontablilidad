@@ -61,10 +61,17 @@
 				<input type="email" required value="{{old('correo')}}" name="correo" class="form-control" placeholder="Email...">
 			</div>
 		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="form-group">
+				<label for="deducciones">Deducciones del Empleado</label>
+				<a class="btn btn btn-success form-control" id="plus" name="deducciones" href="" data-target="#modal-deduccion" data-toggle="modal">Agregar deducciones</a>
+			</div>
+		</div>
+		@include('nomina.empleados.deduccionesmodal') 
 	</div>
 			<div class="form-group">
 				<button class="btn btn-primary" type="submit">Guardar</button>
-				<a href="/almacen/articulo" class="btn btn-danger">Cancelar</a>
+				<a href="/empleados" class="btn btn-danger">Cancelar</a>
 			</div>
 	<div id="myModal" class="modal">
 

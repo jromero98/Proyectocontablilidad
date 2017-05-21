@@ -42,8 +42,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/empleados','EmpleadoController');
     Route::resource('/nomina','NominaController');
     Route::resource('/cargos','CargosController');
+    Route::resource('/ajustes','AjustesController');
+    Route::PATCH ('/datosvivero/{id}',['uses' => 'AjustesController@updatedatos', 'as' => 'datosvivero.update']);
 
    Route::post('/persona','PersonaController@store'); 
    Route::get('/persona/index','PersonaController@index'); 
    Route::get('/nomina/index/{id}','NominaController@getNomina'); 
+   Route::get('/nomina/deducibles/{id}','NominaController@getDeducibles'); 
+
+   Route::get('/cerrarnomina','NominaController@cerrar'); 
 });

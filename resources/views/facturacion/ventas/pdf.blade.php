@@ -32,10 +32,16 @@
                 Fecha {{Carbon\Carbon::parse($factura->fecha)->format('d/m/Y')}}
             </small>
             <small>
-                Nit 123123123-8
+                Nit {{$vivero->Nit_vivero}}
             </small>
             <small>
-                 La Arboleda
+                 {{$vivero->Nom_vivero}}
+            </small>
+            <small>
+                 Direccion: {{$vivero->Direccion_vivero}}
+            </small>
+            <small>
+                 telefono: {{$vivero->Telefono_vivero}}
             </small>
         </h1>
     </div>

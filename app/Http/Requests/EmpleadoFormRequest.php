@@ -31,7 +31,7 @@ class EmpleadoFormRequest extends FormRequest
             'direccion'=>'required|max:100',
             'telefono'=>'required|numeric',
             'correo'=>'required|max:45',
-            'image' => 'mimes:jpeg,png',
+            'image' => 'mimes:jpeg,png,jpg',
         ];
     }
 }

@@ -15,6 +15,7 @@ class AdministrarPuc extends Model
     protected $fillable=[
     'cod_puc',
     'nom_puc',
-    'clase_puc'
+    'clase_puc',
+    'naturaleza'
     ];
 }

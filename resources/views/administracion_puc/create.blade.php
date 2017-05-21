@@ -31,6 +31,13 @@
             @endforeach
 			</select>
 		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<label>Naturaleza</label>
+			<select name="naturaleza" class="form-control">
+                <option value="D">Debito</option>
+                <option value="C">Credito</option>
+			</select>
+		</div>
 	</div>
     <br/>
     <div class="form-group container-fluid"> 

@@ -16,14 +16,14 @@ class AdministrarPucController extends Controller
             $query=trim($request->get('searchText'));
             if($request->get('clase')==""){
                 $pucs=DB::table('puc')
-                ->select('cod_puc','nom_puc','clase_puc')
+                ->select('cod_puc','nom_puc','clase_puc','naturaleza')
                 ->where('cod_puc','LIKE','%'.$query.'%')
                 ->orwhere('nom_puc','LIKE','%'.$query.'%') 
                 ->orderBy('cod_puc','asc')
                 ->paginate(7);
             }else{
                 $pucs=DB::table('puc')
-                ->select('cod_puc','nom_puc','clase_puc')
+                ->select('cod_puc','nom_puc','clase_puc','naturaleza')
                 ->where([['clase_puc','=',$request->get('clase')],['cod_puc','LIKE','%'.$query.'%']])
                 ->orwhere([['clase_puc','=',$request->get('clase')],['nom_puc','LIKE','%'.$query.'%']]) 
                 ->orderBy('cod_puc','asc')
@@ -47,6 +47,7 @@ class AdministrarPucController extends Controller
         $puc->cod_puc=$request->get('cuenta');
         $puc->nom_puc=$request->get('descripcion');
         $puc->clase_puc=$request->get('clase');
+        $puc->naturaleza=$request->get('naturaleza');
         $puc->save();
         return Redirect::to('puc');
     }
@@ -55,6 +56,7 @@ class AdministrarPucController extends Controller
             $puc = AdministrarPuc::findOrFail($id);
             $puc->nom_puc=$request->get('descripcion');
             $puc->clase_puc=$request->get('clase');
+            $puc->naturaleza=$request->get('naturaleza');
             $puc->update();
         }else{
             $puc=AdministrarPuc::findOrFail($id);
@@ -63,6 +65,7 @@ class AdministrarPucController extends Controller
             $puc->cod_puc=$request->get('cuenta');
             $puc->nom_puc=$request->get('descripcion');
             $puc->clase_puc=$request->get('clase');
+            $puc->clase_puc=$request->get('naturaleza');
             $puc->save();
         }
         return Redirect::to('puc');
