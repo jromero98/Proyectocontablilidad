@@ -44,7 +44,7 @@
         <div class="col-md-9 col-sm-9 col-xs-12">
 
           <div class="profile_title">
-            <div class="col-md-6">
+            <div class="col-md-9">
               <h2>Permisos</h2>
             </div>
           </div>

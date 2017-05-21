@@ -16,6 +16,7 @@ class Cargo extends Model
     'idCargos',
     'nombre_cargo',
     'salario_cargo',
-    'color_cargo'
+    'color_cargo',
+    'riesgo'
     ];
 }

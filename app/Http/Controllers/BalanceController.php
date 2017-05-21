@@ -17,7 +17,7 @@ class BalanceController extends Controller
             $comprobante=trim($request->get('comprobante'));
             if(!empty($fecha) && !empty($cuenta) && !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza')
                 ->where('fecha','=',$fecha)
                 ->where('puc.cod_puc','=',$cuenta)
                 ->where('comprobante','=',$comprobante)
@@ -26,7 +26,7 @@ class BalanceController extends Controller
                 ->get();
             }else if(!empty($fecha) && !empty($cuenta)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza')
                 ->where('fecha','=',$fecha)
                 ->where('puc.cod_puc','=',$cuenta)
                 ->where('idFactura','=',null)
@@ -34,7 +34,7 @@ class BalanceController extends Controller
                 ->get();
             }else if(!empty($cuenta) && !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza')
                 ->where('puc.cod_puc','=',$cuenta)
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','=',null)
@@ -42,7 +42,7 @@ class BalanceController extends Controller
                 ->get();
             }else if(!empty($fecha) && !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza')
                 ->where('fecha','=',$fecha)
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','=',null)
@@ -50,28 +50,28 @@ class BalanceController extends Controller
                 ->get();
             }else if(!empty($fecha)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza')
                 ->where('fecha','=',$fecha)
                 ->where('idFactura','=',null)
                 ->orderBy('fecha', 'asc')
                 ->get();
             }else if( !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza')
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','=',null)
                 ->orderBy('fecha', 'asc')
                 ->get();
             }else if( !empty($cuenta)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza')
                 ->where('puc.cod_puc','=',$cuenta)
                 ->where('idFactura','=',null)
                 ->orderBy('fecha', 'asc')
                 ->get();
             }else{
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza')
                 ->where('idFactura','=',null)
                 ->orderBy('fecha', 'asc')
                 ->get();
@@ -92,7 +92,7 @@ class BalanceController extends Controller
             $comprobante=trim($request->get('comprobante'));
             if(!empty($fecha) && !empty($cuenta) && !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza','idArticulo')
                 ->where('fecha','=',$fecha)
                 ->where('idArticulo','=',$cuenta)
                 ->where('comprobante','=',$comprobante)
@@ -102,7 +102,7 @@ class BalanceController extends Controller
                 ->get();
             }else if(!empty($fecha) && !empty($cuenta)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza','idArticulo')
                 ->where('fecha','=',$fecha)
                 ->where('idArticulo','=',$cuenta)
                 ->where('idFactura','!=',null)
@@ -111,7 +111,7 @@ class BalanceController extends Controller
                 ->get();
             }else if(!empty($cuenta) && !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza','idArticulo')
                 ->where('idArticulo','=',$cuenta)
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','!=',null)
@@ -120,7 +120,7 @@ class BalanceController extends Controller
                 ->get();
             }else if(!empty($fecha) && !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza','idArticulo')
                 ->where('fecha','=',$fecha)
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','!=',null)
@@ -129,7 +129,7 @@ class BalanceController extends Controller
                 ->get();
             }else if(!empty($fecha)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza','idArticulo')
                 ->where('fecha','=',$fecha)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
@@ -137,7 +137,7 @@ class BalanceController extends Controller
                 ->get();
             }else if( !empty($comprobante)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza','idArticulo')
                 ->where('comprobante','=',$comprobante)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
@@ -145,7 +145,7 @@ class BalanceController extends Controller
                 ->get();
             }else if( !empty($cuenta)){
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza','idArticulo')
                 ->where('idArticulo','=',$cuenta)
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
@@ -153,7 +153,7 @@ class BalanceController extends Controller
                 ->get();
             }else{
                 $cuentas = DB::table('cuentas')->join('puc','puc.cod_puc',"=","cuentas.cod_puc")
-                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','naturaleza','idArticulo')
+                ->select('puc.cod_puc','nom_puc','comprobante','valor','fecha','cuentas.naturaleza','idArticulo')
                 ->where('idFactura','!=',null)
                 ->orderBy('fecha', 'asc')
                 ->orderBy('comprobante', 'asc')

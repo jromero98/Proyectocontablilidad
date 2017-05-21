@@ -28,6 +28,7 @@ class CargosController extends Controller
         $cargo->Nombre_cargo=$request->get('nombre');
         $cargo->salario_cargo=str_replace(",", "",$request->get('salario'));
         $cargo->color_cargo=$request->get('color');
+        $cargo->riesgo=$request->get('riesgo');
         $cargo->update();
         return Redirect::to('/cargos');
     }
@@ -36,6 +37,7 @@ class CargosController extends Controller
         $cargo->Nombre_cargo=$request->get('nombre');
         $cargo->salario_cargo=str_replace(",", "",$request->get('salario'));
         $cargo->color_cargo=$request->get('color');
+        $cargo->riesgo=$request->get('riesgo');
         $cargo->save();
         return Redirect::to('/cargos');
     }

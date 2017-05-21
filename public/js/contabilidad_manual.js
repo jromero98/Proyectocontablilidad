@@ -9,7 +9,7 @@ $(document).ready(function () {
 $(document).ready(function() {
     $('#terceros').DataTable({
         "language": {
-            "lengthMenu": "Ver _MENU_ nominas",
+            "lengthMenu": "Ver _MENU_ terceros",
             "zeroRecords": "No se encontró nada - lo siento",
             "info": "Viendo pagina _PAGE_ de _PAGES_",
             "infoEmpty": "No hay nominas disponibles",
