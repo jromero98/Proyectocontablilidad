@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2017 a las 16:17:45
+-- Tiempo de generación: 21-05-2017 a las 23:14:43
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 5.6.19
 
@@ -43,7 +43,7 @@ SELECT 'Este Detalle ya existe en la base de datos!';
 END IF$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cuentastotal` (IN `fecha` DATE)  NO SQL
-SELECT `Fecha_nomina`, sum(Diastrabajados*Salario/30)as Sueldos , sum(Salario*1.25*HorasED/240+Salario*1.55*HorasEN/240)as Horasextras, sum(Auxtransportes) as axtrans, sum(Auxalimentos) as axali,sum(Bonificaciones)as Bonificaciones,sum(Comisiones) as Comisiones, sum(AporteEps) as aporteseps, sum(Aportepension) as aportespensiones, sum(Aportefondoempleados)as fondoempleados, sum(libranza)as libranza, sum(embargos)as embargos, sum(retencionfuente) as retencion FROM `nomina` WHERE Fecha_nomina=fecha GROUP by Fecha_nomina$$
+SELECT `Fecha_nomina`, sum(Diastrabajados*Salario/30)as Sueldos , sum(Salario*1.25*HorasED/240+Salario*1.55*HorasEN/240)as Horasextras, sum(Auxtransportes) as axtrans, sum(Auxalimentos) as axali,sum(Bonificaciones)as Bonificaciones,sum(Comisiones) as Comisiones, sum(AporteEps) as aporteseps, sum(Aportepension) as aportespensiones, sum(Aportefondoempleados)as fondoempleados, sum(libranza)as libranza, sum(embargos)as embargos, sum(retencionfuente) as retencion, sum((Diastrabajados*(Salario/30)+Auxtransportes+Bonificaciones+Comisiones+Auxalimentos+Salario*1.25*HorasED/240+Salario*1.55*HorasEN/240)-(AporteEps+Aportepension+Aportefondoempleados+libranza+embargos+retencionfuente)) as Total FROM `nomina` WHERE Fecha_nomina=fecha GROUP by Fecha_nomina$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `totales` (IN `fecha` DATE)  NO SQL
 SELECT sum(Diastrabajados*(Salario/30)+Auxtransportes+Auxalimentos+Salario*1.25*HorasED/240+Salario*1.55*HorasEN/240+Bonificaciones+Comisiones) as Devengados,sum(AporteEps+Aportepension+Aportefondoempleados+libranza+embargos+retencionfuente) as Deducibles, sum((Diastrabajados*(Salario/30)+Auxtransportes+Auxalimentos+Salario*1.25*HorasED/240+Salario*1.55*HorasEN/240)-(AporteEps+Aportepension+Aportefondoempleados+libranza+embargos+retencionfuente)) as Total FROM `nomina` WHERE Fecha_nomina=fecha  GROUP by Fecha_nomina$$
@@ -112,20 +112,21 @@ CREATE TABLE `cargos` (
   `idCargos` int(11) NOT NULL,
   `nombre_cargo` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `salario_cargo` int(11) NOT NULL,
-  `color_cargo` int(2) DEFAULT NULL
+  `color_cargo` int(2) DEFAULT NULL,
+  `riesgo` varchar(6) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `cargos`
 --
 
-INSERT INTO `cargos` (`idCargos`, `nombre_cargo`, `salario_cargo`, `color_cargo`) VALUES
-(1, 'Ingeniero Desarrollador', 3800000, 5),
-(2, 'Secretaria', 900000, 3),
-(3, 'Diseñador', 1000000, 17),
-(4, 'Gestion Documental', 950000, 13),
-(5, 'Ingeniero', 200000, 2),
-(6, 'Contadora Publica', 1200000, 3);
+INSERT INTO `cargos` (`idCargos`, `nombre_cargo`, `salario_cargo`, `color_cargo`, `riesgo`) VALUES
+(1, 'Ingeniero Desarrollador', 3800000, 5, '0.522'),
+(2, 'Secretaria', 900000, 3, ''),
+(3, 'Diseñador', 1000000, 17, ''),
+(4, 'Gestion Documental', 950000, 13, ''),
+(5, 'Ingeniero', 200000, 2, ''),
+(6, 'Contadora Publica', 1200000, 3, '');
 
 -- --------------------------------------------------------
 
@@ -229,10 +230,31 @@ INSERT INTO `cuentas` (`idcuentas`, `comprobante`, `valor`, `fecha`, `naturaleza
 (117, 'Fc2', 175000, '2017-05-10 00:00:00', 1, 2205, NULL, 0, '304', 13),
 (118, 'Fc2', 141750, '2017-05-10 00:00:00', 0, 14, NULL, 0, '304', 13),
 (119, 'Fc2', 33250, '2017-05-10 00:00:00', 0, 2408, NULL, 0, '304', 13),
-(120, 'Nomina', 4750000, '2017-05-01 00:00:00', 0, 510506, NULL, 0, NULL, NULL),
-(121, 'Nomina', 10000, '2017-05-01 00:00:00', 0, 510548, NULL, 0, NULL, NULL),
-(122, 'Nomina', 190400, '2017-05-01 00:00:00', 1, 237005, NULL, 0, NULL, NULL),
-(123, 'Nomina', 190400, '2017-05-01 00:00:00', 1, 238030, NULL, 0, NULL, NULL);
+(138, 'Nomina', 4750000, '2017-05-01 00:00:00', 0, 510506, NULL, 0, NULL, NULL),
+(139, 'Nomina', 10000, '2017-05-01 00:00:00', 0, 510548, NULL, 0, NULL, NULL),
+(140, 'Nomina', 190400, '2017-05-01 00:00:00', 1, 237005, NULL, 0, NULL, NULL),
+(141, 'Nomina', 190400, '2017-05-01 00:00:00', 1, 238030, NULL, 0, NULL, NULL),
+(142, 'Nomina', 4379199.99999996, '2017-05-01 00:00:00', 1, 1105, NULL, 0, NULL, NULL),
+(143, 'Aporte', 404599.9999999966, '2017-05-01 00:00:00', 0, 510569, NULL, 0, NULL, NULL),
+(144, 'Aporte', 404599.9999999966, '2017-05-01 00:00:00', 1, 237005, NULL, 0, NULL, NULL),
+(145, 'Aporte', 571199.9999999952, '2017-05-01 00:00:00', 0, 510570, NULL, 0, NULL, NULL),
+(146, 'Aporte', 571199.9999999952, '2017-05-01 00:00:00', 1, 238030, NULL, 0, NULL, NULL),
+(147, 'Aporte', 24847.19999999979, '2017-05-01 00:00:00', 0, 510568, NULL, 0, NULL, NULL),
+(148, 'Aporte', 24847.19999999979, '2017-05-01 00:00:00', 1, 237006, NULL, 0, NULL, NULL),
+(149, 'Aporte', 95199.9999999992, '2017-05-01 00:00:00', 0, 510578, NULL, 0, NULL, NULL),
+(150, 'Aporte', 95199.9999999992, '2017-05-01 00:00:00', 1, 237010, NULL, 0, NULL, NULL),
+(151, 'Aporte', 142799.9999999988, '2017-05-01 00:00:00', 0, 510575, NULL, 0, NULL, NULL),
+(152, 'Aporte', 142799.9999999988, '2017-05-01 00:00:00', 1, 237010, NULL, 0, NULL, NULL),
+(153, 'Aporte', 190399.9999999984, '2017-05-01 00:00:00', 0, 510572, NULL, 0, NULL, NULL),
+(154, 'Aporte', 190399.9999999984, '2017-05-01 00:00:00', 1, 237010, NULL, 0, NULL, NULL),
+(155, 'Aporte', 396507.9999999967, '2017-05-01 00:00:00', 0, 510530, NULL, 0, NULL, NULL),
+(156, 'Aporte', 396507.9999999967, '2017-05-01 00:00:00', 1, 261005, NULL, 0, NULL, NULL),
+(157, 'Aporte', 3965.0799999999667, '2017-05-01 00:00:00', 0, 520533, NULL, 0, NULL, NULL),
+(158, 'Aporte', 3965.0799999999667, '2017-05-01 00:00:00', 1, 261010, NULL, 0, NULL, NULL),
+(159, 'Aporte', 396507.9999999967, '2017-05-01 00:00:00', 0, 510536, NULL, 0, NULL, NULL),
+(160, 'Aporte', 396507.9999999967, '2017-05-01 00:00:00', 1, 261020, NULL, 0, NULL, NULL),
+(161, 'Aporte', 198491.99999999834, '2017-05-01 00:00:00', 0, 510539, NULL, 0, NULL, NULL),
+(162, 'Aporte', 198491.99999999834, '2017-05-01 00:00:00', 1, 261015, NULL, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -438,7 +460,7 @@ CREATE TABLE `nomina` (
 --
 
 INSERT INTO `nomina` (`idNomina`, `Fecha_nomina`, `Empleados_ced_empleado`, `Diastrabajados`, `Salario`, `HorasED`, `HorasEN`, `Bonificaciones`, `Comisiones`, `Auxtransportes`, `Auxalimentos`, `AporteEps`, `Aportepension`, `Aportefondoempleados`, `libranza`, `embargos`, `retencionfuente`) VALUES
-(3, '2017-05-01', 1069763203, '30', 3800000, '', '', NULL, '0', '', '', '152000', '152000', '', '', '', ''),
+(3, '2017-05-01', 1069763203, '30', 3800000, '', '', '0', '0', '', '', '152000', '152000', '', '', '', ''),
 (4, '2017-05-01', 1069758571, '30', 950000, '', '', '10000', '', '', '', '38400', '38400', '', '', '', '');
 
 -- --------------------------------------------------------
@@ -560,7 +582,7 @@ INSERT INTO `persona` (`doc_persona`, `nombre_persona`, `direccion`, `telefono`,
 
 CREATE TABLE `puc` (
   `cod_puc` int(11) NOT NULL,
-  `nom_puc` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nom_puc` varchar(65) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `clase_puc` int(11) NOT NULL,
   `naturaleza` varchar(1) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -594,12 +616,17 @@ INSERT INTO `puc` (`cod_puc`, `nom_puc`, `clase_puc`, `naturaleza`) VALUES
 (159245, 'Flota y equipo aéreo', 1, 'C'),
 (236505, 'Salarios y pagos laborales', 2, 'D'),
 (237005, 'Aportes a entidades promotoras de salud, EPS', 2, 'D'),
-(237006, 'Aportes a administradoras de riesgos profesio', 2, 'D'),
+(237006, 'Aportes a administrador de riesgos profesionales ARP', 2, 'D'),
+(237010, 'Aportes al ICBF, SENA y cajas de compensación', 2, 'D'),
 (237025, 'Embargos judiciales', 2, 'D'),
 (237030, 'Libranzas', 2, 'D'),
 (237045, 'Fondos', 2, 'D'),
 (237095, 'Otros', 2, 'D'),
 (238030, 'Fondos de cesantías y/o pensiones', 2, 'D'),
+(261005, 'Cesantías', 2, 'D'),
+(261010, 'Intereses sobre cesantías', 1, 'D'),
+(261015, 'Vacaciones', 2, 'D'),
+(261020, 'Prima de servicios', 2, 'D'),
 (320515, 'Prima en colocación de cuota', 3, 'C'),
 (330505, 'Reserva legal', 3, 'C'),
 (470570, 'Ingresos no operacionales', 4, 'D'),
@@ -610,10 +637,20 @@ INSERT INTO `puc` (`cod_puc`, `nom_puc`, `clase_puc`, `naturaleza`) VALUES
 (510515, 'Horas extras y recargos', 5, 'D'),
 (510518, 'Comisiones', 5, 'D'),
 (510527, 'Auxilio de transporte', 5, 'D'),
+(510530, 'Cesantías', 5, 'D'),
+(510536, 'Prima de servicios', 5, 'D'),
+(510539, 'Vacaciones', 5, 'D'),
 (510545, 'Auxilios', 5, 'D'),
 (510548, 'Bonificaciones', 5, 'D'),
+(510568, 'Aportes a administrador de riesgos profes ARP', 5, 'D'),
+(510569, 'Aportes a entidades promotoras de salud EPS', 5, 'D'),
+(510570, 'Aportes a fondos de pensiones y/o cesantías', 5, 'D'),
+(510572, 'Aportes cajas de compensación familiar', 5, 'D'),
+(510575, 'Aportes ICBF', 5, 'D'),
+(510578, 'SENA', 5, 'D'),
 (516035, 'Flota y equipo de transporte', 5, 'D'),
-(519910, 'Deudores', 5, 'D');
+(519910, 'Deudores', 5, 'D'),
+(520533, 'Intereses sobre cesantías', 5, 'D');
 
 -- --------------------------------------------------------
 
@@ -888,7 +925,7 @@ ALTER TABLE `configsistema`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `idcuentas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `idcuentas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 --
 -- AUTO_INCREMENT de la tabla `datosvivero`
 --

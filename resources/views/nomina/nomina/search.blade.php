@@ -9,7 +9,7 @@
         <input type="text" id="datetimepicker" name="searchText" value="{{Carbon\Carbon::parse($searchText)->format('d/m/Y H:m')}}" class="form-control pull-left" >
     @endif
     <div class="input-group-btn">
-		<button type="submit" class="btn btn-primary">Buscar</button>
+		<button type="submit" class="btns btn-primary">Buscar</button>
 	</div>
 </div>
 {{Form::close()}}
