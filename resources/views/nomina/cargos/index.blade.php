@@ -1,11 +1,16 @@
 @extends('layouts.admin')
 @section('contenido')
-<div class="row">
+<div class="row" style="background-color: #D97925;">
+<br>
 	<div class="col-xs-12" style="text-align:center">
 		<h3>Listado de Cargos <a href="cargos/create"><button class="btn btn-success">Nuevo</button></a> </h3>
 		@include('nomina.cargos.search')
+		<br>
 	</div>
+	
 </div>
+
+    <br>
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

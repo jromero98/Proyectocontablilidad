@@ -2,12 +2,16 @@
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
 <link rel="stylesheet" href="css/style.css">
 @section('contenido')
-<div class="row">
-    <div class="col-xs-12" style="text-align:center">
+<div class="row" style="background-color: #D97925">
+  <br>
+   
+        <div class="col-xs-12" style="text-align:center">
         <h3>Listado de Empleados <a href="empleados/create"><button class="btn btn-success">Nuevo</button></a> </h3>
         @include('nomina.empleados.search')
+        <br>
     </div>
 </div>
+   <br> <br>
     <div class="row active-with-click">
         @foreach ($empleados as $empleado)
             <?php 

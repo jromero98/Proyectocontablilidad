@@ -46,7 +46,7 @@
       line-height: 1.33;
       border-radius: 25px;
     }
-    .btn {
+    .btns {
       display: inline-block;
       padding: 6px 12px;
       margin-bottom: 0;
@@ -166,8 +166,8 @@
                                 </li>
                                 <li><a><i class="fa fa-book"></i> Estados y Arqueo<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                            <li><a href="#">Estado de Resultado</a></li>
-                                            <li><a href="#">Estado Financiero</a></li>
+                                            <li><a href="/estadoderesultados">Estado de Resultado</a></li>
+                                            <li><a href="/estadofinanciero">Estado Financiero</a></li>
                                             <li><a href="#">Arqueo de Caja</a></li>
                                     </ul>
                                 </li>

@@ -3,12 +3,16 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <link href="{{asset('css/daterangepicker.css')}}" rel="stylesheet">
-<div class="row">
+
+<div class="row" style="background-color: #D97925;">
+<br> <br>
 	<div class="col-xs-12" style="text-align:center">
 		<h3>Listado de Nominas activas <a href="nomina/create"><button class="btn btn-success" id="nuevo">Nuevo</button></a> </h3>
 		@include('nomina.nomina.search')
+		<br> <br> 
 	</div>
 </div>
+<br> <br>
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

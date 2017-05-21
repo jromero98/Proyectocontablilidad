@@ -51,4 +51,9 @@ Route::group(['middleware' => 'auth'], function () {
    Route::get('/nomina/deducibles/{id}','NominaController@getDeducibles'); 
 
    Route::get('/cerrarnomina','NominaController@cerrar'); 
+   
+    
+   Route::resource('/estadoderesultados','EstadosyArqueoController');
+   Route::resource('/estadofinanciero','EstadoFinancieroController');
+
 });

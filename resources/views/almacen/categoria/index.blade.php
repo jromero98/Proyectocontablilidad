@@ -1,12 +1,14 @@
 @extends('layouts.admin')
 @section('contenido')
-<div class="row">
+<div class="row" style="background-color:#00ADA9;">
+<br> <br>
 	<div class="col-xs-12" style="text-align:center">
 		<h3>Listado de Categorias <a href="categoria/create"><button class="btn btn-success">Nuevo</button></a> </h3>
 		@include('almacen.categoria.search')
+		<br> <br>
 	</div>
 </div>
-
+<br> <br> 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
