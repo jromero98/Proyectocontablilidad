@@ -65,7 +65,7 @@ class ClasePuc extends Migration
             $table->integer('stock')->nullable();
             $table->integer('maximo')->nullable();
             $table->integer('minimo')->nullable();
-            $table->string('Estado',12);
+            $table->string('estado',12);
             $table->string('Imagen',45);
             $table->integer('Precio_venta');
             $table->primary('idArticulos');  
