@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\DatosVivero;
 use App\Role;
+use DB;
 
 class rolesyusuarios extends Seeder
 {

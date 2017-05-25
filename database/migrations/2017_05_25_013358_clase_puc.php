@@ -194,5 +194,16 @@ class ClasePuc extends Migration
         Schema::dropIfExists('estadosresultados');
         Schema::dropIfExists('configsistema');
         Schema::dropIfExists('Datosvivero');
+        Schema::dropIfExists('Categorias');  
+        Schema::dropIfExists('Articulos');  
+        Schema::dropIfExists('Persona');  
+        Schema::dropIfExists('Facturas');  
+        Schema::dropIfExists('Detalle_Factura');  
+        Schema::dropIfExists('cuentas');  
+        Schema::dropIfExists('Cargos');  
+        Schema::dropIfExists('Empleados');  
+        Schema::dropIfExists('deduccionempleado');  
+        Schema::dropIfExists('Nomina');        
+        });
     }
 }
