@@ -22,8 +22,8 @@ class rolesyusuarios extends Seeder
         	'description'		=>	'El usuario tendrá acceso total a la aplicacion'
         ]);
         User::create([
-        	'name' 		=>	'control-total',
-        	'email'	=>	'Control Total',
+        	'name' 		=>	'Control Total',
+        	'email'	=>	'gestor@gestor.com',
         	'password'		=>	bcrypt('12345678')
         ]);
         \DB::table('role_user')->insert(array(
@@ -32,6 +32,14 @@ class rolesyusuarios extends Seeder
     ));
         \DB::table('role_user')->insert(array(
            'user_id' => '2'
+           'role_id'  => '1'
+    ));
+        \DB::table('role_user')->insert(array(
+           'user_id' => '3'
+           'role_id'  => '1'
+    ));
+        \DB::table('role_user')->insert(array(
+           'user_id' => '4'
            'role_id'  => '1'
     ));
     }
