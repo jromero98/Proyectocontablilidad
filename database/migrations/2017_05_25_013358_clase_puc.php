@@ -120,7 +120,7 @@ class ClasePuc extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_aux')->references('id_aux')->on('Auxiliar')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('cod_Descripcion')->references('idDescripcion_cuenta')->on('Descripcion')
+            $table->foreign('cod_Descripcion')->references('idDescripcion_cuenta')->on('Descripcion_cuenta')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('idArticulo')->references('idArticulos')->on('Articulos')
                 ->onUpdate('cascade')->onDelete('cascade');
