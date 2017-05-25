@@ -11,6 +11,9 @@ class CargosController extends Controller
     public function index(Request $request){
         if($request){
             $query=trim($request->get('searchText'));
+            if ($query=="") {
+                $query="I";
+            }
             $cargos=Cargo::where('Nombre_cargo','LIKE','%'.$query.'%')
             ->orwhere('salario_cargo','LIKE','%'.$query.'%')
             ->paginate(6);

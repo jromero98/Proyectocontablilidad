@@ -110,12 +110,12 @@
                                 @permission('cuentas_manuales')
                                 <li><a><i class="fa fa-edit"></i> Cuentas <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="/contabilidad-manual">Contabilidad Manual</a></li>
-                                        <li><a href="/balance">Balance</a></li>
-                                        <li><a href="/balancenomina">Balance de Nomina</a></li>
-                                        <li><a href="/balancearqueos">Balance Arqueos</a></li>
-                                        <li><a href="/balance-productos">Balance de Articulos</a></li>
-                                        <li><a href="/kardex">Kardex</a></li>
+                                        <li><a href="contabilidad-manual">Contabilidad Manual</a></li>
+                                        <li><a href="balance">Balance</a></li>
+                                        <li><a href="balancenomina">Balance de Nomina</a></li>
+                                        <li><a href="balancearqueos">Balance Arqueos</a></li>
+                                        <li><a href="balance-productos">Balance de Articulos</a></li>
+                                        <li><a href="kardex">Kardex</a></li>
                                     </ul>
                                 </li>
                                 @endpermission 
@@ -123,10 +123,10 @@
                                 <li><a><i class="fa fa-user" aria-hidden="true"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                        @permission('crear-usuario'||'editar-usuario')
-                                        <li><a href="/users">Usuarios</a></li>
+                                        <li><a href="users">Usuarios</a></li>
                                         @endpermission
                                         @permission('crear-rol'||'editar-rol')
-                                        <li><a href="/roles">Roles</a></li>
+                                        <li><a href="roles">Roles</a></li>
                                         @endpermission
                                     </ul>
                                 </li>
@@ -139,10 +139,10 @@
                                 <li><a><i class="fa fa-shopping-cart"></i> Facturacion <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                        @permission('facturar-ventas')
-                                        <li><a href="/ventas">Ventas</a></li>
+                                        <li><a href="ventas">Ventas</a></li>
                                         @endpermission
                                         @permission('facturar-compras')
-                                        <li><a href="/compras">Compras</a></li>
+                                        <li><a href="compras">Compras</a></li>
                                         @endpermission
                                     </ul>
                                 </li>
@@ -151,26 +151,26 @@
                                 <li><a><i class="fa fa-building"></i> Almacen <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                        @permission('articulo')
-                                            <li><a href="/almacen/articulo">Articulos</a></li>
+                                            <li><a href="almacen/articulo">Articulos</a></li>
                                         @endpermission
                                         @permission('categoria')
-                                            <li><a href="/almacen/categoria">Categorias</a></li>
+                                            <li><a href="almacen/categoria">Categorias</a></li>
                                         @endpermission
                                     </ul>
                                 </li>
                                 @endif
                                 <li><a><i class="fa fa-address-card-o"></i> Nomina <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                            <li><a href="/empleados">Empleados</a></li>
-                                            <li><a href="/cargos">Cargos</a></li>
-                                            <li><a href="/nomina">Nomina</a></li>
+                                            <li><a href="empleados">Empleados</a></li>
+                                            <li><a href="cargos">Cargos</a></li>
+                                            <li><a href="nomina">Nomina</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-book"></i> Estados y Arqueo<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                            <li><a href="/estadoderesultados">Estado de Resultado</a></li>
-                                            <li><a href="/estadofinanciero">Estado Financiero</a></li>
-                                            <li><a href="/arqueo">Arqueo de Caja</a></li>
+                                            <li><a href="estadoderesultados">Estado de Resultado</a></li>
+                                            <li><a href="estadofinanciero">Estado Financiero</a></li>
+                                            <li><a href="arqueo">Arqueo de Caja</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -222,9 +222,9 @@
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="/perfil"> Perfil</a></li>
+                                    <li><a href="perfil"> Perfil</a></li>
                                     <li>
-                                        <a href="/ajustes/edit">
+                                        <a href="ajustes/edit">
                                             <span class="badge bg-red pull-right">50%</span>
                                             <span>Ajustes</span>
                                         </a>
