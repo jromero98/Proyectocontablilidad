@@ -20,6 +20,7 @@ class ClasePuc extends Migration
         Schema::create('puc', function (Blueprint $table) {
             $table->integer('cod_puc');
             $table->string('nom_puc',45);
+            $table->string('naturaleza',2);
             $table->integer('clase_puc')->unsigned();
 
             $table->foreign('clase_puc')->references('id')->on('clase_puc')
@@ -87,7 +88,7 @@ class ClasePuc extends Migration
             $table->integer('Num_factura');
             $table->dateTime('fecha');
             $table->integer('doc_persona')->unsigned();
-            $table->integer('Estado');
+            $table->string('Estado',12);
             $table->foreign('doc_persona')->references('doc_persona')->on('persona')
                 ->onUpdate('cascade')->onDelete('cascade');      
         });
