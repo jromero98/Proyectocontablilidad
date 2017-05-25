@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         $vivero = DB::table('datosvivero')->select('Nom_vivero')->first();
-        $articulos=Articulos::where('Estado','=','Activo')->where("Stock",">","0")->get();
+        $articulos=Articulos::where('estado','=','Activo')->where("stock",">","0")->get();
         $clientes=Persona::where('Tipo','=','Cliente')->get();
         $proveedores=Persona::where('Tipo','=','Proveedor')->get();
         $categorias=Categorias::get();

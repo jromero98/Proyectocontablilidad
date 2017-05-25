@@ -88,7 +88,7 @@
                             @if(Auth::user()->img!="")  
                                 <img src="{{asset('Imagenes/Usuarios/'.$usuario->img)}}" alt="..." class="img-circle profile_img">
                             @else
-                                <img src="{{asset('../images/img.jpg')}}" alt="..." class="img-circle profile_img">
+                                <img src="{{asset('/images/img.jpg')}}" alt="..." class="img-circle profile_img">
                             @endif
                         </div>
                         <div class="profile_info">
@@ -217,7 +217,7 @@
                                     @if(Auth::user()->img!="") 
                                         <img src="{{asset('Imagenes/Usuarios/'.$usuario->img)}}" alt="">{{ Auth::user()->name }} 
                                     @else
-                                        <img src="{{asset('../images/img.jpg')}}" alt="">{{ Auth::user()->name }}
+                                        <img src="{{asset('/images/img.jpg')}}" alt="">{{ Auth::user()->name }}
                                     @endif
                                     <span class=" fa fa-angle-down"></span>
                                 </a>

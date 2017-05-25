@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Role;
 use App\DatosVivero;
+use App\Permission;
 
 class rolesyusuarios extends Seeder
 {
@@ -31,9 +32,18 @@ class rolesyusuarios extends Seeder
         	'email'	=>	'gestor@gestor.com',
         	'password'		=>	bcrypt('12345678')
         ]);
-        
+        Permission::create([
+        	'name' 		=>	'administrar-puc',
+        	'display_name'	=>	'Administrar PUC',
+        	'description'		=>	'El usuario podrá administrar el Plan Único de Cuentas'
+        ]);
+
         DB::table('role_user')->insert(array(
            'user_id' => '1',
+           'role_id'  => '1'
+   		 ));
+        DB::table('permission_role')->insert(array(
+           'permission_id' => '1',
            'role_id'  => '1'
    		 ));
     }
