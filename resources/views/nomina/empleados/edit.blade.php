@@ -40,7 +40,7 @@
 			<label>Cargo</label>
 			<select name="idcargo" class="form-control">
 				@foreach($cargos as $cargo)
-					@if($cargo->IdCargos == $empleado->idCargo)
+					@if($cargo->idCargos == $empleado->idCargo)
 						<option value="{{$cargo->idCargos}}" selected="">{{$cargo->nombre_cargo}}</option>
 					@else
 						<option value="{{$cargo->idCargos}}">{{$cargo->nombre_cargo}}</option>

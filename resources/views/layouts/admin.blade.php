@@ -112,6 +112,8 @@
                                     <ul class="nav child_menu">
                                         <li><a href="/contabilidad-manual">Contabilidad Manual</a></li>
                                         <li><a href="/balance">Balance</a></li>
+                                        <li><a href="/balancenomina">Balance de Nomina</a></li>
+                                        <li><a href="/balancearqueos">Balance Arqueos</a></li>
                                         <li><a href="/balance-productos">Balance de Articulos</a></li>
                                         <li><a href="/kardex">Kardex</a></li>
                                     </ul>
@@ -168,7 +170,7 @@
                                     <ul class="nav child_menu">
                                             <li><a href="/estadoderesultados">Estado de Resultado</a></li>
                                             <li><a href="/estadofinanciero">Estado Financiero</a></li>
-                                            <li><a href="#">Arqueo de Caja</a></li>
+                                            <li><a href="/arqueo">Arqueo de Caja</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -206,7 +208,7 @@
                 <div class="nav_menu">
                     <nav>
                         <div class="nav toggle">
-                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            <a id="menu_toggle"><i class="fa fa-bars" style="color: "></i></a>
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
@@ -243,7 +245,7 @@
                                 @endif
                             @endforeach
                             <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" style="padding: 21px" title="Notificaciones" data-toggle="dropdown" aria-expanded="false">
+                                <a href="javascript:;" class="dropdown-toggle info-number" title="Notificaciones" data-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-bell-o"></i>
                                     @if($cuantos>0)
                                         <span class="badge bg-green">{{$cuantos}}</span>

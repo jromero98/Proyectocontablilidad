@@ -21,15 +21,6 @@
 					<th>Opciones</th>
 				</thead>
 				
-					<tr>
-						<td>pepito perez</td>
-						<td>fecha-inc 0/0/0</td>
-						<td>fecha-fnl 0/0/0</td>
-						<td class="text-center">
-						<a href="estadoderesultados/show"><button class="btn btn-info">Ver</button></a>
-						</td>
-					</tr
-				
 			</table>
 		</div>
 	</div>

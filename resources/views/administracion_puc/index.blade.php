@@ -14,9 +14,9 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
 					<th>Cuenta</th>
-					<th>Descripción</th>
+					<th>Nombre</th>
 					<th>Pertenece a</th>
-					<th>Naturaleza</th>
+					<th>Descripcion</th>
 					<th>Opciones</th>
 				</thead>
 				@foreach($pucs as $puc)
@@ -32,10 +32,10 @@
 						@elseif($puc->clase_puc==6)Costo
 						@endif
 						</td>
-						@if($puc->naturaleza=="D")
-		                   <td>Debito</td>
+						@if($puc->naturaleza=="N")
+		                   <td>No Corriente</td>
 		                @else
-		                   <td>Credito</td>
+		                   <td>Corriente</td>
 		                @endif
 						<td class="text-center">
 						    <a href="{{URL::action('AdministrarPucController@edit',$puc->cod_puc)}}"><button class="btn btn-info">Editar</button></a>

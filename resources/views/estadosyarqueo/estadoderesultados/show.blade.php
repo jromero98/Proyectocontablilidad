@@ -9,7 +9,7 @@
          <h3>{{$vivero->Nom_vivero}}</h3>
           <h3>Estado de resultados</h3>
           
-        <h3 for="">28/5/2017 A 29/5/2017</h3>
+        <h3 for="">{{$estadosresultados->fechainicio}} A {{$estadosresultados->fechafin}}</h3>
             <br>
     </div>
             
@@ -24,52 +24,86 @@
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
-			<table class="display table" id="estadoresultado">
+			<table class="display table table-bordered" id="estadoresultado">
 				<thead>
 					<th></th>
-					<th>Saldo inicial</th>
-					<th>Debitos</th>
-					<th>Creditos</th>
-					<th>Nuevo saldo</th>
+					<th>Total</th>
 				</thead>
-
 				<tbody>
-				
-						<tr>
-							<td>Ingresos</td>
-							<td>141.959.332,00</td>
-							<td>0,00</td>
-							<td>476.265,00</td>
-							<td>141.483.067,00</td>
-						</tr>
+					<tbody>
+                        <tr>
+                            <td><strong>VENTAS</strong></td>
+                            <td>{{number_format($venta->venta)}}</td>
+                        </tr>
+                        <tr>
+                            <td>   Devoluciones y descuentos</td>
+                            <td>{{number_format($s1)}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>    VENTAS TOTALES</strong></td>
+                            <td>{{number_format($venta->venta-$s1)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>INGRESOS OPERACIONALES</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Costo de ventas</td>
+                             <td>{{number_format($s2)}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UTILIDAD BRUTA </strong></td>
+                            <td>{{number_format($venta->venta-$s1-$s2)}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gastos operacionales de ventas</td>
+                            <td> {{number_format($s3)}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gastos Operacionales de administración</td>
+                             <td>{{number_format($s4)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>UTILIDAD OPERACIONAL</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Ingresos no operacionales</td>
+                             <td>{{number_format($s5)}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gastos no operacionales</td>
+                             <td>{{number_format($s6)}}</td>
+                        </tr>
+                        <tr>
+                            <td>Nomina</td>
+                             <td>{{number_format($nomina->nomina)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>UTILIDAD NETA ANTES DE IMPUESTOS</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Impuesto de renta y complementarios</td>
+                             <td>{{number_format($s7)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>UTILIDAD LÍQUIDA</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Reservas</td>
+                             <td>{{number_format($s8)}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UTILIDAD DEL EJERCICIO</strong></td>
+                            @if($ss<0)
+                            	<td style="background-color:#D36E70"><strong>{{number_format($ss)}}</strong></td>
+                            @else
+                            	<td style="background-color:#BDECB6"><strong>{{number_format($ss)}}</strong></td>
+                            @endif
+                        </tr>
+                    </tbody>
 				</tbody>
-				<tfoot>
-						
-							<th>Total ingresos operacionales</th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th>77777</th>
-						
-					</tfoot>
 			</table>
 		</div>
 	</div>
-		<div class="form-group text-center">
-			<a class="btn btn-primary " type="submit" id="generar"  href="#">Guardar</a>
-		</div>
 </div>
 <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function() {
-		$(function () {
-            $("#datetimepicker").datetimepicker({format:'DD/MM/YYYY'});
-        });
-        $(function () {
-            $("#datetimepicker2").datetimepicker({format:'DD/MM/YYYY'});
-        });
-         
-} );
-</script>
 @endsection

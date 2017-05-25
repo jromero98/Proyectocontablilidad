@@ -15,21 +15,21 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 			
 				<thead>
-					<th>Nombre</th>
+					<th>Id</th>
 					<th>Fecha inicial</th>
 					<th>Fecha final</th>
 					<th>Opciones</th>
 				</thead>
-				
+				@foreach($estados as $estado)
 					<tr>
-						<td>pepito perez</td>
-						<td>fecha-inc 0/0/0</td>
-						<td>fecha-fnl 0/0/0</td>
+						<td>{{$estado->id}}</td>
+						<td>{{$estado->fechainicio}}</td>
+						<td>{{$estado->fechafin}}</td>
 						<td class="text-center">
-						<a href="estadoderesultados/show"><button class="btn btn-info">Ver</button></a>
+						<a href="{{URL::action('EstadosyArqueoController@edit',$estado->id)}}"><button class="btn btn-info">Ver</button></a>
 						</td>
 					</tr
-				
+				@endforeach				
 			</table>
 		</div>
 	</div>

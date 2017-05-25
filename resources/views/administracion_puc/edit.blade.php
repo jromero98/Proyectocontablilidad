@@ -24,7 +24,7 @@
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
-				<label for="descripcion">Descripción</label>
+				<label for="descripcion">Nombre</label>
 				@if(!empty($puc))
 				    <input type="text" required value="{{$puc->nom_puc}}" name="descripcion" class="form-control" placeholder="Descripcion...">
 				@else
@@ -46,14 +46,14 @@
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<label>Naturaleza</label>
+			<label>Descripcion</label>
 			<select name="naturaleza" class="form-control">
-				@if($puc->naturaleza=="D")
-                   <option value="D" selected="">Debito</option>
-                	<option value="C">Credito</option>
+				@if($puc->naturaleza=="N")
+	                <option value="N" selected="">No Corriente</option>
+	                <option value="C">Corriente</option>
                 @else
-                    <option value="D">Debito</option>
-                	<option value="C" selected="">Credito</option>
+	                <option value="N">No Corriente</option>
+	                <option value="C" selected="">Corriente</option>
                 @endif
 			</select>
 		</div>

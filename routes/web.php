@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/contabilidad-manual','ContabilidadManualController', ['middleware' => 'cuentas_manuales']);
     Route::get('/contabilidad-manual/factura/{id}','ContabilidadManualController@getFactura', ['middleware' => 'cuentas_manuales']);
     Route::get('/balance', 'BalanceController@index')->middleware('balance');
+    Route::get('/balancenomina', 'BalanceController@balancenomina')->middleware('balance');
+    Route::get('/balancearqueos', 'BalanceController@balancearqueos')->middleware('balance');
     Route::get('/balance-productos', 'BalanceController@kardex')->middleware('ver-kardex');
     Route::get('/kardex', 'BalanceController@kardexk')->middleware('ver-kardex');
 
@@ -55,5 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     
    Route::resource('/estadoderesultados','EstadosyArqueoController');
    Route::resource('/estadofinanciero','EstadoFinancieroController');
+
+   Route::resource('/arqueo','ArqueoController');
 
 });

@@ -19,7 +19,7 @@
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
-				<label for="descripcion">Descripción</label>
+				<label for="descripcion">Nombre</label>
 				    <input type="text" required value="{{old('descripcion')}}" name="descripcion" class="form-control" placeholder="Descripcion...">
 			</div>
 		</div>
@@ -32,10 +32,10 @@
 			</select>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<label>Naturaleza</label>
+			<label>Descripcion</label>
 			<select name="naturaleza" class="form-control">
-                <option value="D">Debito</option>
-                <option value="C">Credito</option>
+                <option value="N">No Corriente</option>
+                <option value="C">Corriente</option>
 			</select>
 		</div>
 	</div>

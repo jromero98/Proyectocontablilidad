@@ -6,7 +6,7 @@
 	                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
 	                    <span aria-hidden="true">&times;</span>
 	                </button>
-	                <h4 class="modal-title">Deducciones del empleado</h4>
+	                <h4 class="modal-title">Deducciones para calculo de la retencion en la Fuente</h4>
 	            </div>
 	            <div class="modal-body">
 				    <div class="row">
