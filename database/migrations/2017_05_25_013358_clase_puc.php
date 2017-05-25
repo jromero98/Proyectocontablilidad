@@ -29,19 +29,16 @@ class ClasePuc extends Migration
         });
         Schema::create('Auxiliar', function (Blueprint $table) {
             $table->increments('id_aux');
-            $table->string('nom_aux',60); 
-            $table->primary('id_aux');        
+            $table->string('nom_aux',60);       
         });
         Schema::create('Descripcion_cuenta', function (Blueprint $table) {
             $table->increments('idDescripcion_cuenta');
-            $table->string('Descripcion_cuenta',155)->nullable(); 
-            $table->primary('idDescripcion_cuenta');        
+            $table->string('Descripcion_cuenta',155)->nullable();       
         });
         Schema::create('estadosresultados', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fechainicio')->nullable();        
             $table->date('fechafin')->nullable(); 
-            $table->primary('id');        
         });
         Schema::create('configsistema', function (Blueprint $table) {
             $table->increments('idconfigsistema');
@@ -54,14 +51,12 @@ class ClasePuc extends Migration
             $table->string('Nit_vivero',40);
             $table->string('Nom_vivero',80)->nullable();
             $table->string('Direccion_vivero',80)->nullable();
-            $table->primary('Id_vivero');        
         });
         Schema::create('Categorias', function (Blueprint $table) {
             $table->increments('idCategorias');
             $table->string('Nombre_categoria',20);
             $table->string('Descripcion',45)->nullable();
-            $table->string('Color',2);
-            $table->primary('idCategorias');        
+            $table->string('Color',2);     
         });
 
         Schema::create('Articulos', function (Blueprint $table) {
@@ -93,7 +88,6 @@ class ClasePuc extends Migration
             $table->dateTime('fecha');
             $table->integer('doc_persona');
             $table->integer('Estado');
-            $table->primary('idFacturas');  
             $table->foreign('doc_persona')->references('doc_persona')->on('Persona')
                 ->onUpdate('cascade')->onDelete('cascade');      
         });
@@ -123,7 +117,6 @@ class ClasePuc extends Migration
             $table->integer('cod_Descripcion');
             $table->integer('idArticulo');
             $table->integer('idFactura');
-            $table->primary('idcuentas');  
             $table->foreign('cod_puc')->references('cod_puc')->on('puc')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_aux')->references('id_aux')->on('Auxiliares')
@@ -140,8 +133,7 @@ class ClasePuc extends Migration
             $table->string('nombre_cargo',45);
             $table->string('riesgo',6);
             $table->integer('salario_cargo');
-            $table->integer('color_cargo',2);
-            $table->primary('idCargos');        
+            $table->integer('color_cargo',2);    
         });
 
         Schema::create('Empleados', function (Blueprint $table) {
