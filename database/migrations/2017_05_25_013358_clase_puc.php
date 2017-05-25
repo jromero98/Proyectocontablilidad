@@ -114,7 +114,7 @@ class ClasePuc extends Migration
             $table->integer('cod_puc');
             $table->integer('id_aux');
             $table->integer('cod_Descripcion');
-            $table->integer('idArticulo');
+            $table->string('idArticulo',5);
             $table->integer('idFactura');
             $table->foreign('cod_puc')->references('cod_puc')->on('puc')
                 ->onUpdate('cascade')->onDelete('cascade');
