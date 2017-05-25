@@ -204,6 +204,5 @@ class ClasePuc extends Migration
         Schema::dropIfExists('Empleados');  
         Schema::dropIfExists('deduccionempleado');  
         Schema::dropIfExists('Nomina');        
-        });
     }
 }
