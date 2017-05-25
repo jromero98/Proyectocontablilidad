@@ -8,7 +8,7 @@ class Role extends EntrustRole implements ValidatingModelInterface
 {
   use ValidatingModelTrait;
 
-  protected $throwValidationExceptions = true;
+  protected $throwValidationExceptions = false;
 
   protected $fillable = [
     'name',

@@ -20,7 +20,7 @@ class ClasePuc extends Migration
         Schema::create('puc', function (Blueprint $table) {
             $table->integer('cod_puc');
             $table->string('nom_puc',45);
-            $table->integer('clase_puc');
+            $table->integer('clase_puc')->unsigned();
 
             $table->foreign('clase_puc')->references('id')->on('clase_puc')
                 ->onUpdate('cascade')->onDelete('cascade');
@@ -61,7 +61,7 @@ class ClasePuc extends Migration
         Schema::create('Articulos', function (Blueprint $table) {
             $table->string('idArticulos',5);
             $table->string('nom_articulo',45);
-            $table->integer('Categorias_idCategorias');
+            $table->integer('Categorias_idCategorias')->unsigned();
             $table->integer('stock')->nullable();
             $table->integer('maximo')->nullable();
             $table->integer('minimo')->nullable();
@@ -73,7 +73,7 @@ class ClasePuc extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');      
         });
         Schema::create('Persona', function (Blueprint $table) {
-            $table->integer('doc_persona');
+            $table->integer('doc_persona')->unsigned();
             $table->string('nombre_persona',60)->nullable();
             $table->string('direccion',85)->nullable();
             $table->string('telefono',12)->nullable();
@@ -85,14 +85,14 @@ class ClasePuc extends Migration
             $table->string('Tipo_factura',2);
             $table->integer('Num_factura');
             $table->dateTime('fecha');
-            $table->integer('doc_persona');
+            $table->integer('doc_persona')->unsigned();
             $table->integer('Estado');
             $table->foreign('doc_persona')->references('doc_persona')->on('Persona')
                 ->onUpdate('cascade')->onDelete('cascade');      
         });
         Schema::create('Detalle_Factura', function (Blueprint $table) {
             $table->string('idArticulo',5);
-            $table->integer('idFactura');
+            $table->integer('idFactura')->unsigned();
             $table->integer('cantidad');
             $table->integer('precio_compra');
             $table->integer('precio_venta');
@@ -111,11 +111,11 @@ class ClasePuc extends Migration
             $table->double('valor', 15, 8)->nullable();
             $table->dateTime('fecha')->nullable();
             $table->integer('naturaleza')->nullable();
-            $table->integer('cod_puc');
-            $table->integer('id_aux');
-            $table->integer('cod_Descripcion');
-            $table->string('idArticulo',5);
-            $table->integer('idFactura');
+            $table->integer('cod_puc')->unsigned();
+            $table->integer('id_aux')->unsigned();
+            $table->integer('cod_Descripcion')->unsigned();
+            $table->string('idArticulo',5)->unsigned();
+            $table->integer('idFactura')->unsigned();
             $table->foreign('cod_puc')->references('cod_puc')->on('puc')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_aux')->references('id_aux')->on('Auxiliar')
@@ -143,7 +143,7 @@ class ClasePuc extends Migration
             $table->string('tel_empleado',12);
             $table->string('email',45);
             $table->string('foto_empleado',95);
-            $table->integer('Cargos_idCargos');
+            $table->integer('Cargos_idCargos')->unsigned();
             $table->foreign('Cargos_idCargos')->references('idCargos')->on('Cargos')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->primary('ced_empleado');        
@@ -151,7 +151,7 @@ class ClasePuc extends Migration
 
         Schema::create('deduccionempleado', function (Blueprint $table) {
             $table->integer('iddeduccionempleado');
-            $table->integer('Empleados_ced_empleado');
+            $table->integer('Empleados_ced_empleado')->unsigned();
             $table->integer('valordeduccion')->nullable();
             $table->primary(['iddeduccionempleado','Empleados_ced_empleado']);
             $table->foreign('Empleados_ced_empleado')->references('ced_empleado')->on('Empleados')
@@ -160,7 +160,7 @@ class ClasePuc extends Migration
         Schema::create('Nomina', function (Blueprint $table) {
             $table->integer('idNomina');
             $table->date('Fecha_nomina');
-            $table->integer('Empleados_ced_empleado');
+            $table->integer('Empleados_ced_empleado')->unsigned();
             $table->string('Diastrabajados',45)->nullable();
             $table->integer('Salario')->nullable();
             $table->string('HorasED',45)->nullable();
