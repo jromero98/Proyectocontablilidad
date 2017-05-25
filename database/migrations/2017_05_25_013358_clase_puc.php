@@ -45,7 +45,7 @@ class ClasePuc extends Migration
             $table->integer('UVT')->nullable();        
             $table->integer('salariominimo')->nullable();    
         });
-        Schema::create('Datosvivero', function (Blueprint $table) {
+        Schema::create('datosvivero', function (Blueprint $table) {
             $table->increments('Id_vivero');
             $table->string('Nit_vivero',40);
             $table->string('Nom_vivero',80)->nullable();
@@ -193,7 +193,7 @@ class ClasePuc extends Migration
         Schema::dropIfExists('Auxiliar');
         Schema::dropIfExists('estadosresultados');
         Schema::dropIfExists('configsistema');
-        Schema::dropIfExists('Datosvivero');
+        Schema::dropIfExists('datosvivero');
         Schema::dropIfExists('Categorias');  
         Schema::dropIfExists('Articulos');  
         Schema::dropIfExists('Persona');  
