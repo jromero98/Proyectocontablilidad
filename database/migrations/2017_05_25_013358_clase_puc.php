@@ -43,8 +43,7 @@ class ClasePuc extends Migration
         Schema::create('configsistema', function (Blueprint $table) {
             $table->increments('idconfigsistema');
             $table->integer('UVT')->nullable();        
-            $table->integer('salariominimo')->nullable(); 
-            $table->primary('idconfigsistema');        
+            $table->integer('salariominimo')->nullable();    
         });
         Schema::create('Datosvivero', function (Blueprint $table) {
             $table->increments('Id_vivero');
