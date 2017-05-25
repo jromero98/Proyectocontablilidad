@@ -132,7 +132,7 @@ class ClasePuc extends Migration
             $table->string('nombre_cargo',45);
             $table->string('riesgo',6)->nullable();
             $table->integer('salario_cargo')->nullable();
-            $table->integer('color_cargo',2);    
+            $table->integer('color_cargo');    
         });
 
         Schema::create('Empleados', function (Blueprint $table) {
