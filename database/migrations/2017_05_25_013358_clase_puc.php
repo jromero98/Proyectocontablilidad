@@ -27,11 +27,11 @@ class ClasePuc extends Migration
 
             $table->primary('cod_puc');        
         });
-        Schema::create('Auxiliar', function (Blueprint $table) {
+        Schema::create('auxiliar', function (Blueprint $table) {
             $table->increments('id_aux');
             $table->string('nom_aux',60);       
         });
-        Schema::create('Descripcion_cuenta', function (Blueprint $table) {
+        Schema::create('descripcion_cuenta', function (Blueprint $table) {
             $table->increments('idDescripcion_cuenta');
             $table->string('Descripcion_cuenta',155)->nullable();       
         });
@@ -51,14 +51,14 @@ class ClasePuc extends Migration
             $table->string('Nom_vivero',80)->nullable();
             $table->string('Direccion_vivero',80)->nullable();
         });
-        Schema::create('Categorias', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->increments('idCategorias');
             $table->string('Nombre_categoria',20);
             $table->string('Descripcion',45)->nullable();
             $table->string('Color',2);     
         });
 
-        Schema::create('Articulos', function (Blueprint $table) {
+        Schema::create('articulos', function (Blueprint $table) {
             $table->string('idArticulos',5);
             $table->string('nom_articulo',45);
             $table->integer('Categorias_idCategorias')->unsigned();
@@ -72,7 +72,7 @@ class ClasePuc extends Migration
             $table->foreign('Categorias_idCategorias')->references('idCategorias')->on('Categorias')
                 ->onUpdate('cascade')->onDelete('cascade');      
         });
-        Schema::create('Persona', function (Blueprint $table) {
+        Schema::create('persona', function (Blueprint $table) {
             $table->integer('doc_persona')->unsigned();
             $table->string('nombre_persona',60)->nullable();
             $table->string('direccion',85)->nullable();
@@ -80,7 +80,7 @@ class ClasePuc extends Migration
             $table->string('email',65)->nullable();
             $table->primary('doc_persona');        
         });
-        Schema::create('Facturas', function (Blueprint $table) {
+        Schema::create('facturas', function (Blueprint $table) {
             $table->increments('idFacturas');
             $table->string('Tipo_factura',2);
             $table->integer('Num_factura');
@@ -90,7 +90,7 @@ class ClasePuc extends Migration
             $table->foreign('doc_persona')->references('doc_persona')->on('Persona')
                 ->onUpdate('cascade')->onDelete('cascade');      
         });
-        Schema::create('Detalle_Factura', function (Blueprint $table) {
+        Schema::create('detalle_factura', function (Blueprint $table) {
             $table->string('idArticulo',5);
             $table->integer('idFactura')->unsigned();
             $table->integer('cantidad');
@@ -127,7 +127,7 @@ class ClasePuc extends Migration
             $table->foreign('idFactura')->references('idFacturas')->on('Facturas')
                 ->onUpdate('cascade')->onDelete('cascade');      
         });
-        Schema::create('Cargos', function (Blueprint $table) {
+        Schema::create('cargos', function (Blueprint $table) {
             $table->increments('idCargos');
             $table->string('nombre_cargo',45);
             $table->string('riesgo',6)->nullable();
@@ -135,7 +135,7 @@ class ClasePuc extends Migration
             $table->integer('color_cargo');    
         });
 
-        Schema::create('Empleados', function (Blueprint $table) {
+        Schema::create('empleados', function (Blueprint $table) {
             $table->integer('ced_empleado');
             $table->string('nombre_empleado',45);
             $table->string('apellido_empleado',45);
@@ -157,7 +157,7 @@ class ClasePuc extends Migration
             $table->foreign('Empleados_ced_empleado')->references('ced_empleado')->on('Empleados')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
-        Schema::create('Nomina', function (Blueprint $table) {
+        Schema::create('nomina', function (Blueprint $table) {
             $table->integer('idNomina');
             $table->date('Fecha_nomina');
             $table->integer('Empleados_ced_empleado')->unsigned();
@@ -190,19 +190,19 @@ class ClasePuc extends Migration
     {
         Schema::dropIfExists('clase_puc');
         Schema::dropIfExists('puc');
-        Schema::dropIfExists('Auxiliar');
+        Schema::dropIfExists('auxiliar');
         Schema::dropIfExists('estadosresultados');
         Schema::dropIfExists('configsistema');
         Schema::dropIfExists('datosvivero');
-        Schema::dropIfExists('Categorias');  
-        Schema::dropIfExists('Articulos');  
-        Schema::dropIfExists('Persona');  
-        Schema::dropIfExists('Facturas');  
-        Schema::dropIfExists('Detalle_Factura');  
+        Schema::dropIfExists('categorias');  
+        Schema::dropIfExists('articulos');  
+        Schema::dropIfExists('persona');  
+        Schema::dropIfExists('facturas');  
+        Schema::dropIfExists('detalle_factura');  
         Schema::dropIfExists('cuentas');  
-        Schema::dropIfExists('Cargos');  
-        Schema::dropIfExists('Empleados');  
+        Schema::dropIfExists('cargos');  
+        Schema::dropIfExists('empleados');  
         Schema::dropIfExists('deduccionempleado');  
-        Schema::dropIfExists('Nomina');        
+        Schema::dropIfExists('nomina');        
     }
 }
