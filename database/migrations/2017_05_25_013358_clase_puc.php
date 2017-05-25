@@ -118,7 +118,7 @@ class ClasePuc extends Migration
             $table->integer('idFactura');
             $table->foreign('cod_puc')->references('cod_puc')->on('puc')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_aux')->references('id_aux')->on('Auxiliares')
+            $table->foreign('id_aux')->references('id_aux')->on('Auxiliar')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('cod_Descripcion')->references('idDescripcion_cuenta')->on('Descripcion')
                 ->onUpdate('cascade')->onDelete('cascade');
@@ -190,7 +190,7 @@ class ClasePuc extends Migration
     {
         Schema::dropIfExists('clase_puc');
         Schema::dropIfExists('puc');
-        Schema::dropIfExists('Auxiliares');
+        Schema::dropIfExists('Auxiliar');
         Schema::dropIfExists('estadosresultados');
         Schema::dropIfExists('configsistema');
         Schema::dropIfExists('Datosvivero');
