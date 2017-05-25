@@ -14,6 +14,9 @@ class AdministrarPucController extends Controller
         if ($request)
         {
             $query=trim($request->get('searchText'));
+            if ($query=="") {
+                $query="1";
+            }
             if($request->get('clase')==""){
                 $pucs=DB::table('puc')
                 ->select('cod_puc','nom_puc','clase_puc','naturaleza')

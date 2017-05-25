@@ -46,5 +46,8 @@ class rolesyusuarios extends Seeder
            'permission_id' => '1',
            'role_id'  => '1'
    		 ));
+        DB::table('clase_puc')->insert(array(
+           'descripcion'  => 'Activo'
+   		 ));
     }
 }

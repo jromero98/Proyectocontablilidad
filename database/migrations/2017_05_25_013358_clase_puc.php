@@ -78,6 +78,7 @@ class ClasePuc extends Migration
             $table->string('direccion',85)->nullable();
             $table->string('telefono',12)->nullable();
             $table->string('email',65)->nullable();
+            $table->string('Tipo',10)->nullable();
             $table->primary('doc_persona');        
         });
         Schema::create('facturas', function (Blueprint $table) {
