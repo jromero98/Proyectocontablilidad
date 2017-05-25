@@ -130,8 +130,8 @@ class ClasePuc extends Migration
         Schema::create('Cargos', function (Blueprint $table) {
             $table->increments('idCargos');
             $table->string('nombre_cargo',45);
-            $table->string('riesgo',6);
-            $table->integer('salario_cargo');
+            $table->string('riesgo',6)->nullable();
+            $table->integer('salario_cargo')->nullable();
             $table->integer('color_cargo',2);    
         });
 
@@ -143,7 +143,7 @@ class ClasePuc extends Migration
             $table->string('tel_empleado',12);
             $table->string('email',45);
             $table->string('foto_empleado',95);
-            $table->integer('Cargos_idCargos',2);
+            $table->integer('Cargos_idCargos');
             $table->foreign('Cargos_idCargos')->references('idCargos')->on('Cargos')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->primary('ced_empleado');        
@@ -153,7 +153,7 @@ class ClasePuc extends Migration
             $table->integer('iddeduccionempleado');
             $table->integer('Empleados_ced_empleado');
             $table->integer('valordeduccion')->nullable();
-            $table->primary(['idCargos','Empleados_ced_empleado']);
+            $table->primary(['iddeduccionempleado','Empleados_ced_empleado']);
             $table->foreign('Empleados_ced_empleado')->references('ced_empleado')->on('Empleados')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
