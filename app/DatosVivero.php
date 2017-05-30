@@ -8,15 +8,15 @@ class DatosVivero extends Model
 {
 	protected $table='datosvivero';
     
-    protected $primaryKey='Id_vivero';
+    protected $primaryKey='id_vivero';
     
     public $timestamps=false;
 
     protected $fillable=[
-    'Nit_vivero',
-    'Nom_vivero',
-    'Direccion_vivero',
-    'Telefono_vivero'
+    'nit_vivero',
+    'nom_vivero',
+    'direccion_vivero',
+    'telefono_vivero'
     ];
     
 }

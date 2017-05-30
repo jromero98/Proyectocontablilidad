@@ -18,9 +18,9 @@ class rolesyusuarios extends Seeder
     {
 
         DatosVivero::create([
-        	'Nit_vivero' 		=>	'1234',
-        	'Nom_vivero' 		=>	'La Arboleda',
-        	'Direccion_vivero'	=>	'klala'
+        	'nit_vivero' 		=>	'1234',
+        	'nom_vivero' 		=>	'La Arboleda',
+        	'direccion_vivero'	=>	'klala'
         ]);
         Role::create([
         	'name' 		=>	'control-total',
