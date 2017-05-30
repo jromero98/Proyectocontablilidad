@@ -20,12 +20,13 @@ class Facturas extends Migration
             $table->integer('precio_compra');
             $table->integer('precio_venta');
             $table->integer('prom');
-            $table->integer('descuento');
-            $table->primary(['idarticulo','idfactura']);  
+            $table->integer('descuento'); 
             $table->foreign('idarticulo')->references('idarticulos')->on('articulos')
                 ->onUpdate('cascade')->onDelete('cascade');   
             $table->foreign('idfactura')->references('idfacturas')->on('facturas')
-                ->onUpdate('cascade')->onDelete('cascade');    
+                ->onUpdate('cascade')->onDelete('cascade'); 
+            
+            $table->primary(['idarticulo','idfactura']);    
         });
     }
 
