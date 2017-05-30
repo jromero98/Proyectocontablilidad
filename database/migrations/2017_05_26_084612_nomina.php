@@ -36,7 +36,6 @@ class Nomina extends Migration
         });
       
         DB::unprepared("
-          SET @OLD_SQL_MODE=@@SQL_MODE;
           DELIMITER $$
           --
           -- Procedimientos
