@@ -14,7 +14,7 @@ class DetalleFactura extends Migration
     public function up()
     {
         Schema::create('facturas', function (Blueprint $table) {
-            $table->increments('idFacturas');
+            $table->increments('idfacturas');
             $table->string('tipo_factura',2);
             $table->integer('num_factura');
             $table->dateTime('fecha');
