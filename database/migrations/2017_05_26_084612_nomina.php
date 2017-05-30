@@ -36,10 +36,6 @@ class Nomina extends Migration
         });
       
         DB::unprepared("
-          DELIMITER $$
-          --
-          -- Procedimientos
-          --
           CREATE PROCEDURE `crearfc` (IN `idarticulo` VARCHAR(5), IN `idfactura` INT, IN `cantidad` INT, IN `precio_compra` INT, IN `precio_venta` INT, IN `precio` INT)  NO SQL
           IF NOT EXISTS ( SELECT `idarticulo`, `idfactura`, `cantidad`, `precio_venta`, `descuento` 
           FROM detalle_factura
@@ -63,8 +59,7 @@ class Nomina extends Migration
 
           CREATE PROCEDURE `totales` (IN `fecha` DATE)  NO SQL
           SELECT sum(diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasEN/240+bonificaciones+comisiones) as Devengados,sum(aporteeps+aportepension+aportefondoempleados+libranza+embargos+retencionfuente) as Deducibles, sum((diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasen/240)-(aporteeps+aportepension+aportefondoempleados+libranza+embargos+retencionfuente)) as Total FROM `nomina` WHERE fecha_nomina=fecha  GROUP by fecha_nomina$$
-
-          DELIMITER ;");
+        ");
     }
 
     /**
