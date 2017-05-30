@@ -61,7 +61,7 @@
     <br/>
     <div class="form-group container-fluid"> 
         <button class="btn btn-primary" type="submit">Guardar</button>
-        <a href="{{ route('puc') }}" class="btn btn-danger">Cancelar</a>
+        <a href="puc" class="btn btn-danger">Cancelar</a>
     </div>
     {!!Form::close()!!}
 </div>
