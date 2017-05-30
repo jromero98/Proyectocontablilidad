@@ -36,27 +36,19 @@ class Nomina extends Migration
         });
       DB::unprepared("
           CREATE  OR REPLACE FUNCTION crearfc (IN idarticulo VARCHAR(5), IN idfactura INT, IN cantidad INT, IN precio_compra INT, IN precio_venta INT, IN precio INT)
-          BEGIN
              INSERT INTO detalle_factura(idarticulo, idfactura, cantidad, precio_venta, precio_compra, prom) VALUES (idarticulo,idfactura,cantidad,precio_venta,precio_compra,precio);
-          END;
         ");
       DB::unprepared("
           CREATE  OR REPLACE FUNCTION crearfv (IN idarticulo VARCHAR(5), IN idfactura INT, IN cantidad INT, IN precio_venta INT, IN descuento INT, IN precio INT)
-          BEGIN
           INSERT INTO detalle_factura(idarticulo, idfactura, cantidad, precio_venta, descuento, prom) VALUES (idarticulo,idfactura,cantidad,precio_venta,descuento,precio);
-          END;
         ");
         DB::unprepared("
           CREATE  OR REPLACE FUNCTION cuentastotal (IN fecha DATE)
-          BEGIN
             SELECT fecha_nomina, sum(diastrabajados*salario/30)as Sueldos , sum(salario*1.25*horased/240+salario*1.55*horasen/240)as Horasextras, sum(auxtransportes) as axtrans, sum(auxalimentos) as axali,sum(bonificaciones)as Bonificaciones,sum(comisiones) as Comisiones, sum(aporteeps) as aporteseps, sum(aportepension) as aportespensiones, sum(aportefondoempleados)as fondoempleados, sum(libranza)as libranza, sum(embargos)as embargos, sum(retencionfuente) as retencion, sum((diastrabajados*(salario/30)+auxtransportes+bonificaciones+comisiones+auxalimentos+salario*1.25*horased/240+salario*1.55*horasen/240)-(aporteeps+aportepension+aportefondoempleados+libranza+embargos+retencionfuente)) as Total FROM nomina WHERE fecha_nomina=fecha GROUP by fecha_nomina;
-          END;
         ");
         DB::unprepared("
           CREATE PROCEDURE totales (IN fecha DATE)
-          BEGIN
             SELECT sum(diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasEN/240+bonificaciones+comisiones) as Devengados,sum(aporteeps+aportepension+aportefondoempleados+libranza+embargos+retencionfuente) as Deducibles, sum((diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasen/240)-(aporteeps+aportepension+aportefondoempleados+libranza+embargos+retencionfuente)) as Total FROM nomina WHERE fecha_nomina=fecha  GROUP by fecha_nomina;
-          END;
         ");
     }
 
