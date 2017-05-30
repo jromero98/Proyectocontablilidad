@@ -11,7 +11,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <?php $vivero = DB::table('datosvivero')->select('nom_vivero')->first();?>
-    <title>{{$vivero->Nom_vivero}}</title>
+    <title>{{$vivero->nom_vivero}}</title>
 
     <!-- Bootstrap -->
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
