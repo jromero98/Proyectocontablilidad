@@ -13,15 +13,19 @@ class Facturas extends Migration
      */
     public function up()
     {
-        Schema::create('facturas', function (Blueprint $table) {
-            $table->increments('idFacturas');
-            $table->string('tipo_factura',2);
-            $table->integer('num_factura');
-            $table->dateTime('fecha');
-            $table->integer('doc_persona')->unsigned();
-            $table->string('estado',12);
-            $table->foreign('doc_persona')->references('doc_persona')->on('persona')
-                ->onUpdate('cascade')->onDelete('cascade');      
+        Schema::create('detalle_factura', function (Blueprint $table) {
+            $table->string('idarticulo',5);
+            $table->integer('idfactura')->unsigned();
+            $table->integer('cantidad');
+            $table->integer('precio_compra');
+            $table->integer('precio_venta');
+            $table->integer('prom');
+            $table->integer('descuento');
+            $table->primary(['idarticulo','idfactura']);  
+            $table->foreign('idarticulo')->references('idarticulos')->on('articulos')
+                ->onUpdate('cascade')->onDelete('cascade');   
+            $table->foreign('idfactura')->references('idfacturas')->on('facturas')
+                ->onUpdate('cascade')->onDelete('cascade');    
         });
     }
 
