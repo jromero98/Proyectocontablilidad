@@ -16,7 +16,7 @@ class Articulos extends Migration
         Schema::create('articulos', function (Blueprint $table) {
             $table->string('idarticulos',5);
             $table->string('nom_articulo',45);
-            $table->integer('categorias_idCategorias')->unsigned();
+            $table->integer('categorias_idcategorias')->unsigned();
             $table->integer('stock')->nullable();
             $table->integer('maximo')->nullable();
             $table->integer('minimo')->nullable();
