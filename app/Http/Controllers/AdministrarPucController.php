@@ -14,7 +14,13 @@ class AdministrarPucController extends Controller
         if ($request)
         {
             $query=trim($request->get('searchText'));
-            if($request->get('clase')==""){
+            if($request->get('clase')==""&&$query==""){
+                $pucs=DB::table('puc')
+                ->select('cod_puc','nom_puc','clase_puc','naturaleza')
+                ->orderBy('cod_puc','asc')
+                ->paginate(7);
+            }else{
+                if($request->get('clase')==""){
                 $pucs=DB::table('puc')
                 ->select('cod_puc','nom_puc','clase_puc','naturaleza')
                 ->where('cod_puc','LIKE','%'.$query.'%')
@@ -28,6 +34,7 @@ class AdministrarPucController extends Controller
                 ->orwhere([['clase_puc','=',$request->get('clase')],['nom_puc','LIKE','%'.$query.'%']]) 
                 ->orderBy('cod_puc','asc')
                 ->paginate(7);
+            }
             }
             $clase=DB::table('clase_puc')->get();
             return view('administracion_puc.index',["pucs"=>$pucs,"searchText"=>$request,'clases'=>$clase]);

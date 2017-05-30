@@ -134,7 +134,7 @@
                                 </li>
                                 @endif
                                 @permission('administrar-puc')
-                                <li><a href="/puc"><i class="fa fa-pied-piper-pp"></i> Administracion del PUC </a>
+                                <li><a href="puc"><i class="fa fa-pied-piper-pp"></i> Administracion del PUC </a>
                                 </li>
                                 @endpermission
                                 @if(Auth::user()->can('facturar-ventas')||Auth::user()->can('facturar-compras'))
