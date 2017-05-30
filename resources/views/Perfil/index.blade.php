@@ -24,7 +24,7 @@
           <h3 id="mnombre">{{$usuario->name}}</h3>
           <input type="text" class="form-control hidden" style="margin: 5px" id="nombre" required="" name="nombre" placeholder="Nombre" value="{{$usuario->name}}">
           <ul class="list-unstyled user_data">
-            <li title="Direccion"><i class="fa fa-map-marker user-profile-icon" id="mdireccion"></i> {{$usuario->Direccion}}
+            <li title="Direccion"><i class="fa fa-map-marker user-profile-icon" id="mdireccion"></i> {{$usuario->direccion}}
               <input type="text" class="form-control hidden" name="direccion" id="direccion" value="{{$usuario->Direccion}}" placeholder="Direccion">
             </li>
 
