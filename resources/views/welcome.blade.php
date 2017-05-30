@@ -142,7 +142,7 @@
         <section id="Intro" class="one dark cover">
             <div class="container">
                 @if(Auth::user())
-                    <a href="home"><button class="btn btn-danger">Iniciar Sesión</button></a>
+                    <a href="{{ route('home') }}"><button class="btn btn-danger">Iniciar Sesión</button></a>
                 @else
                     <a href="" data-target="#modal-login" data-toggle="modal"><button class="btn btn-danger">Iniciar Sesión</button></a>
                 @endif

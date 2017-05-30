@@ -7,8 +7,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf" value="{{ csrf_token() }}">
-    <?php $vivero = DB::table('datosvivero')->select('Nom_vivero')->first();?>
+    <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <?php $vivero = DB::table('datosvivero')->select('nom_vivero')->first();?>
     <title>{{$vivero->Nom_vivero}}</title>
 
     <!-- Bootstrap -->
