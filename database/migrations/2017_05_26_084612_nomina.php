@@ -50,7 +50,7 @@ class Nomina extends Migration
             $$ LANGUAGE plpgsql;
         ");
         DB::unprepared("
-          CREATE PROCEDURE totales (IN fecha DATE) RETURNS integer AS $$
+          CREATE OR REPLACE FUNCTION totales (IN fecha DATE) RETURNS integer AS $$
            BEGIN SELECT sum(diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasEN/240+bonificaciones+comisiones) as Devengados,sum(aporteeps+aportepension+aportefondoempleados+libranza+embargos+retencionfuente) as Deducibles, sum((diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasen/240)-(aporteeps+aportepension+aportefondoempleados+libranza+embargos+retencionfuente)) as Total FROM nomina WHERE fecha_nomina=fecha  GROUP by fecha_nomina; END;
            $$ LANGUAGE plpgsql;
         ");
