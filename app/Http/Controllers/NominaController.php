@@ -39,22 +39,22 @@ class NominaController extends Controller
                     
                 }
                 $empleados=DB::table('empleados')
-                    ->join('cargos','idCargo','=','idCargos')
-                    ->join('nomina','Empleados_ced_empleado','=','ced_empleado')
-                    ->select('ced_empleado','nombre_empleado','apellido_empleado',DB::raw('(Diastrabajados*(Salario/30)+Auxtransportes+Auxalimentos+Salario*1.25*HorasED/240+Salario*1.55*HorasEN/240+Bonificaciones+Comisiones) as Devengado'),'riesgo','dir_empleado','tel_empleado','email','nombre_cargo',
-                    'salario_cargo','color_cargo','foto_empleado','Fecha_nomina', 'Empleados_ced_empleado', 'Diastrabajados', 'Salario', 'HorasED', 'HorasEN', 'Bonificaciones','Comisiones', 'Auxtransportes', 'Auxalimentos', 'AporteEps', 'Aportepension', 'Aportefondoempleados', 'libranza', 'embargos', 'retencionfuente')
-                    ->where('Fecha_nomina','=',Carbon::parse($fh)->format('Y-m')."-01")
+                    ->join('cargos','idcargos','=','idcargos')
+                    ->join('nomina','empleados_ced_empleado','=','ced_empleado')
+                    ->select('ced_empleado','nombre_empleado','apellido_empleado',DB::raw('(diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasen/240+bonificaciones+comisiones) as Devengado'),'riesgo','dir_empleado','tel_empleado','email','nombre_cargo',
+                    'salario_cargo','color_cargo','foto_empleado','fecha_nomina', 'empleados_ced_empleado', 'diastrabajados', 'salario', 'horased', 'horasen', 'bonificaciones','comisiones', 'auxtransportes', 'auxalimentos', 'aporteeps', 'aportepension', 'aportefondoempleados', 'libranza', 'embargos', 'retencionfuente')
+                    ->where('fecha_nomina','=',Carbon::parse($fh)->format('Y-m')."-01")
                     ->orderBy('ced_empleado')
                     ->get();
                 $pagado=count(ContabilidadManual::where('comprobante',"=","Nomina")->where("fecha","=",Carbon::parse($fh)->format('Y-m')."-01")->get());
                 $totales=DB::select('CALL totales(?)',array(Carbon::parse($fh)->format('Y-m')."-01"));
             }else{
                 $empleados=DB::table('empleados')
-                ->join('cargos','idCargo','=','idCargos')
-                ->join('nomina','Empleados_ced_empleado','=','ced_empleado')
-                ->select('ced_empleado','nombre_empleado','apellido_empleado',DB::raw('(Diastrabajados*(Salario/30)+Auxtransportes+Auxalimentos+Salario*1.25*HorasED/240+Salario*1.55*HorasEN/240+Bonificaciones+Comisiones) as Devengado'),'dir_empleado','tel_empleado','email','nombre_cargo',
-                'salario_cargo','color_cargo','foto_empleado','Fecha_nomina','riesgo', 'Empleados_ced_empleado', 'Diastrabajados', 'Salario', 'HorasED', 'HorasEN', 'Bonificaciones','Comisiones', 'Auxtransportes', 'Auxalimentos', 'AporteEps', 'Aportepension', 'Aportefondoempleados', 'libranza', 'embargos', 'retencionfuente')
-                ->where('Fecha_nomina','=',Carbon::parse(Carbon::now('America/Bogota'))->format('Y-m')."-01")
+                ->join('cargos','idcargos','=','cargos_idcargos')
+                ->join('nomina','empleados_ced_empleado','=','ced_empleado')
+                ->select('ced_empleado','nombre_empleado','apellido_empleado',DB::raw('(diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasen/240+bonificaciones+comisiones) as Devengado'),'dir_empleado','tel_empleado','email','nombre_cargo',
+                'salario_cargo','color_cargo','foto_empleado','fecha_nomina','riesgo', 'empleados_ced_empleado', 'diastrabajados', 'salario', 'horased', 'horasen', 'bonificaciones','comisiones', 'auxtransportes', 'auxalimentos', 'aporteeps', 'aportepension', 'aportefondoempleados', 'libranza', 'embargos', 'retencionfuente')
+                ->where('fecha_nomina','=',Carbon::parse(Carbon::now('America/Bogota'))->format('Y-m')."-01")
                 ->orderBy('ced_empleado')
                 ->get();
             $pagado=count(ContabilidadManual::where('comprobante',"=","Nomina")->where("fecha","=",Carbon::parse(Carbon::now('America/Bogota'))->format('Y-m')."-01")->get());
@@ -71,19 +71,19 @@ class NominaController extends Controller
     public function store(Request $request){
         try {
             $nomina=new Nomina;
-            $nomina->Empleados_ced_empleado=str_replace(",", "", $request->get('idempleado'));
-            $nomina->Fecha_nomina=Carbon::parse(Carbon::now('America/Bogota'))->format('Y-m')."-01";
-            $nomina->Diastrabajados=str_replace(",", "", $request->get('diast'));
-            $nomina->Salario=str_replace(",", "", $request->get('sueldo'));
-            $nomina->HorasED=str_replace(",", "", $request->get('horased'));
-            $nomina->HorasEN=str_replace(",", "", $request->get('hen'));
-            $nomina->Auxtransportes=str_replace(",", "", $request->get('auxtrans'));
-            $nomina->Auxalimentos=str_replace(",", "", $request->get('auxcom'));
-            $nomina->Bonificaciones=str_replace(",", "", $request->get('bonificacion'));
-            $nomina->Comisiones=str_replace(",", "", $request->get('comision'));
-            $nomina->AporteEps=str_replace(",", "", $request->get('aeps'));
-            $nomina->Aportepension=str_replace(",", "", $request->get('afp'));
-            $nomina->Aportefondoempleados=str_replace(",", "", $request->get('afe'));
+            $nomina->empleados_ced_empleado=str_replace(",", "", $request->get('idempleado'));
+            $nomina->fecha_nomina=Carbon::parse(Carbon::now('America/Bogota'))->format('Y-m')."-01";
+            $nomina->diastrabajados=str_replace(",", "", $request->get('diast'));
+            $nomina->salario=str_replace(",", "", $request->get('sueldo'));
+            $nomina->horased=str_replace(",", "", $request->get('horased'));
+            $nomina->horasen=str_replace(",", "", $request->get('hen'));
+            $nomina->auxtransportes=str_replace(",", "", $request->get('auxtrans'));
+            $nomina->auxalimentos=str_replace(",", "", $request->get('auxcom'));
+            $nomina->bonificaciones=str_replace(",", "", $request->get('bonificacion'));
+            $nomina->comisiones=str_replace(",", "", $request->get('comision'));
+            $nomina->aporteeps=str_replace(",", "", $request->get('aeps'));
+            $nomina->aportepension=str_replace(",", "", $request->get('afp'));
+            $nomina->aportefondoempleados=str_replace(",", "", $request->get('afe'));
             $nomina->libranza=str_replace(",", "", $request->get('libranza'));
             $nomina->embargos=str_replace(",", "", $request->get('embargos'));
             $nomina->retencionfuente=str_replace(",", "", $request->get('retencionfuente'));
@@ -100,17 +100,17 @@ class NominaController extends Controller
     public function update(Request $request,$id){
         try {
             $nomina=Nomina::findOrFail($id);
-            $nomina->Diastrabajados=str_replace(",", "", $request->get('diast'));
-            $nomina->Salario=str_replace(",", "", $request->get('sueldo'));
-            $nomina->HorasED=str_replace(",", "", $request->get('horased'));
-            $nomina->HorasEN=str_replace(",", "", $request->get('hen'));
-            $nomina->Auxtransportes=str_replace(",", "", $request->get('auxtrans'));
-            $nomina->Auxalimentos=str_replace(",", "", $request->get('auxcom'));
-            $nomina->Bonificaciones=str_replace(",", "", $request->get('bonificacion'));
-            $nomina->Comisiones=str_replace(",", "", $request->get('comision'));
-            $nomina->AporteEps=str_replace(",", "", $request->get('aeps'));
-            $nomina->Aportepension=str_replace(",", "", $request->get('afp'));
-            $nomina->Aportefondoempleados=str_replace(",", "", $request->get('afe'));
+            $nomina->diastrabajados=str_replace(",", "", $request->get('diast'));
+            $nomina->salario=str_replace(",", "", $request->get('sueldo'));
+            $nomina->horased=str_replace(",", "", $request->get('horased'));
+            $nomina->horasen=str_replace(",", "", $request->get('hen'));
+            $nomina->auxtransportes=str_replace(",", "", $request->get('auxtrans'));
+            $nomina->auxalimentos=str_replace(",", "", $request->get('auxcom'));
+            $nomina->bonificaciones=str_replace(",", "", $request->get('bonificacion'));
+            $nomina->comisiones=str_replace(",", "", $request->get('comision'));
+            $nomina->aporteeps=str_replace(",", "", $request->get('aeps'));
+            $nomina->aportepension=str_replace(",", "", $request->get('afp'));
+            $nomina->aportefondoempleados=str_replace(",", "", $request->get('afe'));
             $nomina->libranza=str_replace(",", "", $request->get('libranza'));
             $nomina->embargos=str_replace(",", "", $request->get('embargos'));
             $nomina->retencionfuente=str_replace(",", "", $request->get('retencionfuente'));
@@ -127,17 +127,17 @@ class NominaController extends Controller
     public function edit($id){
         $datoscalculo=DB::table("configsistema")->select('UVT', 'salariominimo', 'auxcomida')->first();
         $empleado=DB::table('empleados')
-            ->join('cargos','idCargo','=','idCargos')
-            ->join('nomina','Empleados_ced_empleado','=','ced_empleado')
+            ->join('cargos','idcargos','=','cargos_idcargos')
+            ->join('nomina','empleados_ced_empleado','=','ced_empleado')
             ->select('idNomina','ced_empleado','nombre_empleado','apellido_empleado','nombre_cargo',
-            'salario_cargo','color_cargo','foto_empleado','Fecha_nomina', 'Empleados_ced_empleado', 'Diastrabajados', 'Salario', 'HorasED', 'HorasEN', 'Bonificaciones','Comisiones', 'Auxtransportes', 'Auxalimentos', 'AporteEps', 'Aportepension', 'Aportefondoempleados', 'libranza', 'embargos', 'retencionfuente')
+            'salario_cargo','color_cargo','foto_empleado','fecha_nomina', 'empleados_ced_empleado', 'diastrabajados', 'salario', 'horased', 'horasen', 'bonificaciones','comisiones', 'auxtransportes', 'auxalimentos', 'aporteeps', 'aportepension', 'aportefondoempleados', 'libranza', 'embargos', 'retencionfuente')
             ->where('ced_empleado','=',$id)
             ->first();
         return view("nomina.nomina.edit",["empleado"=>$empleado,"calculo"=>$datoscalculo]);
     }
 	public function getNomina(Request $request,$id){
         if($request->ajax()){
-        	$empleado=DB::table('empleados')->join('cargos','idCargo','=','idCargos')
+        	$empleado=DB::table('empleados')->join('cargos','idcargos','=','cargos_idcargos')
             ->select('ced_empleado','salario_cargo')
             ->where('ced_empleado','=',$id)
             ->first();
@@ -147,8 +147,8 @@ class NominaController extends Controller
     public function getDeducibles(Request $request,$id){
         if($request->ajax()){
             $deducibles=DB::table('deduccionempleado')
-            ->select('iddeduccionempleado','Empleados_ced_empleado', 'valordeduccion')
-            ->where('Empleados_ced_empleado','=',$id)
+            ->select('iddeduccionempleado','empleados_ced_empleado', 'valordeduccion')
+            ->where('empleados_ced_empleado','=',$id)
             ->get();
             return response()->json($deducibles);
         }
@@ -158,31 +158,31 @@ class NominaController extends Controller
         $pagado=count(ContabilidadManual::where('comprobante',"=","Nomina")->where("fecha","=",$fecha)->get());
         $cuentastotales=DB::select('CALL cuentastotal(?)',array($fecha));
         if ($pagado==0) {
-            $AporteEps=0;   $AportePension=0; $ARL=0; $SENA=0; $ICBF=0; $Cajacompensacion=0; $Cesantias=0; $Interesescesantias=0;$Prima=0; $Vacaciones=0;;
+            $aporteeps=0;   $aportePension=0; $ARL=0; $SENA=0; $ICBF=0; $Cajacompensacion=0; $Cesantias=0; $Interesescesantias=0;$Prima=0; $Vacaciones=0;;
             $empleado=DB::table('empleados')
-                ->join('cargos','idCargo','=','idCargos')
-                ->join('nomina','Empleados_ced_empleado','=','ced_empleado')
-                ->select(DB::raw('sum(Diastrabajados*(Salario/30)+Auxtransportes+Auxalimentos+Salario*1.25*HorasED/240+Salario*1.55*HorasEN/240+Bonificaciones+Comisiones) as Devengado'),DB::raw('sum(riesgo) as riesgo'),DB::raw('sum(Auxtransportes) as Auxtransportes'))
-                ->where('Fecha_nomina','=',$fecha)
+                ->join('cargos','idcargo','=','idcargos')
+                ->join('nomina','empleados_ced_empleado','=','ced_empleado')
+                ->select(DB::raw('sum(diastrabajados*(salario/30)+auxtransportes+auxalimentos+salario*1.25*horased/240+salario*1.55*horasen/240+bonificaciones+comisiones) as Devengado'),DB::raw('sum(riesgo) as riesgo'),DB::raw('sum(auxtransportes) as auxtransportes'))
+                ->where('fecha_nomina','=',$fecha)
                 ->first();
-            $AporteEps+=($empleado->Devengado-$empleado->Auxtransportes)*0.085;
-            $AportePension+=($empleado->Devengado-$empleado->Auxtransportes)*0.12;
-            $ARL+=($empleado->Devengado-$empleado->Auxtransportes)*($empleado->riesgo/100);
-            $SENA+=($empleado->Devengado-$empleado->Auxtransportes)*0.02;
-            $ICBF+=($empleado->Devengado-$empleado->Auxtransportes)*0.03; 
-            $Cajacompensacion+=($empleado->Devengado-$empleado->Auxtransportes)*0.04;
+            $aporteeps+=($empleado->Devengado-$empleado->auxtransportes)*0.085;
+            $aportePension+=($empleado->Devengado-$empleado->auxtransportes)*0.12;
+            $ARL+=($empleado->Devengado-$empleado->auxtransportes)*($empleado->riesgo/100);
+            $SENA+=($empleado->Devengado-$empleado->auxtransportes)*0.02;
+            $ICBF+=($empleado->Devengado-$empleado->auxtransportes)*0.03; 
+            $Cajacompensacion+=($empleado->Devengado-$empleado->auxtransportes)*0.04;
             $Cesantias+=($empleado->Devengado)*0.0833;
             $Interesescesantias+=(($empleado->Devengado)*0.0833)*0.01;
             $Prima+=($empleado->Devengado)*0.0833; 
             $Vacaciones+=($empleado->Devengado)*0.0417;
 
-            if ($AporteEps!=0&&$AporteEps!="") {
-                NominaController::subircuentas(510569,'Aporte',$AporteEps,$fecha,0);
-                NominaController::subircuentas(237005,'Aporte',$AporteEps,$fecha,1);
+            if ($aporteeps!=0&&$aporteeps!="") {
+                NominaController::subircuentas(510569,'Aporte',$aporteeps,$fecha,0);
+                NominaController::subircuentas(237005,'Aporte',$aporteeps,$fecha,1);
             }
-            if ($AportePension!=0&&$AportePension!="") {
-                NominaController::subircuentas(510570,'Aporte',$AportePension,$fecha,0);
-                NominaController::subircuentas(238030,'Aporte',$AportePension,$fecha,1);
+            if ($aportePension!=0&&$aportePension!="") {
+                NominaController::subircuentas(510570,'Aporte',$aportePension,$fecha,0);
+                NominaController::subircuentas(238030,'Aporte',$aportePension,$fecha,1);
             }
             if ($ARL!=0&&$ARL!="") {
                 NominaController::subircuentas(510568,'Aporte',$ARL,$fecha,0);
@@ -229,11 +229,11 @@ class NominaController extends Controller
                 if ($cuentastotal->axali!=0&&$cuentastotal->axali!="") {
                     NominaController::subircuentas(510545,'Nomina',$cuentastotal->axali,$fecha,0);
                 }
-                if ($cuentastotal->Bonificaciones!=0&&$cuentastotal->Bonificaciones!="") {
-                    NominaController::subircuentas(510548,'Nomina',$cuentastotal->Bonificaciones,$fecha,0);
+                if ($cuentastotal->bonificaciones!=0&&$cuentastotal->bonificaciones!="") {
+                    NominaController::subircuentas(510548,'Nomina',$cuentastotal->bonificaciones,$fecha,0);
                 }
-                if ($cuentastotal->Comisiones!=0&&$cuentastotal->Comisiones!="") {
-                    NominaController::subircuentas(510518,'Nomina',$cuentastotal->Comisiones,$fecha,0);
+                if ($cuentastotal->comisiones!=0&&$cuentastotal->comisiones!="") {
+                    NominaController::subircuentas(510518,'Nomina',$cuentastotal->comisiones,$fecha,0);
                 }
                 if ($cuentastotal->aporteseps!=0&&$cuentastotal->aporteseps!="") {
                     NominaController::subircuentas(237005,'Nomina',$cuentastotal->aporteseps,$fecha,1);

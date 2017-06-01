@@ -11,12 +11,14 @@ class CargosController extends Controller
     public function index(Request $request){
         if($request){
             $query=trim($request->get('searchText'));
-            if ($query=="") {
-                $query="I";
+            if ($query!="") {
+                 $cargos=Cargo::where('nombre_cargo','LIKE','%'.$query.'%')
+                    ->orwhere('salario_cargo','LIKE','%'.$query.'%')
+                    ->paginate(6);
+            }else{
+                 $cargos=Cargo::paginate(6);
             }
-            $cargos=Cargo::where('Nombre_cargo','LIKE','%'.$query.'%')
-            ->orwhere('salario_cargo','LIKE','%'.$query.'%')
-            ->paginate(6);
+           
             return view('nomina.cargos.index',["searchText"=>$query,"cargos"=>$cargos]);
         }
     }
@@ -28,7 +30,7 @@ class CargosController extends Controller
     }
     public function update(Request $request,$id){
         $cargo=Cargo::findOrFail($id);
-        $cargo->Nombre_cargo=$request->get('nombre');
+        $cargo->nombre_cargo=$request->get('nombre');
         $cargo->salario_cargo=str_replace(",", "",$request->get('salario'));
         $cargo->color_cargo=$request->get('color');
         $cargo->riesgo=$request->get('riesgo');
@@ -37,7 +39,7 @@ class CargosController extends Controller
     }
     public function store(Request $request){
         $cargo=new Cargo;
-        $cargo->Nombre_cargo=$request->get('nombre');
+        $cargo->nombre_cargo=$request->get('nombre');
         $cargo->salario_cargo=str_replace(",", "",$request->get('salario'));
         $cargo->color_cargo=$request->get('color');
         $cargo->riesgo=$request->get('riesgo');

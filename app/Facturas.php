@@ -8,15 +8,15 @@ class Facturas extends Model
 {
     protected $table='facturas';
     
-    protected $primaryKey='idFacturas';
+    protected $primaryKey='idfacturas';
     
     public $timestamps=false;
     
     protected $fillable=[
-    'Tipo_factura',
-    'Num_factura',
+    'tipo_factura',
+    'num_factura',
     'fecha',
     'doc_persona',
-    'Estado'
+    'estado'
     ];
 }

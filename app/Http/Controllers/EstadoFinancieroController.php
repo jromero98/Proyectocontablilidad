@@ -33,11 +33,11 @@ class EstadoFinancieroController extends Controller
                 }
             }
         }
-        $vivero=DB::table('datosvivero')->select('Nom_vivero')->first();
+        $vivero=DB::table('datosvivero')->select('nom_vivero')->first();
         return view('estadosyarqueo.estadofinanciero.create',["vivero" => $vivero,"estadosd"=>$estadosd,"estadosc"=>$estadosc]);
      }
     public function show(Request $request)
     {
-        return view('estadosyarqueo.estadofinanciero.show',["vivero" => DB::table('datosvivero')->select('Nom_vivero')->first()]);
+        return view('estadosyarqueo.estadofinanciero.show',["vivero" => DB::table('datosvivero')->select('nom_vivero')->first()]);
      }
 }

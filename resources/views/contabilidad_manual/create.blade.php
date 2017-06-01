@@ -37,11 +37,11 @@
                            <option value="">Seleccione</option>
                             @foreach($facturas as $factura)
                                    @if(isset($tpfactura))
-                                        @if($tpfactura==$factura->Tipo_factura)
-                                            <option selected>{{$factura->Tipo_factura}}</option>
+                                        @if($tpfactura==$factura->tipo_factura)
+                                            <option selected>{{$factura->tipo_factura}}</option>
                                         @endif
                                     @else
-                                    <option>{{$factura->Tipo_factura}}</option>
+                                    <option>{{$factura->tipo_factura}}</option>
                                     @endif
                             @endforeach
                         </select>

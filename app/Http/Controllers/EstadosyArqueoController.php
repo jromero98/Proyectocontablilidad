@@ -18,14 +18,14 @@ class EstadosyArqueoController extends Controller
         return view('estadosyarqueo.estadoderesultados.index',compact("estados"));
      }
     public function create(){
-        $vivero= DB::table('datosvivero')->select('Nom_vivero')->first();
+        $vivero= DB::table('datosvivero')->select('nom_vivero')->first();
         $venta=DB::table('facturas')
-            ->join("cuentas","idFacturas","=","idFactura")
+            ->join("cuentas","idfacturas","=","idfactura")
             ->select(DB::raw('SUM(valor) as venta'))
-            ->where("Tipo_factura","=",'Fv')
+            ->where("tipo_factura","=",'Fv')
             ->where("cod_puc","=",'1305')
             ->orwhere("cod_puc","=",'1105')
-            ->where("Tipo_factura","=",'Fv')
+            ->where("tipo_factura","=",'Fv')
             //->whereBetween('fecha', ['2017-05-02', '2017-05-05'])
             ->first();
         $nomina=DB::table('cuentas')
@@ -73,14 +73,14 @@ class EstadosyArqueoController extends Controller
     }
     public function edit($id)
     {
-        $vivero= DB::table('datosvivero')->select('Nom_vivero')->first();
+        $vivero= DB::table('datosvivero')->select('nom_vivero')->first();
         $venta=DB::table('facturas')
-            ->join("cuentas","idFacturas","=","idFactura")
+            ->join("cuentas","idfacturas","=","idfactura")
             ->select(DB::raw('SUM(valor) as venta'))
-            ->where("Tipo_factura","=",'Fv')
+            ->where("tipo_factura","=",'Fv')
             ->where("cod_puc","=",'1305')
             ->orwhere("cod_puc","=",'1105')
-            ->where("Tipo_factura","=",'Fv')
+            ->where("tipo_factura","=",'Fv')
             //->whereBetween('fecha', ['2017-05-02', '2017-05-05'])
             ->first();
         $nomina=DB::table('cuentas')

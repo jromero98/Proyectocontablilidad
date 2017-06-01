@@ -21,20 +21,20 @@ class AdministrarPucController extends Controller
                 ->paginate(7);
             }else{
                 if($request->get('clase')==""){
-                $pucs=DB::table('puc')
-                ->select('cod_puc','nom_puc','clase_puc','naturaleza')
-                ->where('cod_puc','LIKE','%'.$query.'%')
-                ->orwhere('nom_puc','LIKE','%'.$query.'%') 
-                ->orderBy('cod_puc','asc')
-                ->paginate(7);
-            }else{
-                $pucs=DB::table('puc')
-                ->select('cod_puc','nom_puc','clase_puc','naturaleza')
-                ->where([['clase_puc','=',$request->get('clase')],['cod_puc','LIKE','%'.$query.'%']])
-                ->orwhere([['clase_puc','=',$request->get('clase')],['nom_puc','LIKE','%'.$query.'%']]) 
-                ->orderBy('cod_puc','asc')
-                ->paginate(7);
-            }
+                    $pucs=DB::table('puc')
+                    ->select('cod_puc','nom_puc','clase_puc','naturaleza')
+                    ->where('cod_puc','LIKE','%'.$query.'%')
+                    ->orwhere('nom_puc','LIKE','%'.$query.'%') 
+                    ->orderBy('cod_puc','asc')
+                    ->paginate(7);
+                }else{
+                    $pucs=DB::table('puc')
+                    ->select('cod_puc','nom_puc','clase_puc','naturaleza')
+                    ->where([['clase_puc','=',$request->get('clase')],['cod_puc','LIKE','%'.$query.'%']])
+                    ->orwhere([['clase_puc','=',$request->get('clase')],['nom_puc','LIKE','%'.$query.'%']]) 
+                    ->orderBy('cod_puc','asc')
+                    ->paginate(7);
+                }
             }
             $clase=DB::table('clase_puc')->get();
             return view('administracion_puc.index',["pucs"=>$pucs,"searchText"=>$request,'clases'=>$clase]);

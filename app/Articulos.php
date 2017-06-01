@@ -8,19 +8,19 @@ class Articulos extends Model
 {
     protected $table='articulos';
     
-    protected $primaryKey='idArticulos';
+    protected $primaryKey='idarticulos';
     
     public $timestamps=false;
 
     protected $fillable=[
-    'idArticulos',
+    'idarticulos',
     'nom_articulo',
-    'Categorias_idCategorias',
+    'categorias_idcategorias',
     'stock',
     'maximo',
     'minimo',
-    'Estado',
-    'Precio_venta',
-    'Imagen'
+    'estado',
+    'precio_venta',
+    'imagen'
     ];
 }

@@ -9,7 +9,7 @@
 	    {{Form::token()}}
 <div class="row">
 	<div class="col-xs-12 text-center" style="background-color:#CBFF48;" >
-     <h3>{{$vivero->Nom_vivero}}</h3>
+     <h3>{{$vivero->nom_vivero}}</h3>
       <h3>Estado de resultados</h3>
       <br>
 		    <div class="col-lg-5">

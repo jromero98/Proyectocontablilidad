@@ -8,12 +8,12 @@ class Cargo extends Model
 {
     protected $table='cargos';
     
-    protected $primaryKey='idCargos';
+    protected $primaryKey='idcargos';
     
     public $timestamps=false;
 
     protected $fillable=[
-    'idCargos',
+    'idcargos',
     'nombre_cargo',
     'salario_cargo',
     'color_cargo',

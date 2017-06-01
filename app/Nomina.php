@@ -8,24 +8,24 @@ class Nomina extends Model
 {
     protected $table='nomina';
     
-    protected $primaryKey='idNomina';
+    protected $primaryKey='idnomina';
     
     public $timestamps=false;
     
     protected $fillable=[
-    'Empleados_ced_empleado',
-    'Fecha_nomina',
-    'Diastrabajados',
-    'Salario',
-    'HorasED',
-    'HorasEN',
-    'Bonificaciones',
-    'Comisiones',
-    'Auxtransportes',
-    'Auxalimentos',
-    'AporteEps',
-    'Aportepension',
-    'Aportefondoempleados',
+    'empleados_ced_empleado',
+    'fecha_nomina',
+    'diastrabajados',
+    'salario',
+    'horased',
+    'horasen',
+    'bonificaciones',
+    'comisiones',
+    'auxtransportes',
+    'auxalimentos',
+    'aporteeps',
+    'aportepension',
+    'aportefondoempleados',
     'libranza',
     'embargos',
     'retencionfuente'

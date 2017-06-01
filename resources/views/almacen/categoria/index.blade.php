@@ -20,11 +20,11 @@
 				</thead>
 				@foreach ($categorias as $cat)
 					<tr>
-						<td>{{ $cat->Nombre_categoria}}</td>
-						<td>{{ $cat->Descripcion}}</td>
+						<td>{{ $cat->nombre_categoria}}</td>
+						<td>{{ $cat->descripcion}}</td>
 						<td class="text-center">
-						<a href="{{URL::action('CategoriasController@edit',$cat->idCategorias)}}"><button class="btn btn-info">Editar</button></a>
-						<a href="" data-target="#modal-delete-{{$cat->idCategorias}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						<a href="{{URL::action('CategoriasController@edit',$cat->idcategorias)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="" data-target="#modal-delete-{{$cat->idcategorias}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 						</td>
 					</tr>
 					@include('almacen.categoria.modal')

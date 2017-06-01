@@ -61,7 +61,7 @@ class rolesyusuarios extends Seeder
            'display_name' => 'Facturar Compras',
            'description' => 'El usuario podrá generas Facturación de compras'],
           ['name' => 'categoria',
-           'display_name' => 'Administrar Catrgorias',
+           'display_name' => 'Administrar Categorias',
            'description' => 'El usuario podrá administrar las categorías de los productos'],
           ['name' => 'articulo',
            'display_name' => 'Administrar Articulos',

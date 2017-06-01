@@ -23,14 +23,14 @@ class ContabilidadManualController extends Controller
         $auxiliar = DB::table('auxiliar')
         ->select('nom_aux', 'id_aux')
         ->get();
-        $tpfactura=DB::table('Facturas')
-        ->select(DB::raw('count(Tipo_factura) as cfactura'),'Tipo_factura')
-        ->groupBy('Tipo_factura')
+        $tpfactura=DB::table('facturas')
+        ->select(DB::raw('count(tipo_factura) as cfactura'),'tipo_factura')
+        ->groupBy('tipo_factura')
         ->get();
-        $factura=DB::table('Facturas')
-            ->select(DB::raw('count(Tipo_factura) as cfactura'),'Tipo_factura')
-            ->where('Tipo_factura','=',1)
-            ->groupBy('Tipo_factura')
+        $factura=DB::table('facturas')
+            ->select(DB::raw('count(tipo_factura) as cfactura'),'tipo_factura')
+            ->where('tipo_factura','=',1)
+            ->groupBy('tipo_factura')
             ->first();
         return view('contabilidad_manual.create',["cuentas" => $cuentas,"auxiliar"=>$auxiliar,"facturas"=>$tpfactura]);  
     }
@@ -79,9 +79,9 @@ class ContabilidadManualController extends Controller
             $auxiliares = DB::table('auxiliar')
             ->select('nom_aux', 'id_aux')
             ->get();
-            $tpfactura=DB::table('Facturas')
-            ->select(DB::raw('count(Tipo_factura) as cfactura'),'Tipo_factura')
-            ->groupBy('Tipo_factura')
+            $tpfactura=DB::table('facturas')
+            ->select(DB::raw('count(tipo_factura) as cfactura'),'tipo_factura')
+            ->groupBy('tipo_factura')
             ->get();
             for($i=0;$i<count($valores);$i++){
             $valores[$i]=number_format($valores[$i]);
@@ -101,9 +101,9 @@ class ContabilidadManualController extends Controller
             $auxiliares = DB::table('auxiliar')
             ->select('nom_aux', 'id_aux')
             ->get();
-            $tpfactura=DB::table('Facturas')
-            ->select(DB::raw('count(Tipo_factura) as cfactura'),'Tipo_factura')
-            ->groupBy('Tipo_factura')
+            $tpfactura=DB::table('facturas')
+            ->select(DB::raw('count(tipo_factura) as cfactura'),'tipo_factura')
+            ->groupBy('tipo_factura')
             ->get();
             for($i=0;$i<count($valores);$i++){
             $valores[$i]=number_format($valores[$i]);
@@ -122,7 +122,7 @@ class ContabilidadManualController extends Controller
             $descripcion->save();
         }
         for ($i=0; $i < count($cuenta); $i++) {
-            $descripcion =Descripcion_Cuenta::where('Descripcion_cuenta','=',$request->get('desc'))->first();
+            $descripcion =Descripcion_Cuenta::where('descripcion_cuenta','=',$request->get('desc'))->first();
             $cuentas = new ContabilidadManual;
             $cuentas->cod_puc = $cuenta[$i];
             $cuentas->comprobante = $tfactura.$comprobante;
@@ -148,10 +148,10 @@ class ContabilidadManualController extends Controller
     }
     public function getFactura(Request $request,$id){
         if($request->ajax()){
-            $tpfactura=DB::table('Facturas')
-            ->select(DB::raw('count(Tipo_factura) as cfactura'),'Tipo_factura')
-            ->where('Tipo_factura','=',$id)
-            ->groupBy('Tipo_factura')
+            $tpfactura=DB::table('facturas')
+            ->select(DB::raw('count(tipo_factura) as cfactura'),'tipo_factura')
+            ->where('tipo_factura','=',$id)
+            ->groupBy('tipo_factura')
             ->get();
             return response()->json($tpfactura);
         }

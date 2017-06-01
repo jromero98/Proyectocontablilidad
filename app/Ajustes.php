@@ -13,7 +13,7 @@ class Ajustes extends Model
     public $timestamps=false;
 
     protected $fillable=[
-    'UVT',
+    'uvt',
     'nom_articulo',
     'salariominimo',
     'auxcomida'

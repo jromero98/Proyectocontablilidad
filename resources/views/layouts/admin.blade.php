@@ -87,7 +87,7 @@
                     <!-- menu profile quick info -->
                     <div class="profile">
                         <div class="profile_pic">
-                            @if(Auth::user()->img!="")  
+                            @if(Auth::user()->img!=""||Auth::user()->img!=null)  
                                 <img src="{{asset('Imagenes/Usuarios/'.$usuario->img)}}" alt="..." class="img-circle profile_img">
                             @else
                                 <img src="{{asset('/images/img.jpg')}}" alt="..." class="img-circle profile_img">
@@ -183,7 +183,7 @@
 
                     <!-- /menu footer buttons -->
                     <div class="sidebar-footer hidden-small">
-                        <a href="/ajustes/edit" data-toggle="tooltip" data-placement="top" title="Ajustes">
+                        <a href="ajustes/edit" data-toggle="tooltip" data-placement="top" title="Ajustes">
                             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </a>
                         <a data-toggle="tooltip" data-placement="top" title="Pantalla Completa" id="ejemplo-fullscreen">

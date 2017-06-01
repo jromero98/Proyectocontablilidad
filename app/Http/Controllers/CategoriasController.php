@@ -11,9 +11,9 @@ class CategoriasController extends Controller
     public function index(Request $request){
         if($request){
             $query=trim($request->get('searchText'));
-            $categorias=Categorias::orderBy('idCategorias','asc')
-            ->where('Nombre_categoria','LIKE','%'.$query.'%')
-            ->orwhere('Descripcion','LIKE','%'.$query.'%')
+            $categorias=Categorias::orderBy('idcategorias','asc')
+            ->where('nombre_categoria','LIKE','%'.$query.'%')
+            ->orwhere('descripcion','LIKE','%'.$query.'%')
             ->paginate(7);
             return view('almacen.categoria.index',["categorias"=>$categorias,"searchText"=>$query]);
         }
@@ -26,17 +26,17 @@ class CategoriasController extends Controller
     }
     public function update(Request $request,$id){
         $categoria=Categorias::findOrFail($id);
-        $categoria->Nombre_categoria=$request->get('nombre');
-        $categoria->Descripcion=$request->get('descripcion');
-        $categoria->Color=$request->get('color');
+        $categoria->nombre_categoria=$request->get('nombre');
+        $categoria->descripcion=$request->get('descripcion');
+        $categoria->color=$request->get('color');
         $categoria->update();
         return Redirect::to('almacen/categoria');
     }
     public function store(Request $request){
         $categoria=new Categorias;
-        $categoria->Nombre_categoria=$request->get('nombre');
-        $categoria->Descripcion=$request->get('descripcion');
-        $categoria->Color=$request->get('color');
+        $categoria->nombre_categoria=$request->get('nombre');
+        $categoria->descripcion=$request->get('descripcion');
+        $categoria->color=$request->get('color');
         $categoria->save();
         return Redirect::to('almacen/categoria');
     }

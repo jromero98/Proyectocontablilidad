@@ -11,8 +11,8 @@ class DetalleFactura extends Model
     public $timestamps=false;
     
     protected $fillable=[
-    'idArticulo',
-    'idFactura',
+    'idarticulo',
+    'idfactura',
     'cantidad',
     'precio_compra',
     'precio_venta',

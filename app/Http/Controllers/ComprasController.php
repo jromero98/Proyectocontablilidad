@@ -23,21 +23,30 @@ class ComprasController extends Controller
             $estado=$request->get('estado');
             if($request){
                 if($estado==""){$estado='Activo';$request->replace(array('estado' => 'Activo'));}
-                $facturas=DB::table('facturas')
-                ->join('detalle_factura','idFactura','=','idFacturas')
-                ->select('idFacturas','Num_factura','fecha','Estado',DB::raw('sum(cantidad*precio_compra) as total'))
-                ->where('Estado','LIKE','%'.$estado.'%')->where('Tipo_factura',"=","Fc")
-                ->where('Num_factura','LIKE','%'.$query.'%')
-                ->groupby('idFacturas','Num_factura','fecha','Estado')
-                ->paginate(7);
+                if($query==""){
+                    $facturas=DB::table('facturas')
+                        ->join('detalle_factura','idfactura','=','idfacturas')
+                        ->select('idfacturas','num_factura','fecha','estado',DB::raw('sum(cantidad*precio_compra) as total'))
+                        ->where('estado','LIKE','%'.$estado.'%')->where('tipo_factura',"=","Fc")
+                        ->groupby('idfacturas','num_factura','fecha','estado')
+                        ->paginate(7);
+                }else{
+                    $facturas=DB::table('facturas')
+                        ->join('detalle_factura','idfactura','=','idfacturas')
+                        ->select('idfacturas','num_factura','fecha','estado',DB::raw('sum(cantidad*precio_compra) as total'))
+                        ->where('estado','LIKE','%'.$estado.'%')->where('tipo_factura',"=","Fc")
+                        ->where(DB::raw('CAST(num_factura AS TEXT)'),'LIKE','%'.$query.'%')
+                        ->groupby('idfacturas','num_factura','fecha','estado')
+                        ->paginate(7);
+                }
             }
             return view('facturacion.compras.index',["facturas"=>$facturas,"searchText"=>$request]);
         }
     }
     public function edit($id){
         $tpfactura=Facturas::findOrFail($id);
-        $detallefactura=DetalleFactura::where('idFactura','=',$tpfactura->idFacturas)->get();
-        $articulos=Articulos::where("Estado","!=","Inactivo")->get();
+        $detallefactura=DetalleFactura::where('idfactura','=',$tpfactura->idfacturas)->get();
+        $articulos=Articulos::where("estado","!=","Inactivo")->get();
         
         $valor=0;
         foreach ($detallefactura as $detalle) {
@@ -48,11 +57,11 @@ class ComprasController extends Controller
     }
     public function create(){
         $tpfactura=DB::table('Facturas')
-        ->select(DB::raw('count(Tipo_factura) as cfactura'),'Tipo_factura')
-        ->where("Tipo_factura","=","Fc")
-        ->groupBy('Tipo_factura')
+        ->select(DB::raw('count(tipo_factura) as cfactura'),'tipo_factura')
+        ->where("tipo_factura","=","Fc")
+        ->groupBy('tipo_factura')
         ->first();
-        $articulos=Articulos::where("Estado","!=","Inactivo")->get();
+        $articulos=Articulos::where("estado","!=","Inactivo")->get();
         $proveedores=Persona::get();
         return view('facturacion.compras.create',["articulos"=>$articulos,"factura"=>$tpfactura,"personas"=>$proveedores]);
     }
@@ -60,7 +69,7 @@ class ComprasController extends Controller
         $factura=Facturas::findOrFail($id);
         $factura->doc_persona=Input::get('idproveedor');
         $factura->update();
-        $detallefactura=DetalleFactura::where('idFactura','=',$factura->idFacturas)->get();
+        $detallefactura=DetalleFactura::where('idfactura','=',$factura->idfacturas)->get();
         $articulos = Input::get('idarticulo');
         $cantidades = Input::get('cantidad');
         $precios = Input::get('precio_venta');
@@ -98,16 +107,16 @@ class ComprasController extends Controller
         }
         foreach($detallefactura as $detalle){
             DB::table('Detalle_factura')
-            ->where('idFactura',"=",$factura->idFacturas)
+            ->where('idfactura',"=",$factura->idfacturas)
             ->where('idArticulo','=',$detalle->idArticulo)->delete();
         }
         for($i=0;$i<(count($articulos));$i++){
             if($articulos[$i]!=0){
                 $prom=DB::table('facturas')
-                                ->join('detalle_factura','idFactura','=','idFacturas')
-                                ->select('idFacturas','Num_factura','idArticulo','cantidad','prom')
+                                ->join('detalle_factura','idfactura','=','idfacturas')
+                                ->select('idfacturas','num_factura','idArticulo','cantidad','prom')
                                 ->where("idArticulo","=",$articulos[$i])
-                                ->where('Estado',"!=","Cancelado")
+                                ->where('estado',"!=","Cancelado")
                                 ->orderBy('fecha','DESC')
                                 ->first();
             $articulo=Articulos::findOrFail($articulos[$i]);
@@ -116,20 +125,20 @@ class ComprasController extends Controller
             }else{
                 $promedio=((($articulo->stock-$cantidades2[$i])*$prom->prom)+($cantidades[$i]*$precios[$i]))/($articulo->stock);
             }
-                DB::select('CALL crearfc(?,?,?,?,?,?)',array($articulos[$i], $factura->idFacturas,$cantidades[$i],$preciosc[$i],$precios[$i],$promedio));
+                DB::select('CALL crearfc(?,?,?,?,?,?)',array($articulos[$i], $factura->idfacturas,$cantidades[$i],$preciosc[$i],$precios[$i],$promedio));
             }
         }
         return Redirect::to('compras');
     }
     public function store(Request $request){
         $factura=new Facturas;
-        $factura->Tipo_factura='Fc';
+        $factura->tipo_factura='Fc';
         $factura->num_factura=$request->get('comprobante');
         $factura->fecha=$request->get('fecha')." ".Carbon::now('America/Bogota')->toTimeString();
-        $factura->Estado='Activo';
+        $factura->estado='Activo';
         $factura->doc_persona=Input::get('idproveedor');
         $factura->save();
-        echo  $factura->idFacturas;
+        echo  $factura->idfacturas;
         $articulos = Input::get('idarticulo');
         $cantidades = Input::get('cantidad');
         $precios = Input::get('precio_venta');
@@ -141,10 +150,10 @@ class ComprasController extends Controller
             $preciosc[$i]=str_replace(",", "", $preciosc[$i]);
         }for($i=0;$i<count($articulos);$i++){
             $prom=DB::table('facturas')
-                                ->join('detalle_factura','idFactura','=','idFacturas')
-                                ->select('idFacturas','Num_factura','idArticulo','cantidad','prom')
+                                ->join('detalle_factura','idfactura','=','idfacturas')
+                                ->select('idfacturas','num_factura','idArticulo','cantidad','prom')
                                 ->where("idArticulo","=",$articulos[$i])
-                                ->where('Estado',"!=","Cancelado")
+                                ->where('estado',"!=","Cancelado")
                                 ->orderBy('fecha','DESC')
                                 ->first();
             $articulo=Articulos::findOrFail($articulos[$i]);
@@ -153,7 +162,7 @@ class ComprasController extends Controller
             }else{
                 $promedio=(($articulo->stock*$prom->prom)+($cantidades[$i]*$preciosc[$i]))/($articulo->stock+$cantidades[$i]);
             }
-            DB::select('CALL crearfc(?,?,?,?,?,?)',array($articulos[$i], $factura->idFacturas,$cantidades[$i],$preciosc[$i],$precios[$i],$promedio));
+            DB::select('CALL crearfc(?,?,?,?,?,?)',array($articulos[$i], $factura->idfacturas,$cantidades[$i],$preciosc[$i],$precios[$i],$promedio));
             $articulo=Articulos::findOrFail($articulos[$i]);
             $articulo->stock=$articulo->stock+$cantidades[$i];
             $articulo->update();
@@ -162,13 +171,13 @@ class ComprasController extends Controller
     }
     public function destroy($id){
         $factura=Facturas::findOrFail($id);
-        $detallesfactura=DetalleFactura::where("idFactura","=",$id)->get();
+        $detallesfactura=DetalleFactura::where("idfactura","=",$id)->get();
         foreach ($detallesfactura as $detallefactura) {
             $articulo=Articulos::findOrFail($detallefactura->idArticulo);
             $articulo->stock=$articulo->stock-$detallefactura->cantidad;
             $articulo->update();
         }
-        $factura->Estado='Cancelado';
+        $factura->estado='Cancelado';
         $factura->update();
         return Redirect::to('compras');
     }

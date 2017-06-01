@@ -19,7 +19,7 @@ class Empleado extends Model
     'dir_empleado',
     'tel_empleado',
     'email',
-    'idCargo',
+    'idcargo',
     'foto_empleado'
     ];
 }

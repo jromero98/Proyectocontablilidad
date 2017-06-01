@@ -6,7 +6,7 @@
 <div class="row">
 	<div class="col-xs-12 text-center" style="background-color:#CBFF48;" >
         <br> 
-         <h3>{{$vivero->Nom_vivero}}</h3>
+         <h3>{{$vivero->nom_vivero}}</h3>
           <h3>Estado de resultados</h3>
           
         <h3 for="">28/5/2017 A 29/5/2017</h3>
